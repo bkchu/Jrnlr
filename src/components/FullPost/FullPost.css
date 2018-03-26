@@ -1,0 +1,44 @@
+.FullPost {
+  margin-top: 15px;
+}
+
+.FullPost__title {
+  font-size: 2em;
+  font-weight: bolder;
+  color: var(--black);
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+}
+
+.FullPost__date {
+  color: var(--gray);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  font-size: smaller;
+  text-transform: uppercase;
+  /* font-weight: bolder; */
+  letter-spacing: 1px;
+  margin-bottom: 20px;
+}
+
+.FullPost__image {
+  width: 100%;
+  margin-bottom: 5px;
+}
+
+.FullPost__body {
+  font-family: Georgia, Cambria, Cochin, Times, "Times New Roman", serif;
+  font-size: 1.05em;
+  line-height: 1.75em;
+}
+
+.FullPost__body::first-letter {
+  color: var(--gray);
+  float: left;
+  font-family: Georgia;
+  text-transform: uppercase;
+  font-size: 5.7em;
+  line-height: 0.7em;
+  padding-top: 11px;
+  padding-right: 8px;
+}

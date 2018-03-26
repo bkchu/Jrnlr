@@ -3,6 +3,7 @@ import Header from "../Header/Header";
 import { connect } from "react-redux";
 import moment from "moment";
 
+import "./FullPost.css";
 import { getPost } from "../../redux/ducks/postReducer";
 import Error from "../Error/Error";
 class FullPost extends Component {
