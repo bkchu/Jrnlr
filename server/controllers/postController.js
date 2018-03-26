@@ -8,5 +8,14 @@ module.exports = {
         res.status(200).json(response);
       })
       .catch(error => console.log(error));
+  },
+  getPost: (req, res, next) => {
+    const db = req.app.get("db");
+    db
+      .getPost([req.params.id])
+      .then(response => {
+        res.status(200).json(response);
+      })
+      .catch(error => console.log(error));
   }
 };

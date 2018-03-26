@@ -31,6 +31,13 @@
 
 .Header__greeting {
   text-align: right;
+  display: none;
+}
+
+@media (min-width: 576px) {
+  .Header__greeting {
+    display: block;
+  }
 }
 
 .Header__button {

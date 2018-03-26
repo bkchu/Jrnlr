@@ -1,16 +1,8 @@
 import React from "react";
-import Login from "../Login/Login";
-import Header from "../../Header/Header";
-import Posts from "../../Posts/Posts";
+import routes from "../../../routes";
 
 const Homepage = () => {
-  return (
-    <div>
-      <Login />
-      <Header />
-      <Posts />
-    </div>
-  );
+  return <div>{routes}</div>;
 };
 
 export default Homepage;

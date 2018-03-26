@@ -2,12 +2,14 @@ import axios from "axios";
 
 //ACTION TYPE
 const GET_POSTS = "GET_POSTS";
+const GET_POST = "GET_POST";
 
 //INITIAL STATE
 const initialState = {
   posts: [],
   loading: false,
-  error: null
+  error: null,
+  selectedPost: null
 };
 
 //ACTION CREATOR
@@ -25,6 +27,20 @@ export const getPosts = () => {
   };
 };
 
+export const getPost = postid => {
+  return {
+    type: GET_POST,
+    payload: axios
+      .get(`/api/posts/${postid}`)
+      .then(response => response.data)
+      .catch(err => {
+        if (err.response) {
+          return err.response;
+        }
+      })
+  };
+};
+
 export default function postReducer(state = initialState, action) {
   console.log("action.type: ", action.type);
   switch (action.type) {
@@ -33,6 +49,17 @@ export default function postReducer(state = initialState, action) {
     case `${GET_POSTS}_FULFILLED`:
       if (Array.isArray(action.payload)) {
         return { ...state, error: null, posts: action.payload, loading: false };
+      } else {
+        return { ...state, error: action.payload, loading: false };
+      }
+    case `${GET_POST}_FULFILLED`:
+      if (Array.isArray(action.payload)) {
+        return {
+          ...state,
+          error: null,
+          selectedPost: action.payload,
+          loading: false
+        };
       } else {
         return { ...state, error: action.payload, loading: false };
       }

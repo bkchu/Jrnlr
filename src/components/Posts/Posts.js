@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+
 import { getPosts } from "../../redux/ducks/postReducer";
 import Post from "./Post/Post";
 import Error from "../Error/Error";
@@ -17,6 +18,8 @@ class Posts extends Component {
         return (
           <Post
             key={post.id}
+            id={post.id}
+            userid={post.userid}
             title={post.title}
             date={post.date}
             body={post.body}

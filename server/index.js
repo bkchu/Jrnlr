@@ -103,6 +103,7 @@ app.get("/api/logout", userCtrl.logoutUser);
 
 //posts endpoints
 app.get("/api/posts", authenticated, postCtrl.getPosts);
+app.get("/api/posts/:id", postCtrl.getPost);
 
 // app.get("*", (req, res) => {
 //   res.sendFile(path.join(__dirname, "../build/index.html"));

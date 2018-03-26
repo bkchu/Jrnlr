@@ -9,6 +9,10 @@
   - not logged in - redirects to /login
   - logged in - displays all posts
 
+  '/' :: Home, should display all posts from everyone the user is following.
+  '/users/:id' :: User view, should show user detail along with all posts from given id. 
+  '/users/:id/posts/:id :: FullPost view, should show FullPost given the user.id and post.id
+
 
 
 ***----------ENDPOINTS----------***
@@ -32,3 +36,33 @@ GET '/api/follows/' - retrives all users' following
 POST '/api/follows/:authid' - follows user by users.authid
 DELETE '/api/follows/:authid' - unfollows user by users.authid
 
+
+
+//Profile from passport
+
+Profile {
+  displayName: 'brandon.k.chung@gmail.com',
+  id: 'auth0|5ab85ebaed63ab65463e4ea9',
+  user_id: 'auth0|5ab85ebaed63ab65463e4ea9',
+  name: { familyName: undefined, givenName: undefined },
+  emails: [ { value: 'brandon.k.chung@gmail.com' } ],
+  picture: 'https://s.gravatar.com/avatar/632e9cd028f0c2d07350af077959a8ad?s=480&r=pg&d=https%3A%2F%2Fcdn.auth0.com%2Favatars%2Fbr.png',
+  nickname: 'brandon.k.chung',
+  _json:
+   { sub: 'auth0|5ab85ebaed63ab65463e4ea9',
+     email: 'brandon.k.chung@gmail.com',
+     email_verified: true,
+     nickname: 'brandon.k.chung',
+     name: 'brandon.k.chung@gmail.com',
+     picture: 'https://s.gravatar.com/avatar/632e9cd028f0c2d07350af077959a8ad?s=480&r=pg&d=https%3A%2F%2Fcdn.auth0.com%2Favatars%2Fbr.png',
+     updated_at: '2018-03-26T14:21:57.219Z' },
+  _raw: '{"sub":"auth0|5ab85ebaed63ab65463e4ea9","email":"brandon.k.chung@gmail.com","email_verified":true,"nickname":"brandon.k.chung","name":"brandon.k.chung@gmail.com","picture":"https://s.gravatar.com/avatar/632e9cd028f0c2d07350af077959a8ad?s=480&r=pg&d=https%3A%2F%2Fcdn.auth0.com%2Favatars%2Fbr.png","updated_at":"2018-03-26T14:21:57.219Z"}' }
+
+//Passport on session
+
+req.session.passport:  { user:
+   { id: 14,
+     authid: 'auth0|5ab85ebaed63ab65463e4ea9',
+     email: 'brandon.k.chung@gmail.com',
+     name: 'brandon.k.chung',
+     email_verified: true } }

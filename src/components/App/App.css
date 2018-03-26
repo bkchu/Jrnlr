@@ -40,3 +40,8 @@ h6 {
     max-width: 1140px;
   }
 }
+
+.Link {
+  text-decoration: none;
+  color: black;
+}
