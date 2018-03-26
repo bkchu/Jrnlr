@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { getUser } from "../../redux/ducks/userReducer";
+import Logo from "../../assets/Journalr.svg";
 
 import "./Header.css";
 
@@ -33,7 +34,7 @@ class Header extends Component {
       <div className="Header">
         <div className="Header__container container">
           <div className="Header__left">
-            <p>Logo</p>
+            <img className="Header__logo" src={Logo} alt="Journalr Logo" />
           </div>
           <div className="Header__right">
             <p className="Header__greeting">{!user ? "Guest" : user.name}</p>

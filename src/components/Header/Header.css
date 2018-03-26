@@ -19,6 +19,10 @@
   align-items: center;
 }
 
+.Header__logo {
+  height: 60px;
+}
+
 .Header__right {
   display: flex;
   justify-content: flex-end;
