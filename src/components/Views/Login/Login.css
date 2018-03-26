@@ -1,0 +1,48 @@
+.Login {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background: white;
+}
+
+.Login--hide {
+  animation: 0.5s fadeaway 1 forwards ease-in-out;
+}
+
+@keyframes fadeaway {
+  from {
+    background: white;
+    opacity: 100;
+  }
+
+  to {
+    background-color: rgba(255, 255, 255, 0);
+    opacity: 0;
+    z-index: -1;
+  }
+}
+
+.Login__button {
+  padding: 3rem 6rem;
+  border: 1px solid var(--light-gray);
+  border-radius: 4px;
+  color: var(--gray);
+  text-decoration: none;
+  box-shadow: var(--box-shadow);
+  transition: box-shadow 200ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.Login__button:hover {
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2), 0 0 0 1px rgba(0, 0, 0, 0.08);
+}
+
+.Login__button:active {
+  box-shadow: none;
+}

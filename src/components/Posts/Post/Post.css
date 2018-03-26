@@ -1,0 +1,57 @@
+.Post {
+  width: 100%;
+  height: 600px;
+  border: 1px solid var(--light-gray);
+  margin-bottom: 0.8rem;
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif, Courier, monospace,
+    "Arial Narrow", Arial, sans-serif, "Lucida Sans Unicode", "Lucida Grande",
+    "Lucida Sans", Arial, sans-serif;
+}
+
+@media (min-width: 992px) {
+  .Post {
+    max-width: 49%;
+  }
+}
+@media (min-width: 1200px) {
+  .Post {
+    max-width: 32%;
+  }
+}
+
+.Post__image {
+  height: 250px;
+  width: 100%;
+  object-fit: cover;
+}
+
+.Post__well {
+  padding: 5px 10px;
+}
+
+.Post__title {
+  font-size: 1.3rem;
+  margin-bottom: 8px;
+}
+
+.Post__date {
+  margin: 5px 0;
+  font-size: 0.6rem;
+  text-transform: uppercase;
+  color: var(--gray);
+  font-weight: normal;
+  letter-spacing: 2px;
+}
+.Post__body {
+  font-size: 0.7rem;
+  font-weight: normal;
+  text-overflow: ellipsis;
+  word-wrap: break-word;
+  overflow: hidden;
+  line-height: 1rem;
+}
+
+.Post__body::after {
+  content: "...";
+}

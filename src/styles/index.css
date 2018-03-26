@@ -23,7 +23,7 @@ body {
     font-size: calc(16px + 6 * ((100vw - 320px) / 680));
   }
 }
-@media screen and (min-width: 1000px) {
+@media screen and (min-width: 992px) {
   html {
     font-size: 22px;
   }

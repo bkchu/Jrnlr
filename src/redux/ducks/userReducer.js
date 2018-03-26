@@ -20,7 +20,7 @@ export const getUser = () => {
   };
 };
 
-export default function reducer(state = initialState, action) {
+export default function userReducer(state = initialState, action) {
   console.log("action.type: ", action.type);
   switch (action.type) {
     case `${GET_USER}_PENDING`:

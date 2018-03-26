@@ -1,0 +1,34 @@
+***-------------MVP-------------***
+- allows authenticated users to CRUD own posts
+- allows authenticated users to find and follow other users
+
+
+
+***--------REACT--ROUTER--------***
+'/' 
+  - not logged in - redirects to /login
+  - logged in - displays all posts
+
+
+
+***----------ENDPOINTS----------***
+---AUTH---
+GET '/auth' - logs in user
+GET '/logout' - logs out user
+
+---POSTS---
+POST '/api/posts' - creates a post
+GET '/api/posts' - retrieves all posts
+GET '/api/posts/:id' - retrieves post by id
+PUT/PATCH '/api/posts/:id' - updates post by id with body
+DELETE '/api/posts/:id' - deletes post by id
+
+---USERS---
+GET '/api/users' - retrieves all users
+  - param: "nickname" - filters by nickname (maybe elastic search")
+
+---FOLLOW/UNFOLLOW---
+GET '/api/follows/' - retrives all users' following
+POST '/api/follows/:authid' - follows user by users.authid
+DELETE '/api/follows/:authid' - unfollows user by users.authid
+

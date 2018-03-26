@@ -10,6 +10,7 @@ class Header extends Component {
   }
 
   render() {
+    console.log(this.props);
     let { user } = this.props;
 
     let loginLogoutButton = !user ? (
@@ -24,6 +25,7 @@ class Header extends Component {
 
     let animatedGreeting = ["Header__animated-greeting"];
     if (user) {
+      console.log(user);
       animatedGreeting.push("Header__animated-greeting--show");
     }
 
@@ -46,4 +48,6 @@ class Header extends Component {
   }
 }
 
-export default connect(state => state, { getUser })(Header);
+export default connect(state => ({ ...state.userReducer }), { getUser })(
+  Header
+);
