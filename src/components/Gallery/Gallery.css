@@ -1,0 +1,41 @@
+.Gallery {
+  display: grid;
+  grid-template-columns: 50% 50%;
+  grid-template-rows: auto auto;
+  grid-template-areas:
+    "o u"
+    "g g"
+    "i i";
+}
+
+.Gallery__button {
+  background: white;
+  border: 1px solid var(--gray);
+  border-radius: 4px;
+  padding: 20px;
+  outline: none;
+  color: var(--gray);
+  transition: all 400ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.Gallery__button:focus {
+  border: 1px solid var(--black);
+  color: var(--black);
+}
+
+.Gallery__button--ownphoto {
+  grid-area: o;
+  margin-right: 5px;
+}
+
+.Gallery__button--unsplash {
+  grid-area: u;
+  margin-left: 5px;
+}
+
+.Gallery__display {
+  grid-area: i;
+  width: 100%;
+  margin-bottom: 10px;
+  border-radius: 4px;
+}

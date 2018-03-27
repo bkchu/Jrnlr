@@ -4,13 +4,13 @@ import "./Error.css";
 const Error = ({ error }) => {
   console.log(error);
   let displayButton = (
-    <a className="Error__button" href="http://localhost:3001/api/logout">
+    <a className="Error__button" href={process.env.REACT_APP_LOGOUT}>
       Logout
     </a>
   );
   if (error.status === 403) {
     displayButton = (
-      <a className="Error__button" href="http://localhost:3001/auth">
+      <a className="Error__button" href={process.env.REACT_APP_LOGIN}>
         Login
       </a>
     );

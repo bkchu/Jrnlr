@@ -46,7 +46,6 @@ passport.use(
       scope: "openid email profile"
     },
     (accessToken, refreshToken, extraParams, profile, done) => {
-      console.log(profile);
       app
         .get("db")
         .getUserByEmail([profile.emails[0].value])
@@ -101,9 +100,12 @@ app.get(
 app.get("/api/user", userCtrl.getUser);
 app.get("/api/logout", userCtrl.logoutUser);
 
-//posts endpoints
+//posts endpoints TODO: add authenticated as middleware
 app.get("/api/posts", authenticated, postCtrl.getPosts);
-app.get("/api/posts/:id", postCtrl.getPost);
+app.get("/api/posts/:id", authenticated, postCtrl.getPost);
+app.post("/api/posts", authenticated, postCtrl.addPost);
+app.delete("/api/posts/:id", authenticated, postCtrl.deletePost);
+app.put("/api/posts/:id", authenticated, postCtrl.updatePost);
 
 // app.get("*", (req, res) => {
 //   res.sendFile(path.join(__dirname, "../build/index.html"));

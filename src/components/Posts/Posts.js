@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 
 import { getPosts } from "../../redux/ducks/postReducer";
 import Post from "./Post/Post";
@@ -34,6 +35,9 @@ class Posts extends Component {
     return (
       <div className="container">
         <div className="Posts">{displayPosts}</div>
+        <Link to="/posts/new">
+          <button className="Posts__button">+</button>
+        </Link>
       </div>
     );
   }

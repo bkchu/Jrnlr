@@ -15,7 +15,7 @@ class Login extends Component {
 
     return (
       <div className={classes.join(" ")}>
-        <a className="Login__button" href="http://localhost:3001/auth">
+        <a className="Login__button" href={process.env.REACT_APP_LOGIN}>
           Login
         </a>
       </div>

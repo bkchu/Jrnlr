@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { getUser } from "../../redux/ducks/userReducer";
+import { Link, withRouter } from "react-router-dom";
+
+import { getUser, displayedGreeting } from "../../redux/ducks/userReducer";
 import Logo from "../../assets/Journalr.svg";
 
 import "./Header.css";
@@ -15,26 +17,30 @@ class Header extends Component {
     let { user } = this.props;
 
     let loginLogoutButton = !user ? (
-      <a className="Header__button" href="http://localhost:3001/auth">
+      <a className="Header__button" href={process.env.REACT_APP_LOGIN}>
         Login
       </a>
     ) : (
-      <a className="Header__button" href="http://localhost:3001/api/logout">
+      <a className="Header__button" href={process.env.REACT_APP_LOGOUT}>
         Logout
       </a>
     );
 
     let animatedGreeting = ["Header__animated-greeting"];
-    if (user) {
-      console.log(user);
+
+    //if user is logged in and it's the homepage, show the greeting animation
+    if (user && this.props.hasDisplayedGreeting === false) {
       animatedGreeting.push("Header__animated-greeting--show");
+      // this.props.displayedGreeting(true);
     }
 
     return (
       <div className="Header">
         <div className="Header__container container">
           <div className="Header__left">
-            <img className="Header__logo" src={Logo} alt="Journalr Logo" />
+            <Link to="/">
+              <img className="Header__logo" src={Logo} alt="Journalr Logo" />
+            </Link>
           </div>
           <div className="Header__right">
             <p className="Header__greeting">{!user ? "Guest" : user.name}</p>
@@ -49,6 +55,8 @@ class Header extends Component {
   }
 }
 
-export default connect(state => ({ ...state.userReducer }), { getUser })(
-  Header
+export default withRouter(
+  connect(state => ({ ...state.userReducer }), { getUser, displayedGreeting })(
+    Header
+  )
 );

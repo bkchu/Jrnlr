@@ -20,7 +20,7 @@
 }
 
 .Header__logo {
-  height: 60px;
+  height: 55px;
 }
 
 .Header__right {
@@ -79,7 +79,7 @@
 }
 
 .Header__animated-greeting--show {
-  animation: 3s slideOut cubic-bezier(0.075, 0.82, 0.165, 1);
+  animation: 1.5s slideOut cubic-bezier(0.075, 0.82, 0.165, 1);
   animation-delay: 1s;
 }
 
@@ -87,10 +87,10 @@
   0% {
     top: -80px;
   }
-  40% {
+  30% {
     top: 0;
   }
-  60% {
+  80% {
     top: 0;
   }
   100% {

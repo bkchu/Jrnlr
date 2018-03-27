@@ -12,6 +12,8 @@
   '/' :: Home, should display all posts from everyone the user is following.
   '/users/:id' :: User view, should show user detail along with all posts from given id. 
   '/users/:id/posts/:id :: FullPost view, should show FullPost given the user.id and post.id
+  '/posts/new' :: NewPost view, should display a form to create a new post.
+  '/posts/:id/edit' :: EditPost view, should display a form with already filled in information.
 
 
 
@@ -66,3 +68,9 @@ req.session.passport:  { user:
      email: 'brandon.k.chung@gmail.com',
      name: 'brandon.k.chung',
      email_verified: true } }
+
+
+images[index].urls.regular,
+images[index].user.name,
+images[index].user.username,
+images[index].links.download_location
