@@ -27,7 +27,7 @@ module.exports = {
         req.session.passport.user.id,
         req.body.title,
         req.body.body,
-        JSON.stringify(req.body.imgobj)
+        req.body.imgobj
       ])
       .then(response => {
         res.status(200).json(response);
@@ -52,7 +52,7 @@ module.exports = {
         req.params.id,
         req.body.title,
         req.body.body,
-        JSON.stringify(req.body.imgobj)
+        req.body.imgobj
       ])
       .then(response => {
         res.status(200).json(response);

@@ -32,6 +32,7 @@ class NewPost extends Component {
     let { title, body, imgobj } = this.state;
 
     if (this.props.editing) {
+      console.log("imgobj: ", imgobj);
       this.props.updatePost(this.props.match.params.id, {
         title,
         body,
