@@ -33,12 +33,16 @@ class Gallery extends Component {
 
   render() {
     let chooser = <p>Please choose a mode.</p>;
+    let classesOwnPhoto = ["Gallery__button", "Gallery__button--ownphoto"];
+    let classesUnsplash = ["Gallery__button", "Gallery__button--unsplash"];
     switch (this.state.mode) {
       case UNSPLASH:
         chooser = <Unsplash setImage={this.imageSelected} />;
+        classesUnsplash.push("Gallery__selected-mode");
         break;
       case OWN:
         chooser = <UrlPhoto setImage={this.imageSelected} />;
+        classesOwnPhoto.push("Gallery__selected-mode");
         break;
       default:
     }
@@ -67,13 +71,13 @@ class Gallery extends Component {
     return (
       <div className="Gallery">
         <button
-          className="Gallery__button Gallery__button--ownphoto"
+          className={classesOwnPhoto.join(" ")}
           onClick={this.ownPressedHandler}
         >
           Upload
         </button>
         <button
-          className="Gallery__button Gallery__button--unsplash"
+          className={classesUnsplash.join(" ")}
           onClick={this.unsplashPressedHandler}
         >
           Unsplash
