@@ -1,5 +1,6 @@
 import React from "react";
-import routes from "../../../routes";
+
+import Routes from "../../../routes";
 import Login from "../Login/Login";
 import Header from "../../Header/Header";
 
@@ -8,7 +9,8 @@ const Homepage = () => {
     <div>
       <Login />
       <Header />
-      {routes}
+
+      <Routes />
     </div>
   );
 };

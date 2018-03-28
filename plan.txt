@@ -74,3 +74,9 @@ images[index].urls.regular,
 images[index].user.name,
 images[index].user.username,
 images[index].links.download_location
+
+this.props.updatePost(this.props.match.params.id, {
+  title,
+  body,
+  imgobj
+});
