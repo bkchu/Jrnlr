@@ -6,6 +6,7 @@ const GET_POST = "GET_POST";
 const ADD_POST = "ADD_POST";
 const DELETE_POST = "DELETE_POST";
 const UPDATE_POST = "UPDATE_POST";
+const UNMOUNT_POST = "UNMOUNT_POST";
 
 //INITIAL STATE
 const initialState = {
@@ -89,6 +90,12 @@ export const updatePost = (postid, body) => {
   };
 };
 
+export const unmountPost = () => {
+  return {
+    type: UNMOUNT_POST
+  };
+};
+
 export default function postReducer(state = initialState, action) {
   console.log("action.type: ", action.type);
   switch (action.type) {
@@ -137,6 +144,10 @@ export default function postReducer(state = initialState, action) {
       } else {
         return { ...state, error: action.payload, loading: false };
       }
+
+    case UNMOUNT_POST:
+      return { ...state, selectedPost: null };
+
     default:
       return state;
   }

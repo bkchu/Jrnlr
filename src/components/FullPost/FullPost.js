@@ -3,7 +3,11 @@ import { connect } from "react-redux";
 import moment from "moment";
 
 import "./FullPost.css";
-import { getPost, deletePost } from "../../redux/ducks/postReducer";
+import {
+  getPost,
+  deletePost,
+  unmountPost
+} from "../../redux/ducks/postReducer";
 import Error from "../Error/Error";
 class FullPost extends Component {
   componentDidMount() {
@@ -18,19 +22,22 @@ class FullPost extends Component {
     this.props.deletePost(this.props.match.params.postid);
     this.props.history.push("/");
   }
+  componentWillUnmount() {
+    this.props.unmountPost();
+  }
 
   render() {
     let { userid, postid } = this.props.match.params;
     console.log("userid: ", userid);
     console.log("postid: ", postid);
-    let { selectedPost, error } = this.props;
-    let displayPost = <p>Loading...</p>;
+    let { selectedPost, error, loading } = this.props;
+    let displayPost = <div className="FullPost" />;
 
-    if (selectedPost && !error) {
+    if (selectedPost && !error && !loading) {
       let { title, date, body, imageobj } = selectedPost[0];
       let image = JSON.parse(imageobj);
       displayPost = (
-        <div className="FullPost">
+        <div className="FullPost fade-in">
           <h1 className="FullPost__title">{title}</h1>
           <p className="FullPost__date">
             {moment(date).format("MMM DD, YYYY")}
@@ -68,5 +75,6 @@ class FullPost extends Component {
 
 export default connect(state => ({ ...state.postReducer }), {
   getPost,
-  deletePost
+  deletePost,
+  unmountPost
 })(FullPost);
