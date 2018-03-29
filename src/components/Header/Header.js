@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Link, withRouter } from "react-router-dom";
+import FontAwesome from "react-fontawesome";
 
 import { getUser, displayedGreeting } from "../../redux/ducks/userReducer";
 import Logo from "../../assets/Journalr.svg";
@@ -13,7 +14,6 @@ class Header extends Component {
   }
 
   render() {
-    console.log(this.props);
     let { user } = this.props;
 
     let loginLogoutButton = !user ? (
@@ -40,6 +40,9 @@ class Header extends Component {
           <div className="Header__left">
             <Link to="/">
               <img className="Header__logo" src={Logo} alt="Journalr Logo" />
+            </Link>
+            <Link className="Header__search" to="/users">
+              <FontAwesome name="search" />
             </Link>
           </div>
           <div className="Header__right">

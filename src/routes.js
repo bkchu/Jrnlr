@@ -3,8 +3,10 @@ import { withRouter, Switch, Route } from "react-router-dom";
 import { TransitionGroup, CSSTransition } from "react-transition-group";
 
 import Posts from "./components/Posts/Posts";
-import FullPost from "./components/FullPost/FullPost.js";
-import NewPost from "./components/NewPost/NewPost.js";
+import FullPost from "./components/FullPost/FullPost";
+import NewPost from "./components/NewPost/NewPost";
+import EditPost from "./components/EditPost/EditPost";
+import Users from "./components/Views/Users/Users";
 
 import "./styles/cssTransition.css";
 
@@ -32,14 +34,12 @@ const Routes = props => {
               );
             }}
           />
+          <Route path="/users" exact component={Users} />
+          <Route path="/users/:userid" exact component={Posts} />
           <Route path="/users/:userid/posts/:postid" component={FullPost} />
-          <Route path="/posts/new" component={NewPost} />
-          <Route
-            path="/posts/:id/edit"
-            render={() => {
-              return <NewPost editing={true} />;
-            }}
-          />
+
+          <Route path="/posts/new" exact component={NewPost} />
+          <Route path="/posts/:id/edit" component={EditPost} />
         </Switch>
       </CSSTransition>
     </TransitionGroup>

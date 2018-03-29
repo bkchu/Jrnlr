@@ -22,7 +22,6 @@
     Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
   font-size: smaller;
   text-transform: uppercase;
-  /* font-weight: bolder; */
   letter-spacing: 1px;
   margin-bottom: 20px;
 }
@@ -71,36 +70,3 @@
   padding-top: 11px;
   padding-right: 8px;
 }
-
-/* .FullPost__buttons {
-  display: flex;
-  flex-direction: column-reverse;
-  align-items: center;
-  position: fixed;
-  height: 200px;
-  width: 3rem;
-  bottom: 1.5rem;
-  right: 1.5rem;
-}
-
-.FullPost__button {
-  width: 3rem;
-  height: 3rem;
-  background: white;
-  border: none;
-  border-radius: 50%;
-  box-shadow: var(--box-shadow);
-  transition: box-shadow 200ms cubic-bezier(0.4, 0, 0.2, 1);
-  outline: none;
-  cursor: pointer;
-  margin-top: 20px;
-}
-
-.FullPost__button:hover {
-  box-shadow: 1px 3px 8px rgba(0, 0, 0, 0.2), 0 0 0 1px rgba(0, 0, 0, 0.08);
-}
-
-.FullPost__button--delete {
-  width: 2rem;
-  height: 2rem;
-} */

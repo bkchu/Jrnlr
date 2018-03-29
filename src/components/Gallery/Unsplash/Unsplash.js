@@ -34,7 +34,6 @@ class Unsplash extends Component {
   };
 
   render() {
-    console.log(this.state);
     let images = <div>Loading...</div>;
     if (this.state.images) {
       images = this.state.images.map((image, index) => {

@@ -2,11 +2,11 @@ import axios from "axios";
 
 //ACTION TYPE
 const GET_POSTS = "GET_POSTS";
+const GET_POSTS_BY_USER_ID = "GET_POSTS_BY_USER_ID";
 const GET_POST = "GET_POST";
 const ADD_POST = "ADD_POST";
 const DELETE_POST = "DELETE_POST";
 const UPDATE_POST = "UPDATE_POST";
-const UNMOUNT_POST = "UNMOUNT_POST";
 
 //INITIAL STATE
 const initialState = {
@@ -22,6 +22,20 @@ export const getPosts = () => {
     type: GET_POSTS,
     payload: axios
       .get("/api/posts")
+      .then(response => response.data)
+      .catch(err => {
+        if (err.response) {
+          return err.response;
+        }
+      })
+  };
+};
+
+export const getPostsByUserId = userid => {
+  return {
+    type: GET_POSTS_BY_USER_ID,
+    payload: axios
+      .get(`/api/users/${userid}/posts`)
       .then(response => response.data)
       .catch(err => {
         if (err.response) {
@@ -90,12 +104,6 @@ export const updatePost = (postid, body) => {
   };
 };
 
-export const unmountPost = () => {
-  return {
-    type: UNMOUNT_POST
-  };
-};
-
 export default function postReducer(state = initialState, action) {
   console.log("action.type: ", action.type);
   switch (action.type) {
@@ -107,6 +115,18 @@ export default function postReducer(state = initialState, action) {
       } else {
         return { ...state, error: action.payload, loading: false };
       }
+
+    case `${GET_POSTS_BY_USER_ID}_PENDING`:
+      return { ...state, loading: true };
+    case `${GET_POSTS_BY_USER_ID}_FULFILLED`:
+      if (Array.isArray(action.payload)) {
+        return { ...state, error: null, posts: action.payload, loading: false };
+      } else {
+        return { ...state, error: action.payload, loading: false };
+      }
+
+    case `${GET_POST}_PENDING`:
+      return { ...state, loading: true };
     case `${GET_POST}_FULFILLED`:
       if (Array.isArray(action.payload)) {
         return {
@@ -144,9 +164,6 @@ export default function postReducer(state = initialState, action) {
       } else {
         return { ...state, error: action.payload, loading: false };
       }
-
-    case UNMOUNT_POST:
-      return { ...state, selectedPost: null };
 
     default:
       return state;

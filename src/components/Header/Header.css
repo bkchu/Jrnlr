@@ -23,6 +23,11 @@
   height: 55px;
 }
 
+.Header__search {
+  margin-left: 20px;
+  color: var(--gray);
+}
+
 .Header__right {
   display: flex;
   justify-content: flex-end;

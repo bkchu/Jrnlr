@@ -62,9 +62,9 @@ class Gallery extends Component {
       );
     } else if (this.props.editing) {
       let urlSrc = JSON.parse(this.props.editing);
-      console.log(this.props.editing);
+      console.log(urlSrc);
       displayedImage = (
-        <img className="Gallery__display" src={urlSrc.imageUrl} alt={""} />
+        <img className="Gallery__display" src={urlSrc.imageUrl} alt="" />
       );
     }
 

@@ -1,11 +1,20 @@
-const moment = require("moment");
-
 module.exports = {
   getPosts: (req, res, next) => {
     const db = req.app.get("db");
     db
+      //TODO
       .getPosts([req.session.passport.user.id])
       // .getPosts([14])
+      .then(response => {
+        res.status(200).json(response);
+      })
+      .catch(error => console.log(error));
+  },
+  getPostsByUserId: (req, res, next) => {
+    const db = req.app.get("db");
+    db
+      //TODO
+      .getPosts([req.params.userid])
       .then(response => {
         res.status(200).json(response);
       })

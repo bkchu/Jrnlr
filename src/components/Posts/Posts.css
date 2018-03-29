@@ -1,8 +1,14 @@
 .Posts {
+  opacity: 0;
   margin-top: 25px;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
+  transition: all 300ms linear;
+}
+
+.Posts.fade-in {
+  opacity: 1;
 }
 
 .Posts__button {

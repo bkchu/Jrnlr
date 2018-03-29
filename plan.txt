@@ -10,6 +10,7 @@
   - logged in - displays all posts
 
   '/' :: Home, should display all posts from everyone the user is following.
+  '/users' :: Follow View, should show a search bar to search for users.
   '/users/:id' :: User view, should show user detail along with all posts from given id. 
   '/users/:id/posts/:id :: FullPost view, should show FullPost given the user.id and post.id
   '/posts/new' :: NewPost view, should display a form to create a new post.
@@ -31,7 +32,7 @@ DELETE '/api/posts/:id' - deletes post by id
 
 ---USERS---
 GET '/api/users' - retrieves all users
-  - param: "nickname" - filters by nickname (maybe elastic search")
+  - param: "query" - filters by email (maybe elastic search")
 
 ---FOLLOW/UNFOLLOW---
 GET '/api/follows/' - retrives all users' following

@@ -1,0 +1,33 @@
+.User {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+  width: 100%;
+  border: 1px solid var(--light-gray);
+  margin-bottom: 10px;
+}
+
+.User__username {
+  display: none;
+}
+@media (min-width: 576px) {
+  .User__username {
+    display: block;
+  }
+}
+
+.User__follow-button {
+  background: white;
+  border: none;
+  outline: none;
+  color: var(--gray);
+  font-size: 0.75rem;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  text-transform: uppercase;
+  transition: all 200ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.User__follow-button:hover {
+  color: var(--black);
+}

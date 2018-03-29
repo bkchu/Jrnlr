@@ -1,0 +1,51 @@
+.EditPost.container {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.EditPost__header {
+  font-size: 1rem;
+  font-weight: normal;
+  color: var(--gray);
+  margin-bottom: 20px;
+  border-left: 2px solid var(--light-gray);
+  padding-left: 20px;
+}
+
+.EditPost__input {
+  border: 1px solid var(--light-gray);
+  border-radius: 3px;
+  transition: box-shadow 400ms cubic-bezier(0.4, 0, 0.2, 1);
+  outline: none;
+  margin-bottom: 10px;
+  padding: 20px;
+}
+
+.EditPost__input:focus {
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2), 0 0 0 1px rgba(0, 0, 0, 0.08);
+}
+
+.EditPost__input.EditPost__input--title {
+  font-size: 2rem;
+}
+.EditPost__input.EditPost__input--body {
+  resize: none;
+  min-height: 15rem;
+}
+
+.EditPost__submit {
+  background: white;
+  border: 1px solid var(--gray);
+  border-radius: 4px;
+  padding: 20px;
+  outline: none;
+  color: var(--gray);
+  transition: all 400ms cubic-bezier(0.4, 0, 0.2, 1);
+  margin-bottom: 10px;
+}
+
+.EditPost__submit:focus {
+  border: 1px solid var(--black);
+  color: var(--black);
+}

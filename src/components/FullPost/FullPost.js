@@ -1,35 +1,30 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 import moment from "moment";
 
 import "./FullPost.css";
-import {
-  getPost,
-  deletePost,
-  unmountPost
-} from "../../redux/ducks/postReducer";
+import { getPost, deletePost } from "../../redux/ducks/postReducer";
 import Error from "../Error/Error";
 class FullPost extends Component {
   componentDidMount() {
     this.props.getPost(this.props.match.params.postid);
   }
 
-  onEditHandler() {
-    this.props.history.push(`/posts/${this.props.match.params.postid}/edit`);
-  }
+  // onEditHandler() {
+  //   this.props.history.push(`/posts/${this.props.match.params.postid}/edit`);
+  // }
 
   onDeleteHandler() {
     this.props.deletePost(this.props.match.params.postid);
     this.props.history.push("/");
   }
-  componentWillUnmount() {
-    this.props.unmountPost();
-  }
+  // componentWillUnmount() {
+  //   this.props.unmountPost();
+  // }
 
   render() {
     let { userid, postid } = this.props.match.params;
-    console.log("userid: ", userid);
-    console.log("postid: ", postid);
     let { selectedPost, error, loading } = this.props;
     let displayPost = <div className="FullPost" />;
 
@@ -43,12 +38,13 @@ class FullPost extends Component {
             {moment(date).format("MMM DD, YYYY")}
           </p>
           <div className="FullPost__buttons">
-            <div
-              onClick={() => this.onEditHandler()}
+            <Link
+              // onClick={() => this.onEditHandler()}
+              to={`/posts/${this.props.match.params.postid}/edit`}
               className="FullPost__button FullPost__button--edit"
             >
               Edit
-            </div>
+            </Link>
             <div
               onClick={() => this.onDeleteHandler()}
               className="FullPost__button FullPost__button--delete"
@@ -60,7 +56,6 @@ class FullPost extends Component {
           <p className="FullPost__body">{body}</p>
         </div>
       );
-      console.log(selectedPost);
     } else if (error) {
       displayPost = <Error error={error} />;
     }
@@ -75,6 +70,5 @@ class FullPost extends Component {
 
 export default connect(state => ({ ...state.postReducer }), {
   getPost,
-  deletePost,
-  unmountPost
+  deletePost
 })(FullPost);
