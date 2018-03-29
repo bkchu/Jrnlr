@@ -13,18 +13,18 @@ class Users extends Component {
     query: ""
   };
 
-  // shouldComponentUpdate(nextProps, nextState) {
-  //   if (this.props.users !== nextProps.users) {
-  //     return true;
-  //   }
-  //   if (this.props.following !== nextProps.following) {
-  //     return true;
-  //   }
-  //   if (this.state.query !== nextState.query) {
-  //     return true;
-  //   }
-  //   return false;
-  // }
+  shouldComponentUpdate(nextProps, nextState) {
+    if (this.props.users !== nextProps.users) {
+      return true;
+    }
+    if (this.props.following !== nextProps.following) {
+      return true;
+    }
+    if (this.state.query !== nextState.query) {
+      return true;
+    }
+    return false;
+  }
 
   componentDidMount() {
     this.searchbar.focus();

@@ -6,12 +6,12 @@ import FontAwesome from "react-fontawesome";
 import { addFollow, removeFollow } from "../../../../redux/ducks/followReducer";
 import "./User.css";
 class User extends Component {
-  // shouldComponentUpdate(nextProps, nextState) {
-  //   if (this.props.isFollowing !== nextProps.isFollowing) {
-  //     return true;
-  //   }
-  //   return false;
-  // }
+  shouldComponentUpdate(nextProps, nextState) {
+    if (this.props.isFollowing !== nextProps.isFollowing) {
+      return true;
+    }
+    return false;
+  }
 
   render() {
     let {

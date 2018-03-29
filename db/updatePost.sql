@@ -4,4 +4,5 @@ SET title = $3,
     imageobj = $5
 WHERE id = $2;
 SELECT * FROM post p
-WHERE p.userid = $1;
+WHERE p.userid = $1
+ORDER BY date DESC;

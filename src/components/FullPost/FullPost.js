@@ -39,6 +39,7 @@ class FullPost extends Component {
           </p>
           <div className="FullPost__buttons">
             <Link
+              className="Link"
               // onClick={() => this.onEditHandler()}
               to={`/posts/${this.props.match.params.postid}/edit`}
               className="FullPost__button FullPost__button--edit"
