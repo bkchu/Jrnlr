@@ -2,7 +2,7 @@ import React from "react";
 import "./Error.css";
 
 const Error = ({ error }) => {
-  console.log(error);
+  console.log("error: ", error);
   let displayButton = (
     <a className="Error__button" href={process.env.REACT_APP_LOGOUT}>
       Logout

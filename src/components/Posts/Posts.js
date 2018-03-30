@@ -28,6 +28,7 @@ class Posts extends Component {
           <Post
             key={post.id}
             id={post.id}
+            username={post.name}
             userid={post.userid}
             title={post.title}
             date={post.date}

@@ -62,12 +62,14 @@ class NewPost extends Component {
           className="NewPost__input NewPost__input--title"
           type="text"
           value={this.state.title}
+          placeholder="Your title here..."
         />
         <textarea
           onChange={this.bodyChangeHandler}
           className="NewPost__input NewPost__input--body"
           type="text"
           value={this.state.body}
+          placeholder="Your content here..."
         />
         <Gallery selected={this.onSelectHandler} />
         <button className="NewPost__submit" onClick={this.onSubmitHandler}>

@@ -13,8 +13,7 @@ module.exports = {
   getPostsByUserId: (req, res, next) => {
     const db = req.app.get("db");
     db
-      //TODO
-      .getPosts([req.params.userid])
+      .getPostsByUserId([req.params.userid])
       .then(response => {
         res.status(200).json(response);
       })

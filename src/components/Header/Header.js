@@ -46,7 +46,15 @@ class Header extends Component {
             </Link>
           </div>
           <div className="Header__right">
-            <p className="Header__greeting">{!user ? "Guest" : user.name}</p>
+            <p className="Header__greeting">
+              {!user ? (
+                "Guest"
+              ) : (
+                <Link className="Link" to={`/users/${user.id}`}>
+                  {user.name}
+                </Link>
+              )}
+            </p>
             {loginLogoutButton}
           </div>
         </div>

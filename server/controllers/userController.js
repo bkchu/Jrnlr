@@ -9,7 +9,7 @@ module.exports = {
   getUsers: (req, res, next) => {
     const db = req.app.get("db");
     db
-      .getUsers([req.query.query])
+      .getUsers([`${req.query.query}%`, req.session.passport.user.email])
       .then(response => {
         res.status(200).json(response);
       })

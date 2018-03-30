@@ -34,19 +34,23 @@ class Unsplash extends Component {
   };
 
   render() {
-    let images = <div>Loading...</div>;
+    let unsplashContainer = <div className="Unsplash__images">Loading...</div>;
     if (this.state.images) {
-      images = this.state.images.map((image, index) => {
-        return (
-          <img
-            onClick={() => this.onImageClickedHandler(index)}
-            className="Unsplash__mini-image"
-            key={image.id}
-            src={image.urls.thumb}
-            alt=""
-          />
-        );
-      });
+      unsplashContainer = (
+        <div className="Unsplash__images fade-in">
+          {this.state.images.map((image, index) => {
+            return (
+              <img
+                onClick={() => this.onImageClickedHandler(index)}
+                className="Unsplash__mini-image"
+                key={image.id}
+                src={image.urls.thumb}
+                alt=""
+              />
+            );
+          })}
+        </div>
+      );
     }
 
     return (
@@ -58,8 +62,8 @@ class Unsplash extends Component {
             onChange={this.onChangeHandler}
             type="text"
           />
+          {unsplashContainer}
         </form>
-        <div className="Unsplash__images">{images}</div>
       </div>
     );
   }

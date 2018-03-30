@@ -27,4 +27,14 @@
   width: 20%;
   height: 150px;
   object-fit: cover;
+  cursor: pointer;
+  transition: all 200ms;
+}
+
+.Unsplash__mini-image:hover {
+  transform: scale(1.05);
+}
+
+.Unsplash__mini-image:active {
+  transform: scale(0.95);
 }

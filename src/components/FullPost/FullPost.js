@@ -11,25 +11,18 @@ class FullPost extends Component {
     this.props.getPost(this.props.match.params.postid);
   }
 
-  // onEditHandler() {
-  //   this.props.history.push(`/posts/${this.props.match.params.postid}/edit`);
-  // }
-
   onDeleteHandler() {
     this.props.deletePost(this.props.match.params.postid);
     this.props.history.push("/");
   }
-  // componentWillUnmount() {
-  //   this.props.unmountPost();
-  // }
 
   render() {
-    let { userid, postid } = this.props.match.params;
-    let { selectedPost, error, loading } = this.props;
+    // let { userid, postid } = this.props.match.params;
+    let { selectedPost, error, loading, userLoggedIn } = this.props;
     let displayPost = <div className="FullPost" />;
 
     if (selectedPost && !error && !loading) {
-      let { title, date, body, imageobj } = selectedPost[0];
+      let { title, date, body, imageobj, userid } = selectedPost[0];
       let image = JSON.parse(imageobj);
       displayPost = (
         <div className="FullPost fade-in">
@@ -37,22 +30,22 @@ class FullPost extends Component {
           <p className="FullPost__date">
             {moment(date).format("MMM DD, YYYY")}
           </p>
-          <div className="FullPost__buttons">
-            <Link
-              className="Link"
-              // onClick={() => this.onEditHandler()}
-              to={`/posts/${this.props.match.params.postid}/edit`}
-              className="FullPost__button FullPost__button--edit"
-            >
-              Edit
-            </Link>
-            <div
-              onClick={() => this.onDeleteHandler()}
-              className="FullPost__button FullPost__button--delete"
-            >
-              Delete
+          {userLoggedIn.id === userid && (
+            <div className="FullPost__buttons">
+              <Link
+                to={`/posts/${this.props.match.params.postid}/edit`}
+                className="Link FullPost__button FullPost__button--edit"
+              >
+                Edit
+              </Link>
+              <div
+                onClick={() => this.onDeleteHandler()}
+                className="FullPost__button FullPost__button--delete"
+              >
+                Delete
+              </div>
             </div>
-          </div>
+          )}
           <img className="FullPost__image" src={image.imageUrl} alt="" />
           <p className="FullPost__body">{body}</p>
         </div>
@@ -69,7 +62,17 @@ class FullPost extends Component {
   }
 }
 
-export default connect(state => ({ ...state.postReducer }), {
+const mapStateToProps = state => {
+  return {
+    posts: state.postReducer.posts,
+    loading: state.postReducer.loading,
+    error: state.postReducer.error,
+    selectedPost: state.postReducer.selectedPost,
+    userLoggedIn: state.userReducer.user
+  };
+};
+
+export default connect(mapStateToProps, {
   getPost,
   deletePost
 })(FullPost);
