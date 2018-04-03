@@ -7,7 +7,7 @@ const GET_USERS = "GET_USERS";
 
 //INITIAL STATE
 const initialState = {
-  user: {},
+  user: null,
   loading: false,
   hasDisplayedGreeting: false,
   users: [],

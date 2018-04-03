@@ -27,11 +27,11 @@ class User extends Component {
         onClick={() => removeFollow(authid)}
         className="User__follow-button"
       >
-        <FontAwesome name="times" />
+        <FontAwesome name="user-times" />
       </button>
     ) : (
       <button onClick={() => addFollow(authid)} className="User__follow-button">
-        <FontAwesome name="check" />
+        <FontAwesome name="user-plus" />
       </button>
     );
 

@@ -1,6 +1,7 @@
 import React from "react";
 import { withRouter, Switch, Route } from "react-router-dom";
 import { TransitionGroup, CSSTransition } from "react-transition-group";
+import { connect } from "react-redux";
 
 import Posts from "./components/Posts/Posts";
 import FullPost from "./components/FullPost/FullPost";
@@ -8,6 +9,7 @@ import NewPost from "./components/NewPost/NewPost";
 import EditPost from "./components/EditPost/EditPost";
 import NotFound from "./components/Views/NotFound/NotFound";
 import Users from "./components/Views/Users/Users";
+import Login from "./components/Views/Login/Login";
 
 import "./styles/cssTransition.css";
 
@@ -28,10 +30,12 @@ const Routes = props => {
             path="/"
             exact
             render={() => {
-              return (
+              return props.user ? (
                 <div>
                   <Posts />
                 </div>
+              ) : (
+                <Login />
               );
             }}
           />
@@ -48,4 +52,4 @@ const Routes = props => {
   );
 };
 
-export default withRouter(Routes);
+export default withRouter(connect(state => ({ ...state.userReducer }))(Routes));

@@ -8,9 +8,11 @@ const passport = require("passport");
 const Auth0Strategy = require("passport-auth0");
 const massive = require("massive");
 
+// controllers
 const userCtrl = require("./controllers/userController");
 const postCtrl = require("./controllers/postController");
 const followCtrl = require("./controllers/followController");
+const likeCtrl = require("./controllers/likeController");
 
 const app = express();
 
@@ -113,6 +115,10 @@ app.put("/api/posts/:id", authenticated, postCtrl.updatePost);
 app.post("/api/follows/:authid", authenticated, followCtrl.addFollow);
 app.get("/api/follows", authenticated, followCtrl.getFollows);
 app.delete("/api/follows/:authid", authenticated, followCtrl.removeFollow);
+
+// likes endpoints
+app.post("/api/likes/:postid", authenticated, likeCtrl.addLike);
+app.get("/api/likes/:postid", authenticated, likeCtrl.getLikes);
 
 // app.get("*", (req, res) => {
 //   res.sendFile(path.join(__dirname, "../build/index.html"));

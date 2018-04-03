@@ -22,7 +22,7 @@ class FullPost extends Component {
     let displayPost = <div className="FullPost" />;
 
     if (selectedPost && !error && !loading) {
-      let { title, date, body, imageobj, userid } = selectedPost[0];
+      let { title, date, body, imageobj, userid, numLikes } = selectedPost[0];
       let image = JSON.parse(imageobj);
       displayPost = (
         <div className="FullPost fade-in">
@@ -48,6 +48,17 @@ class FullPost extends Component {
           )}
           <img className="FullPost__image" src={image.imageUrl} alt="" />
           <p className="FullPost__body">{body}</p>
+          <div className="FullPost__footer">
+            <div className="container">
+              <div className="FullPost__likes">
+                <div className="FullPost__like-symbol">
+                  <i className="far fa-thumbs-up" />
+                </div>
+                {numLikes}
+              </div>
+              <div className="FullPost__comments">Comment</div>
+            </div>
+          </div>
         </div>
       );
     } else if (error) {

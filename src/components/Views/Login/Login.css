@@ -8,11 +8,11 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 1111;
+  /* z-index: 1111; */
   background: white;
 }
 
-.Login--hide {
+/* .Login--hide {
   animation: 0.5s fadeaway 1 forwards ease-in-out;
 }
 
@@ -27,7 +27,7 @@
     opacity: 0;
     z-index: -1;
   }
-}
+} */
 
 .Login__button {
   padding: 3rem 6rem;

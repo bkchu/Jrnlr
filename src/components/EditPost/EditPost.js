@@ -4,13 +4,15 @@ import { withRouter } from "react-router-dom";
 
 import { getPost, updatePost } from "../../redux/ducks/postReducer";
 import Gallery from "../Gallery/Gallery";
+import Error from "../Error/Error";
 import "./EditPost.css";
 
 class EditPost extends Component {
   state = {
     title: this.props.selectedPost ? this.props.selectedPost[0].title : "",
     body: this.props.selectedPost ? this.props.selectedPost[0].body : "",
-    imgobj: this.props.selectedPost ? this.props.selectedPost[0].imageobj : {}
+    imgobj: this.props.selectedPost ? this.props.selectedPost[0].imageobj : {},
+    userid: this.props.selectedPost ? this.props.selectedPost[0].userid : null
   };
 
   componentDidMount() {
@@ -64,14 +66,26 @@ class EditPost extends Component {
 
   render() {
     let { selectedPost, error, loading } = this.props;
-    console.log("loading: ", loading);
-    console.log("error: ", error);
-    console.log("selectedPost: ", selectedPost);
+
     let comp = null;
     // EDITING POST
     if (loading) {
       comp = <div className="EditPost" />;
     } else if (selectedPost && selectedPost.length > 0 && !error && !loading) {
+      if (this.state.userid !== this.props.user.id) {
+        console.log("this.state.userid: ", this.state.userid);
+        console.log("this.props.user.id: ", this.props.user.id);
+        return (
+          <div>
+            <Error
+              error={{
+                status: "Wrong User",
+                data: { error: "You are not who you say you are." }
+              }}
+            />
+          </div>
+        );
+      }
       let { imageobj } = selectedPost[0];
       console.log("imageobj: ", imageobj);
       comp = (
@@ -103,6 +117,15 @@ class EditPost extends Component {
   }
 }
 
+const mapStateToProps = state => {
+  return {
+    selectedPost: state.postReducer.selectedPost,
+    error: state.postReducer.error,
+    loading: state.postReducer.loading,
+    user: state.userReducer.user
+  };
+};
+
 export default withRouter(
-  connect(state => state.postReducer, { getPost, updatePost })(EditPost)
+  connect(mapStateToProps, { getPost, updatePost })(EditPost)
 );

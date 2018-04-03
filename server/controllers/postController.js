@@ -23,8 +23,15 @@ module.exports = {
     const db = req.app.get("db");
     db
       .getPost([req.params.id])
-      .then(response => {
-        res.status(200).json(response);
+      .then(response1 => {
+        console.log("response1: ", response1);
+        db
+          .getLikes([req.params.id])
+          .then(response2 => {
+            response1[0]["numLikes"] = response2[0].count;
+            res.status(200).json(response1);
+          })
+          .catch(err => console.log(err));
       })
       .catch(error => console.log(error));
   },
