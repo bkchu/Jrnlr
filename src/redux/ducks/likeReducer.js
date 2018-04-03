@@ -1,76 +1,46 @@
 import axios from "axios";
 
 //ACTION TYPE
-const ADD_LIKE = "ADD_LIKE";
-const GET_LIKES = "GET_LIKES";
+const TOGGLE_LIKE = "TOGGLE_LIKE";
 
 const initialState = {
-  numLikes: 0,
-  loading: false,
-  error: null
+  error: null,
+  loading: false
 };
 
-export const addLike = postid => {
+export const toggleLike = (postid, userLiked) => {
   return {
-    type: ADD_LIKE,
-    payload: axios
-      .post(`/api/likes/${postid}`)
-      .then(response => response.data)
-      .catch(err => {
-        if (err.response) {
-          return err.response;
-        }
-      })
-  };
-};
-
-export const getLikes = postid => {
-  return {
-    type: GET_LIKES,
-    payload: axios
-      .get(`/api/likes/${postid}`)
-      .then(response => {
-        return response.data[0].count;
-      })
-      .catch(err => {
-        if (err.response) {
-          return err.response;
-        }
-      })
+    type: TOGGLE_LIKE,
+    payload: userLiked
+      ? axios
+          .post(`/api/likes/${postid}`)
+          .then(response => response.data)
+          .catch(err => {
+            if (err.response) {
+              return err.response;
+            }
+          })
+      : axios
+          .delete(`/api/likes/${postid}`)
+          .then(response => response.data)
+          .catch(err => {
+            if (err.response) {
+              return err.response;
+            }
+          })
   };
 };
 
 export default function reducer(state = initialState, action) {
   switch (action.type) {
-    case `${ADD_LIKE}_PENDING`:
-      return { ...state, loading: true };
-
-    case `${ADD_LIKE}_FULFILLED`:
+    case `${TOGGLE_LIKE}_PENDING`:
+      return { ...state, loading: true, error: null };
+    case `${TOGGLE_LIKE}_FULFILLED`:
       if (Array.isArray(action.payload)) {
-        return {
-          ...state,
-          error: null,
-          numLikes: action.payload,
-          loading: false
-        };
+        return { ...state, loading: false, error: null };
       } else {
-        return { ...state, error: action.payload, loading: false };
+        return { ...state, loading: false, error: action.payload };
       }
-    case `${GET_LIKES}_PENDING`:
-      return { ...state, loading: true };
-
-    case `${GET_LIKES}_FULFILLED`:
-      if (typeof action.payload === "number") {
-        return {
-          ...state,
-          error: null,
-          numLikes: action.payload,
-          loading: false
-        };
-      } else {
-        return { ...state, error: action.payload, loading: false };
-      }
-
     default:
       return state;
   }

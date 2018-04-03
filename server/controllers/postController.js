@@ -28,7 +28,13 @@ module.exports = {
         db
           .getLikes([req.params.id])
           .then(response2 => {
-            response1[0]["numLikes"] = response2[0].count;
+            let index = response2.findIndex(
+              like => +like.userid === req.session.passport.user.id
+            );
+            console.log("response2: ", response2);
+            response1[0]["numLikes"] = response2.length;
+            response1[0]["likes"] = response2;
+            response1[0]["userLiked"] = index !== -1;
             res.status(200).json(response1);
           })
           .catch(err => console.log(err));

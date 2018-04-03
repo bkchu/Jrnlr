@@ -2,16 +2,19 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import moment from "moment";
+import FontAwesome from "react-fontawesome";
 
 import "./FullPost.css";
-import { getPost, deletePost } from "../../redux/ducks/postReducer";
-import { addLike } from "../../redux/ducks/likeReducer";
+import {
+  getPost,
+  deletePost,
+  likeButtonPressed
+} from "../../redux/ducks/postReducer";
+import { toggleLike } from "../../redux/ducks/likeReducer";
+
 import Error from "../Error/Error";
 class FullPost extends Component {
-  state = {
-    liked: false
-  };
-  componentDidMount() {
+  componentWillMount() {
     this.props.getPost(this.props.match.params.postid);
   }
 
@@ -21,31 +24,33 @@ class FullPost extends Component {
   };
 
   onLikeHandler = () => {
-    this.setState(prevState => {
-      return { liked: !prevState.liked };
-    });
-    // this.props.deletePost();
+    this.props.likeButtonPressed();
+    let thumbsUp = document.querySelector(
+      ".svg-inline--fa.fa-thumbs-up.fa-w-16"
+    );
+    thumbsUp.setAttribute("data-prefix", !this.props.userLiked ? "fas" : "far");
   };
 
   componentWillUnmount() {
-    if (this.state.liked) {
-      this.props.addLike(this.props.match.params.postid);
+    let changed = this.props.selectedPost[0].userLiked !== this.props.userLiked;
+    if (changed) {
+      this.props.toggleLike(
+        this.props.match.params.postid,
+        this.props.userLiked
+      );
     }
   }
 
   render() {
-    // let { userid, postid } = this.props.match.params;
     let { selectedPost, error, loading, userLoggedIn } = this.props;
     let displayPost = <div className="FullPost" />;
 
     if (selectedPost && !error && !loading) {
-      let { title, date, body, imageobj, userid, numLikes } = selectedPost[0];
+      let { title, date, body, imageobj, userid } = selectedPost[0];
+      let { numLikes, userLiked } = this.props;
       let image = JSON.parse(imageobj);
-      let likeButton = this.state.liked ? (
-        <i style={{ color: "black" }} className="far fa-thumbs-up" />
-      ) : (
-        <i className="far fa-thumbs-up" />
-      );
+      let likeButton = <FontAwesome name="thumbs-up" />;
+
       displayPost = (
         <div className="FullPost fade-in">
           <h1 className="FullPost__title">{title}</h1>
@@ -79,7 +84,7 @@ class FullPost extends Component {
                 >
                   {likeButton}
                 </div>
-                {this.state.liked ? +numLikes + 1 : +numLikes}
+                {numLikes}
               </div>
               <div className="FullPost__comments">Comment</div>
             </div>
@@ -104,12 +109,15 @@ const mapStateToProps = state => {
     loading: state.postReducer.loading,
     error: state.postReducer.error,
     selectedPost: state.postReducer.selectedPost,
-    userLoggedIn: state.userReducer.user
+    userLoggedIn: state.userReducer.user,
+    userLiked: state.postReducer.userLiked,
+    numLikes: state.postReducer.numLikes
   };
 };
 
 export default connect(mapStateToProps, {
   getPost,
   deletePost,
-  addLike
+  likeButtonPressed,
+  toggleLike
 })(FullPost);

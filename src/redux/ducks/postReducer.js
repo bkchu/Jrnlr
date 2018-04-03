@@ -7,13 +7,17 @@ const GET_POST = "GET_POST";
 const ADD_POST = "ADD_POST";
 const DELETE_POST = "DELETE_POST";
 const UPDATE_POST = "UPDATE_POST";
+const LIKE_BUTTON_PRESSED = "LIKE_BUTTON_PRESSED";
 
 //INITIAL STATE
 const initialState = {
   posts: [],
   loading: false,
   error: null,
-  selectedPost: null
+  selectedPost: null,
+  numLikes: 0,
+  userLiked: false,
+  likes: []
 };
 
 //ACTION CREATOR
@@ -104,8 +108,14 @@ export const updatePost = (postid, body) => {
   };
 };
 
+export const likeButtonPressed = () => {
+  return {
+    type: LIKE_BUTTON_PRESSED
+  };
+};
+
 export default function postReducer(state = initialState, action) {
-  console.log("action.type: ", action.type);
+  console.log("state: ", state);
   switch (action.type) {
     case `${GET_POSTS}_PENDING`:
       return { ...state, loading: true };
@@ -129,11 +139,15 @@ export default function postReducer(state = initialState, action) {
       return { ...state, loading: true };
     case `${GET_POST}_FULFILLED`:
       if (Array.isArray(action.payload)) {
+        console.log("action.payload: ", action.payload);
         return {
           ...state,
           error: null,
           selectedPost: action.payload,
-          loading: false
+          loading: false,
+          userLiked: action.payload[0].userLiked,
+          likes: action.payload[0].likes,
+          numLikes: action.payload[0].numLikes
         };
       } else {
         return { ...state, error: action.payload, loading: false };
@@ -164,6 +178,13 @@ export default function postReducer(state = initialState, action) {
       } else {
         return { ...state, error: action.payload, loading: false };
       }
+
+    case LIKE_BUTTON_PRESSED:
+      return {
+        ...state,
+        numLikes: state.userLiked ? state.numLikes - 1 : state.numLikes + 1,
+        userLiked: !state.userLiked
+      };
 
     default:
       return state;

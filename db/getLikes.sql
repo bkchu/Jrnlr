@@ -1,2 +1,2 @@
-SELECT COUNT(*) FROM likes
+SELECT * FROM likes
 WHERE postid = $1

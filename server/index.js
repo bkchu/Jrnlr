@@ -118,7 +118,7 @@ app.delete("/api/follows/:authid", authenticated, followCtrl.removeFollow);
 
 // likes endpoints
 app.post("/api/likes/:postid", authenticated, likeCtrl.addLike);
-app.get("/api/likes/:postid", authenticated, likeCtrl.getLikes);
+app.delete("/api/likes/:postid", authenticated, likeCtrl.removeLike);
 
 // app.get("*", (req, res) => {
 //   res.sendFile(path.join(__dirname, "../build/index.html"));
