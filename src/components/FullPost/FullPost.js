@@ -5,15 +5,32 @@ import moment from "moment";
 
 import "./FullPost.css";
 import { getPost, deletePost } from "../../redux/ducks/postReducer";
+import { addLike } from "../../redux/ducks/likeReducer";
 import Error from "../Error/Error";
 class FullPost extends Component {
+  state = {
+    liked: false
+  };
   componentDidMount() {
     this.props.getPost(this.props.match.params.postid);
   }
 
-  onDeleteHandler() {
+  onDeleteHandler = () => {
     this.props.deletePost(this.props.match.params.postid);
     this.props.history.push("/");
+  };
+
+  onLikeHandler = () => {
+    this.setState(prevState => {
+      return { liked: !prevState.liked };
+    });
+    // this.props.deletePost();
+  };
+
+  componentWillUnmount() {
+    if (this.state.liked) {
+      this.props.addLike(this.props.match.params.postid);
+    }
   }
 
   render() {
@@ -24,6 +41,11 @@ class FullPost extends Component {
     if (selectedPost && !error && !loading) {
       let { title, date, body, imageobj, userid, numLikes } = selectedPost[0];
       let image = JSON.parse(imageobj);
+      let likeButton = this.state.liked ? (
+        <i style={{ color: "black" }} className="far fa-thumbs-up" />
+      ) : (
+        <i className="far fa-thumbs-up" />
+      );
       displayPost = (
         <div className="FullPost fade-in">
           <h1 className="FullPost__title">{title}</h1>
@@ -39,7 +61,7 @@ class FullPost extends Component {
                 Edit
               </Link>
               <div
-                onClick={() => this.onDeleteHandler()}
+                onClick={this.onDeleteHandler}
                 className="FullPost__button FullPost__button--delete"
               >
                 Delete
@@ -51,10 +73,13 @@ class FullPost extends Component {
           <div className="FullPost__footer">
             <div className="container">
               <div className="FullPost__likes">
-                <div className="FullPost__like-symbol">
-                  <i className="far fa-thumbs-up" />
+                <div
+                  onClick={this.onLikeHandler}
+                  className="FullPost__like-symbol"
+                >
+                  {likeButton}
                 </div>
-                {numLikes}
+                {this.state.liked ? +numLikes + 1 : +numLikes}
               </div>
               <div className="FullPost__comments">Comment</div>
             </div>
@@ -85,5 +110,6 @@ const mapStateToProps = state => {
 
 export default connect(mapStateToProps, {
   getPost,
-  deletePost
+  deletePost,
+  addLike
 })(FullPost);
