@@ -31,7 +31,6 @@ module.exports = {
             let index = response2.findIndex(
               like => +like.userid === req.session.passport.user.id
             );
-            console.log("response2: ", response2);
             response1[0]["numLikes"] = response2.length;
             response1[0]["likes"] = response2;
             response1[0]["userLiked"] = index !== -1;

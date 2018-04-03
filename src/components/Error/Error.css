@@ -23,15 +23,24 @@
 }
 
 .Error__button {
+  color: var(--gray);
+  margin-top: 20px;
   text-decoration: none;
+  text-transform: uppercase;
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+  letter-spacing: 2px;
+  font-size: 0.6rem;
   padding: 0.5rem 1rem;
   border-radius: 4px;
-  border: 1px solid var(--gray);
-  color: var(--gray);
-  transition: all 0.2s ease-in;
+  background: white;
+  border: none;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2), 0 3px 8px 1px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 200ms cubic-bezier(0.4, 0, 0.2, 1);
+  outline: none;
+  cursor: pointer;
 }
 
 .Error__button:hover {
-  border: 1px solid var(--black);
-  color: var(--black);
+  box-shadow: 0 19px 38px rgba(0, 0, 0, 0.2), 0 15px 12px rgba(0, 0, 0, 0.1);
 }

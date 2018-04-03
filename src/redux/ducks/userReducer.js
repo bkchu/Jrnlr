@@ -47,7 +47,6 @@ export const getUsers = query => {
 };
 
 export default function userReducer(state = initialState, action) {
-  console.log("action.type: ", action.type);
   switch (action.type) {
     case `${GET_USER}_PENDING`:
       return { ...state, loading: true };

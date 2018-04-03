@@ -47,7 +47,7 @@ class FullPost extends Component {
 
     if (selectedPost && !error && !loading) {
       let { title, date, body, imageobj, userid } = selectedPost[0];
-      let { numLikes, userLiked } = this.props;
+      let { numLikes } = this.props;
       let image = JSON.parse(imageobj);
       let likeButton = <FontAwesome name="thumbs-up" />;
 

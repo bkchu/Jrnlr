@@ -1,5 +1,5 @@
 import React from "react";
-import { withRouter, Switch, Route } from "react-router-dom";
+import { withRouter, Switch, Route, Redirect } from "react-router-dom";
 import { TransitionGroup, CSSTransition } from "react-transition-group";
 import { connect } from "react-redux";
 
@@ -25,28 +25,44 @@ const Routes = props => {
         classNames="fade"
         appear
       >
-        <Switch location={location}>
-          <Route
-            path="/"
-            exact
-            render={() => {
-              return props.user ? (
-                <div>
-                  <Posts />
-                </div>
-              ) : (
-                <Login />
-              );
-            }}
-          />
-          <Route path="/users" exact component={Users} />
-          <Route path="/users/:userid" exact component={Posts} />
-          <Route path="/users/:userid/posts/:postid" component={FullPost} />
+        <div>
+          <Switch location={location}>
+            <Route
+              path="/"
+              exact
+              render={() => {
+                return props.user ? (
+                  <div>
+                    <Posts />
+                  </div>
+                ) : (
+                  <Login />
+                );
+              }}
+            />
+            <Route path="/users" exact component={props.user ? Users : Login} />
+            <Route
+              path="/users/:userid"
+              exact
+              component={props.user ? Posts : Login}
+            />
+            <Route
+              path="/users/:userid/posts/:postid"
+              component={props.user ? FullPost : Login}
+            />
 
-          <Route path="/posts/new" exact component={NewPost} />
-          <Route path="/posts/:id/edit" component={EditPost} />
-          <Route component={NotFound} />
-        </Switch>
+            <Route
+              path="/posts/new"
+              exact
+              component={props.user ? NewPost : Login}
+            />
+            <Route
+              path="/posts/:id/edit"
+              component={props.user ? EditPost : Login}
+            />
+            <Route component={NotFound} />
+          </Switch>
+        </div>
       </CSSTransition>
     </TransitionGroup>
   );

@@ -78,7 +78,6 @@ export const addPost = body => {
 };
 
 export const deletePost = postid => {
-  console.log("reducer::postid", postid);
   return {
     type: DELETE_POST,
     payload: axios
@@ -93,8 +92,6 @@ export const deletePost = postid => {
 };
 
 export const updatePost = (postid, body) => {
-  console.log("postid: ", postid);
-  console.log("body: ", body);
   return {
     type: UPDATE_POST,
     payload: axios
@@ -115,7 +112,6 @@ export const likeButtonPressed = () => {
 };
 
 export default function postReducer(state = initialState, action) {
-  console.log("state: ", state);
   switch (action.type) {
     case `${GET_POSTS}_PENDING`:
       return { ...state, loading: true };
@@ -139,7 +135,6 @@ export default function postReducer(state = initialState, action) {
       return { ...state, loading: true };
     case `${GET_POST}_FULFILLED`:
       if (Array.isArray(action.payload)) {
-        console.log("action.payload: ", action.payload);
         return {
           ...state,
           error: null,

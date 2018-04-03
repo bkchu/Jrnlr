@@ -87,7 +87,6 @@ class EditPost extends Component {
         );
       }
       let { imageobj } = selectedPost[0];
-      console.log("imageobj: ", imageobj);
       comp = (
         <div className="EditPost container">
           <h1 className="EditPost__header">Edit Post</h1>
