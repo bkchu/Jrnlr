@@ -103,4 +103,19 @@
 
 .FullPost__like-symbol {
   margin-right: 5px;
+  cursor: pointer;
+  /* transition: all 100ms cubic-bezier(0.165, 0.84, 0.44, 1) infinite; */
+}
+
+.FullPost__like-symbol:hover {
+  animation: 200ms wiggle 1 cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+
+@keyframes wiggle {
+  33% {
+    transform: rotate(10deg);
+  }
+  66% {
+    transform: rotate(-10deg);
+  }
 }

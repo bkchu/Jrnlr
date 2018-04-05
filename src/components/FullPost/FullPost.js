@@ -14,7 +14,7 @@ import { toggleLike } from "../../redux/ducks/likeReducer";
 
 import Error from "../Error/Error";
 class FullPost extends Component {
-  componentWillMount() {
+  componentDidMount() {
     this.props.getPost(this.props.match.params.postid);
   }
 
