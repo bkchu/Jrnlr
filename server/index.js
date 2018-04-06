@@ -13,6 +13,7 @@ const userCtrl = require("./controllers/userController");
 const postCtrl = require("./controllers/postController");
 const followCtrl = require("./controllers/followController");
 const likeCtrl = require("./controllers/likeController");
+const commentCtrl = require("./controllers/commentController");
 
 const app = express();
 
@@ -119,6 +120,12 @@ app.delete("/api/follows/:authid", authenticated, followCtrl.removeFollow);
 // likes endpoints
 app.post("/api/likes/:postid", authenticated, likeCtrl.addLike);
 app.delete("/api/likes/:postid", authenticated, likeCtrl.removeLike);
+
+// comments endpoints
+app.get("/api/posts/:id/comments", authenticated, commentCtrl.getComments);
+app.post("/api/posts/:id/comments", authenticated, commentCtrl.addComment);
+app.put("/api/comments/:id", authenticated, commentCtrl.updateComment);
+app.delete("/api/comments/:id", authenticated, commentCtrl.deleteComment);
 
 // app.get("*", (req, res) => {
 //   res.sendFile(path.join(__dirname, "../build/index.html"));

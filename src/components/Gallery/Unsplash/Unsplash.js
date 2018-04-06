@@ -58,7 +58,7 @@ class Unsplash extends Component {
         <form className="Unsplash__form" onSubmit={this.onSubmitHandler}>
           <input
             className="Unsplash__input"
-            placeholder="Search Unsplash then press 'Enter'"
+            placeholder="Search for photos then press 'Enter'"
             onChange={this.onChangeHandler}
             type="text"
           />

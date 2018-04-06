@@ -4,7 +4,6 @@ import { Link } from "react-router-dom";
 import moment from "moment";
 import FontAwesome from "react-fontawesome";
 
-import "./FullPost.css";
 import {
   getPost,
   deletePost,
@@ -12,8 +11,15 @@ import {
 } from "../../redux/ducks/postReducer";
 import { toggleLike } from "../../redux/ducks/likeReducer";
 
+import "./FullPost.css";
+
 import Error from "../Error/Error";
+import Comments from "./Comments/Comments";
 class FullPost extends Component {
+  state = {
+    showComments: false
+  };
+
   componentDidMount() {
     this.props.getPost(this.props.match.params.postid);
   }
@@ -31,6 +37,14 @@ class FullPost extends Component {
     thumbsUp.setAttribute("data-prefix", !this.props.userLiked ? "fas" : "far");
   };
 
+  onCommentDisplayHandler = () => {
+    this.setState(prevState => {
+      return {
+        showComments: !prevState.showComments
+      };
+    });
+  };
+
   componentWillUnmount() {
     let changed = this.props.selectedPost[0].userLiked !== this.props.userLiked;
     if (changed) {
@@ -46,13 +60,14 @@ class FullPost extends Component {
     let displayPost = <div className="FullPost" />;
 
     if (selectedPost && !error && !loading) {
-      let { title, date, body, imageobj, userid } = selectedPost[0];
+      let { title, date, name, body, imageobj, userid } = selectedPost[0];
       let { numLikes } = this.props;
       let image = JSON.parse(imageobj);
       let likeButton = <FontAwesome name="thumbs-up" />;
 
       displayPost = (
         <div className="FullPost fade-in">
+          <p className="FullPost__name">{name}</p>
           <h1 className="FullPost__title">{title}</h1>
           <p className="FullPost__date">
             {moment(date).format("MMM DD, YYYY")}
@@ -86,8 +101,16 @@ class FullPost extends Component {
                 </div>
                 {numLikes}
               </div>
-              <div className="FullPost__comments">Comment</div>
+              <div
+                className="FullPost__comments"
+                onClick={this.onCommentDisplayHandler}
+              >
+                Comment
+              </div>
             </div>
+            {this.state.showComments && (
+              <Comments postid={this.props.match.params.postid} />
+            )}
           </div>
         </div>
       );

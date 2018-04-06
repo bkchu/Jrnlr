@@ -46,14 +46,8 @@ class Users extends Component {
 
   render() {
     let { users, loadingUsers, following, loadingFollows } = this.props;
-
     let displayUsers = <div className="Users__users" />;
 
-    // if (following.length !== 0 && !loadingFollows) {
-
-    // }
-
-    //TODO: add following prop to User
     if (users.length !== 0 && !loadingUsers && !loadingFollows) {
       displayUsers = (
         <div className="Users__users fade-in">

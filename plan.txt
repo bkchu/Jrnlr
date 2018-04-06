@@ -39,6 +39,9 @@ GET '/api/follows/' - retrives all users' following
 POST '/api/follows/:authid' - follows user by users.authid
 DELETE '/api/follows/:authid' - unfollows user by users.authid
 
+---COMMENTS---
+GET '/api/posts/:id/comments/' - retrieves all comments for given postid
+POST '/api/posts/:id/comments/' - adds a comment
 
 
 //Profile from passport

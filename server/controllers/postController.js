@@ -4,11 +4,10 @@ module.exports = {
     db
       //TODO
       .getPosts([req.session.passport.user.id])
-      // .getPosts([14])
       .then(response => {
         res.status(200).json(response);
       })
-      .catch(error => console.log(error));
+      .catch(err => console.log(err));
   },
   getPostsByUserId: (req, res, next) => {
     const db = req.app.get("db");
@@ -17,28 +16,27 @@ module.exports = {
       .then(response => {
         res.status(200).json(response);
       })
-      .catch(error => console.log(error));
+      .catch(err => console.log(err));
   },
   getPost: (req, res, next) => {
     const db = req.app.get("db");
     db
       .getPost([req.params.id])
-      .then(response1 => {
-        console.log("response1: ", response1);
+      .then(post => {
         db
           .getLikes([req.params.id])
-          .then(response2 => {
-            let index = response2.findIndex(
+          .then(likes => {
+            let index = likes.findIndex(
               like => +like.userid === req.session.passport.user.id
             );
-            response1[0]["numLikes"] = response2.length;
-            response1[0]["likes"] = response2;
-            response1[0]["userLiked"] = index !== -1;
-            res.status(200).json(response1);
+            post[0]["numLikes"] = likes.length;
+            post[0]["likes"] = likes;
+            post[0]["userLiked"] = index !== -1;
+            res.status(200).json(post);
           })
           .catch(err => console.log(err));
       })
-      .catch(error => console.log(error));
+      .catch(err => console.log(err));
   },
   addPost: (req, res, next) => {
     const db = req.app.get("db");
@@ -52,7 +50,7 @@ module.exports = {
       .then(response => {
         res.status(200).json(response);
       })
-      .catch(error => console.log(error));
+      .catch(err => console.log(err));
   },
   deletePost: (req, res, next) => {
     const db = req.app.get("db");
