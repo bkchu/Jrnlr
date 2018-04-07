@@ -1,9 +1,42 @@
 .Unsplash {
   grid-area: g;
+  text-decoration: none;
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+  font-size: 0.8rem;
+}
+
+.Unsplash__search {
+  display: flex;
+  align-items: center;
 }
 
 .Unsplash__form {
-  width: 100%;
+  flex: 1;
+  margin-right: 10px;
+}
+
+.Unsplash__random {
+  margin-top: 10px;
+  margin-left: 10px;
+  background-color: white;
+  border: 1px solid var(--light-gray);
+  border-radius: 3px;
+  transition: all 100ms cubic-bezier(0.4, 0, 0.2, 1);
+  outline: none;
+  margin-bottom: 10px;
+  padding: 20px;
+  color: var(--gray);
+}
+
+.Unsplash__random:hover {
+  border: 1px solid white;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1), 0 8px 5px rgba(0, 0, 0, 0.05);
+}
+.Unsplash__random:active {
+  border: 1px solid var(--light-gray);
+  box-shadow: none;
+  transform: scale(0.98);
 }
 
 .Unsplash__input {
@@ -19,7 +52,8 @@
 }
 
 .Unsplash__input:focus {
-  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2), 0 0 0 1px rgba(0, 0, 0, 0.08);
+  border: 1px solid white;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1), 0 8px 5px rgba(0, 0, 0, 0.05);
 }
 
 .Unsplash__mini-image {
@@ -28,13 +62,13 @@
   height: 150px;
   object-fit: cover;
   cursor: pointer;
-  transition: all 200ms;
+  transition: all 100ms;
 }
 
 .Unsplash__mini-image:hover {
-  transform: scale(1.05);
+  transform: scale(1.02);
 }
 
 .Unsplash__mini-image:active {
-  transform: scale(0.95);
+  transform: scale(0.98);
 }

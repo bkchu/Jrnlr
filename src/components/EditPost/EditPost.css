@@ -5,12 +5,15 @@
 }
 
 .EditPost__header {
-  font-size: 1rem;
+  font-size: 0.75rem;
   font-weight: normal;
   color: var(--gray);
   margin-bottom: 20px;
   border-left: 2px solid var(--light-gray);
   padding-left: 20px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  letter-spacing: 1px;
 }
 
 .EditPost__input {
@@ -23,7 +26,8 @@
 }
 
 .EditPost__input:focus {
-  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2), 0 0 0 1px rgba(0, 0, 0, 0.08);
+  border: 1px solid white;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1), 0 8px 5px rgba(0, 0, 0, 0.05);
 }
 
 .EditPost__input.EditPost__input--title {
@@ -35,6 +39,11 @@
 }
 
 .EditPost__submit {
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
   background: white;
   border: 1px solid var(--gray);
   border-radius: 4px;

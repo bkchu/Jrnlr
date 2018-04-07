@@ -105,7 +105,7 @@ class FullPost extends Component {
                 className="FullPost__comments"
                 onClick={this.onCommentDisplayHandler}
               >
-                Comment
+                <i className="fas fa-comments" />
               </div>
             </div>
             {this.state.showComments && (

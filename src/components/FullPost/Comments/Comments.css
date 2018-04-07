@@ -24,6 +24,7 @@
 }
 
 .Comments__input {
+  font-size: 0.8rem;
   margin-top: 10px;
   width: 100%;
   border: 1px solid var(--light-gray);
@@ -35,5 +36,6 @@
 }
 
 .Comments__input:focus {
-  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2), 0 0 0 1px rgba(0, 0, 0, 0.08);
+  border: 1px solid white;
+  box-shadow: 0 19px 38px rgba(0, 0, 0, 0.1), 0 15px 12px rgba(0, 0, 0, 0.05);
 }

@@ -15,6 +15,9 @@ class Comment extends Component {
     editing: false,
     value: ""
   };
+
+  componentDidMount() {}
+
   shouldComponentUpdate(nextProps, nextState) {
     if (this.props.userid !== nextProps.userid) {
       return true;
@@ -97,7 +100,7 @@ class Comment extends Component {
               <i className="fas fa-pencil-alt" />
             </div>
             <div className="Comment__button" onClick={this.onDeleteHandler}>
-              <i class="fas fa-trash-alt" />
+              <i className="fas fa-trash-alt" />
             </div>
           </div>
         )}

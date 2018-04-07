@@ -33,6 +33,21 @@ class Unsplash extends Component {
     this.setState({ query: e.target.value });
   };
 
+  onRandomImageHandler = () => {
+    axios
+      .get(
+        `https://api.unsplash.com/photos/random?client_id=${
+          process.env.REACT_APP_CLIENT_ID
+        }`
+      )
+      .then(res => {
+        this.props.setImage(res.data);
+      })
+      .catch(err => {
+        console.log("Error happened during fetching!", err);
+      });
+  };
+
   render() {
     let unsplashContainer = <div className="Unsplash__images">Loading...</div>;
     if (this.state.images) {
@@ -55,15 +70,24 @@ class Unsplash extends Component {
 
     return (
       <div className="Unsplash">
-        <form className="Unsplash__form" onSubmit={this.onSubmitHandler}>
-          <input
-            className="Unsplash__input"
-            placeholder="Search for photos then press 'Enter'"
-            onChange={this.onChangeHandler}
-            type="text"
-          />
-          {unsplashContainer}
-        </form>
+        <div className="Unsplash__search">
+          <form className="Unsplash__form" onSubmit={this.onSubmitHandler}>
+            <input
+              className="Unsplash__input"
+              placeholder="Search for photos then press 'Enter'"
+              onChange={this.onChangeHandler}
+              type="text"
+            />
+          </form>{" "}
+          - or -{" "}
+          <button
+            className="Unsplash__random"
+            onClick={this.onRandomImageHandler}
+          >
+            Random
+          </button>
+        </div>
+        {unsplashContainer}
       </div>
     );
   }

@@ -6,10 +6,16 @@
     "o u"
     "g g"
     "i i";
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+  text-transform: uppercase;
+  font-size: 0.75rem;
 }
 
 .Gallery__button {
   background: white;
+  text-transform: uppercase;
+  letter-spacing: 2px;
   border: 1px solid var(--light-gray);
   border-radius: 4px;
   padding: 20px;
