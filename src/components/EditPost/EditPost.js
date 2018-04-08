@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
+import { toast, ToastContainer } from "react-toastify";
 
 import { getPost, updatePost } from "../../redux/ducks/postReducer";
 import Gallery from "../Gallery/Gallery";
@@ -21,13 +22,30 @@ class EditPost extends Component {
 
   onSubmitHandler = e => {
     let { title, body, imgobj } = this.state;
-    this.props.updatePost(this.props.match.params.id, {
-      title,
-      body,
-      imgobj
-    });
-
-    this.props.history.push("/");
+    if (title !== "" && body !== "" && Object.keys(imgobj).length !== 0) {
+      this.props.updatePost(this.props.match.params.id, {
+        title,
+        body,
+        imgobj
+      });
+      this.props.history.push("/");
+    } else {
+      if (title === "") {
+        if (!toast.isActive(this.titleToast)) {
+          this.titleToast = toast.error("Cannot leave title empty.");
+        }
+      }
+      if (body === "") {
+        if (!toast.isActive(this.bodyToast)) {
+          this.bodyToast = toast.error("Cannot leave body empty.");
+        }
+      }
+      if (Object.keys(imgobj).length === 0) {
+        if (!toast.isActive(this.imageToast)) {
+          this.imageToast = toast.warn("Please choose an image.");
+        }
+      }
+    }
   };
 
   titleChangeHandler = e => {
@@ -112,7 +130,12 @@ class EditPost extends Component {
       comp = <p>Loading...</p>;
     }
 
-    return <div>{comp}</div>;
+    return (
+      <div>
+        {comp}
+        <ToastContainer />
+      </div>
+    );
   }
 }
 
