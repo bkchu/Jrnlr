@@ -15,6 +15,15 @@ module.exports = {
       })
       .catch(err => console.log(err));
   },
+  getUsersFollows: (req, res, next) => {
+    const db = req.app.get("db");
+    db
+      .getUsersFollows([req.session.passport.user.id])
+      .then(response => {
+        res.status(200).json(response);
+      })
+      .catch(err => console.log(err));
+  },
   logoutUser: (req, res, next) => {
     req.logout();
     req.session.destroy(() => {

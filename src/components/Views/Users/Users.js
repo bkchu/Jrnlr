@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { ToastContainer, toast } from "react-toastify";
 
 import User from "./User/User";
-import { getUsers } from "../../../redux/ducks/userReducer";
+import { getUsers, getAllUsersFollows } from "../../../redux/ducks/userReducer";
 import { getFollows } from "../../../redux/ducks/followReducer";
 
 import "./Users.css";
@@ -28,6 +28,8 @@ class Users extends Component {
 
   componentDidMount() {
     this.searchbar.focus();
+    this.props.getAllUsersFollows();
+    this.props.getFollows();
   }
 
   onSubmitHandler = e => {
@@ -100,4 +102,8 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps, { getUsers, getFollows })(Users);
+export default connect(mapStateToProps, {
+  getUsers,
+  getFollows,
+  getAllUsersFollows
+})(Users);
