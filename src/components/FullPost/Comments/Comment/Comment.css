@@ -16,7 +16,7 @@
 
 .Comment__name {
   display: inline-block;
-  font-size: 0.65rem;
+  font-size: 0.7rem;
   color: var(--black);
   margin-right: 5px;
 }
@@ -27,7 +27,7 @@
 
 .Comment__date {
   display: inline-block;
-  font-size: 0.65rem;
+  font-size: 0.7rem;
   color: var(--gray);
 }
 
