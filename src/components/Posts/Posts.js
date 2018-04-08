@@ -32,33 +32,50 @@ class Posts extends Component {
     let { posts, error, loading } = this.props;
 
     let displayPosts = <div className="Posts" />;
-    let profileName = "Loading...";
-    if (posts && posts.length > 0 && !error && !loading) {
-      profileName = this.props.match ? posts[0].name : null;
-      displayPosts = (
-        <div className="Posts fade-in">
-          {posts.map(post => {
-            return (
-              <Post
-                key={post.id}
-                id={post.id}
-                username={post.name}
-                userid={post.userid}
-                title={post.title}
-                date={post.date}
-                body={post.body}
-                image={post.imageobj}
-              />
-            );
-          })}
-        </div>
-      );
+    let profileName = <p className="Posts__profile-name">Loading...</p>;
+    if (posts && !error && !loading) {
+      if (posts.length > 0) {
+        profileName = (
+          <p className="Posts__profile-name">
+            {this.props.match ? posts[0].name : null}
+          </p>
+        );
+        displayPosts = (
+          <div className="Posts fade-in">
+            {posts.map(post => {
+              return (
+                <Post
+                  key={post.id}
+                  id={post.id}
+                  username={post.name}
+                  userid={post.userid}
+                  title={post.title}
+                  date={post.date}
+                  body={post.body}
+                  image={post.imageobj}
+                />
+              );
+            })}
+          </div>
+        );
+      } else if (posts.length === 0) {
+        profileName = null;
+        displayPosts = (
+          <div className="Posts__no-posts">
+            Click the button in the bottom-right section of your screen to
+            create a new post!
+            <br />
+            <br /> Alternatively, click the magnifying glass and look for people
+            to follow.
+          </div>
+        );
+      }
     } else if (error && error.status === 401) {
       displayPosts = <Error error={error} />;
     }
     return (
       <div className="container">
-        <p className="Posts__profile-name">{profileName}</p>
+        {profileName}
         {displayPosts}
         <Link to="/posts/new">
           <button className="Posts__button">+</button>

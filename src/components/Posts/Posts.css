@@ -11,6 +11,13 @@
   opacity: 1;
 }
 
+.Posts__no-posts {
+  margin-top: calc(50vh - 150px);
+  text-align: center;
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+}
+
 .Posts__profile-name {
   margin-top: 20px;
   font-size: 0.75rem;
