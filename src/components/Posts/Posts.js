@@ -8,10 +8,6 @@ import Error from "../Error/Error";
 import "./Posts.css";
 
 class Posts extends Component {
-  // state = {
-
-  // }
-
   componentDidUpdate(prevProps) {
     if (
       prevProps.match &&
