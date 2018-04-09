@@ -1,32 +1,29 @@
 import React, { Component } from "react";
-import { EditorState } from "draft-js";
 import { Editor } from "react-draft-wysiwyg";
 
-class ControlledEditor extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      editorState: EditorState.createEmpty()
-    };
-  }
+import "../../../node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 
-  onEditorStateChange: Function = editorState => {
-    this.setState({
-      editorState
-    });
+// prettier-ignore
+const content = {"entityMap":{},"blocks":[{"key":"637gr","text":"Replace this text with your own content.","type":"unstyled","depth":0,"inlineStyleRanges":[],"entityRanges":[],"data":{}}]};
+
+class EditorConvertToJSON extends Component {
+  onContentStateChange = contentState => {
+    this.props.contentStateChanged(contentState);
   };
 
   render() {
-    const { editorState } = this.state;
     return (
       <Editor
-        editorState={editorState}
+        initialContentState={
+          this.props.initialContentState
+            ? JSON.parse(this.props.initialContentState)
+            : content
+        }
         wrapperClassName="demo-wrapper"
         editorClassName="demo-editor"
-        onEditorStateChange={this.onEditorStateChange}
+        onContentStateChange={this.onContentStateChange}
       />
     );
   }
 }
-
-export default ControlledEditor;
+export default EditorConvertToJSON;

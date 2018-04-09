@@ -4,6 +4,8 @@ import { Link } from "react-router-dom";
 import moment from "moment";
 import FontAwesome from "react-fontawesome";
 import { toast, ToastContainer } from "react-toastify";
+import draftToHtml from "draftjs-to-html";
+import ReactHtmlParser from "react-html-parser";
 
 import {
   getPost,
@@ -15,6 +17,7 @@ import Error from "../Error/Error";
 import Comments from "./Comments/Comments";
 
 import "./FullPost.css";
+
 class FullPost extends Component {
   state = {
     showComments: false,
@@ -44,7 +47,7 @@ class FullPost extends Component {
     thumbsUp.setAttribute("data-prefix", !this.props.userLiked ? "fas" : "far");
   };
 
-  onCommentDisplayHandler = () => {
+  onCommentToggleHandler = () => {
     this.setState(prevState => {
       return {
         showComments: !prevState.showComments
@@ -72,6 +75,8 @@ class FullPost extends Component {
       let image = JSON.parse(imageobj);
       let likeButton = <FontAwesome name="thumbs-up" />;
 
+      const html = draftToHtml(JSON.parse(body));
+
       displayPost = (
         <div className="FullPost fade-in">
           <p className="FullPost__name">{name}</p>
@@ -96,7 +101,7 @@ class FullPost extends Component {
             </div>
           )}
           <img className="FullPost__image" src={image.imageUrl} alt="" />
-          <p className="FullPost__body">{body}</p>
+          <div className="FullPost__body">{ReactHtmlParser(html)}</div>
           <div className="FullPost__footer">
             <div className="container">
               <div className="FullPost__likes">
@@ -110,7 +115,7 @@ class FullPost extends Component {
               </div>
               <div
                 className="FullPost__comments"
-                onClick={this.onCommentDisplayHandler}
+                onClick={this.onCommentToggleHandler}
               >
                 <i className="fas fa-comments" />
               </div>

@@ -44,7 +44,7 @@ module.exports = {
       .addPost([
         req.session.passport.user.id,
         req.body.title,
-        req.body.body,
+        req.body.contentState,
         req.body.imgobj
       ])
       .then(response => {
@@ -69,7 +69,7 @@ module.exports = {
         req.session.passport.user.id,
         req.params.id,
         req.body.title,
-        req.body.body,
+        req.body.contentState,
         req.body.imgobj
       ])
       .then(response => {

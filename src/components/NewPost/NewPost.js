@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
+import { convertFromRaw } from "draft-js";
 
 import { addPost } from "../../redux/ducks/postReducer";
 import Gallery from "../Gallery/Gallery";
@@ -12,14 +13,19 @@ import "./NewPost.css";
 class NewPost extends Component {
   state = {
     title: "",
-    body: "",
+    contentState: {},
     imgobj: {}
   };
 
   onSubmitHandler = e => {
-    let { title, body, imgobj } = this.state;
-    if (title !== "" && body !== "" && Object.keys(imgobj).length !== 0) {
-      this.props.addPost({ title, body, imgobj });
+    let { title, contentState, imgobj } = this.state;
+    let hasText = convertFromRaw(contentState).hasText();
+    if (title !== "" && hasText && Object.keys(imgobj).length !== 0) {
+      this.props.addPost({
+        title,
+        contentState,
+        imgobj
+      });
       this.props.history.push("/");
     } else {
       if (title === "") {
@@ -27,7 +33,7 @@ class NewPost extends Component {
           this.titleToast = toast.error("Cannot leave title empty.");
         }
       }
-      if (body === "") {
+      if (!hasText) {
         if (!toast.isActive(this.bodyToast)) {
           this.bodyToast = toast.error("Cannot leave body empty.");
         }
@@ -44,8 +50,9 @@ class NewPost extends Component {
     this.setState({ title: e.target.value });
   };
 
-  bodyChangeHandler = e => {
-    this.setState({ body: e.target.value });
+  contentStateChanged = contentState => {
+    console.log("contentState: ", contentState);
+    this.setState({ contentState });
   };
 
   onSelectHandler = image => {
@@ -85,14 +92,14 @@ class NewPost extends Component {
           value={this.state.title}
           placeholder="Your title here..."
         />
-        <Editor />
-        <textarea
+        <Editor contentStateChanged={this.contentStateChanged} />
+        {/* <textarea
           onChange={this.bodyChangeHandler}
           className="NewPost__input NewPost__input--body"
           type="text"
           value={this.state.body}
           placeholder="Your content here..."
-        />
+        /> */}
         <Gallery selected={this.onSelectHandler} />
         <button className="NewPost__submit" onClick={this.onSubmitHandler}>
           + Add Post

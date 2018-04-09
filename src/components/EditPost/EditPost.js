@@ -2,16 +2,21 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
+import { convertFromRaw } from "draft-js";
 
 import { getPost, updatePost } from "../../redux/ducks/postReducer";
 import Gallery from "../Gallery/Gallery";
 import Error from "../Error/Error";
+import Editor from "../Editor/Editor";
+
 import "./EditPost.css";
 
 class EditPost extends Component {
   state = {
     title: this.props.selectedPost ? this.props.selectedPost[0].title : "",
-    body: this.props.selectedPost ? this.props.selectedPost[0].body : "",
+    contentState: this.props.selectedPost
+      ? this.props.selectedPost[0].contentState
+      : {},
     imgobj: this.props.selectedPost ? this.props.selectedPost[0].imageobj : {},
     userid: this.props.selectedPost ? this.props.selectedPost[0].userid : null
   };
@@ -21,11 +26,12 @@ class EditPost extends Component {
   }
 
   onSubmitHandler = e => {
-    let { title, body, imgobj } = this.state;
-    if (title !== "" && body !== "" && Object.keys(imgobj).length !== 0) {
+    let { title, contentState, imgobj } = this.state;
+    let hasText = convertFromRaw(contentState).hasText();
+    if (title !== "" && hasText && Object.keys(imgobj).length !== 0) {
       this.props.updatePost(this.props.match.params.id, {
         title,
-        body,
+        contentState,
         imgobj
       });
       this.props.history.push("/");
@@ -35,7 +41,7 @@ class EditPost extends Component {
           this.titleToast = toast.error("Cannot leave title empty.");
         }
       }
-      if (body === "") {
+      if (!hasText) {
         if (!toast.isActive(this.bodyToast)) {
           this.bodyToast = toast.error("Cannot leave body empty.");
         }
@@ -52,8 +58,8 @@ class EditPost extends Component {
     this.setState({ title: e.target.value });
   };
 
-  bodyChangeHandler = e => {
-    this.setState({ body: e.target.value });
+  contentStateChanged = contentState => {
+    this.setState({ contentState });
   };
 
   onSelectHandler = image => {
@@ -91,8 +97,6 @@ class EditPost extends Component {
       comp = <div className="EditPost" />;
     } else if (selectedPost && selectedPost.length > 0 && !error && !loading) {
       if (this.state.userid !== this.props.user.id) {
-        console.log("this.state.userid: ", this.state.userid);
-        console.log("this.props.user.id: ", this.props.user.id);
         return (
           <div>
             <Error
@@ -114,11 +118,15 @@ class EditPost extends Component {
             type="text"
             value={this.state.title}
           />
-          <textarea
+          {/* <textarea
             onChange={this.bodyChangeHandler}
             className="EditPost__input EditPost__input--body"
             type="text"
             value={this.state.body}
+          /> */}
+          <Editor
+            initialContentState={selectedPost[0].body}
+            contentStateChanged={this.contentStateChanged}
           />
           <Gallery editing={imageobj} selected={this.onSelectHandler} />
           <button className="EditPost__submit" onClick={this.onSubmitHandler}>
