@@ -22,6 +22,23 @@ class EditorConvertToJSON extends Component {
         wrapperClassName="demo-wrapper"
         editorClassName="demo-editor"
         onContentStateChange={this.onContentStateChange}
+        toolbar={{
+          fontFamily: {
+            options: [
+              "Arial",
+              "Georgia",
+              "Impact",
+              "Tahoma",
+              "Times New Roman",
+              "Verdana",
+              "Roboto",
+              "Lucida Sans"
+            ],
+            className: undefined,
+            component: undefined,
+            dropdownClassName: undefined
+          }
+        }}
       />
     );
   }

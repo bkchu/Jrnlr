@@ -15,7 +15,7 @@ class EditPost extends Component {
   state = {
     title: this.props.selectedPost ? this.props.selectedPost[0].title : "",
     contentState: this.props.selectedPost
-      ? this.props.selectedPost[0].contentState
+      ? JSON.parse(this.props.selectedPost[0].body)
       : {},
     imgobj: this.props.selectedPost ? this.props.selectedPost[0].imageobj : {},
     userid: this.props.selectedPost ? this.props.selectedPost[0].userid : null
