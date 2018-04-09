@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import moment from "moment";
 import FontAwesome from "react-fontawesome";
+import { toast, ToastContainer } from "react-toastify";
 
 import {
   getPost,
@@ -10,14 +11,14 @@ import {
   likeButtonPressed
 } from "../../redux/ducks/postReducer";
 import { toggleLike } from "../../redux/ducks/likeReducer";
-
-import "./FullPost.css";
-
 import Error from "../Error/Error";
 import Comments from "./Comments/Comments";
+
+import "./FullPost.css";
 class FullPost extends Component {
   state = {
-    showComments: false
+    showComments: false,
+    deleteConfirmation: 0
   };
 
   componentDidMount() {
@@ -25,8 +26,14 @@ class FullPost extends Component {
   }
 
   onDeleteHandler = () => {
-    this.props.deletePost(this.props.match.params.postid);
-    this.props.history.push("/");
+    if (this.state.deleteConfirmation !== 1) {
+      toast.warn("Press again to delete.");
+      this.setState({ deleteConfirmation: 1 });
+    } else {
+      this.props.deletePost(this.props.match.params.postid);
+      this.props.history.push("/");
+      this.setState({ deleteConfirmation: 0 });
+    }
   };
 
   onLikeHandler = () => {
@@ -120,7 +127,10 @@ class FullPost extends Component {
 
     return (
       <div>
-        <div className="container">{displayPost}</div>
+        <div className="container">
+          {displayPost}
+          <ToastContainer />
+        </div>
       </div>
     );
   }

@@ -5,6 +5,8 @@ import { toast, ToastContainer } from "react-toastify";
 
 import { addPost } from "../../redux/ducks/postReducer";
 import Gallery from "../Gallery/Gallery";
+import Editor from "../Editor/Editor";
+
 import "./NewPost.css";
 
 class NewPost extends Component {
@@ -83,6 +85,7 @@ class NewPost extends Component {
           value={this.state.title}
           placeholder="Your title here..."
         />
+        <Editor />
         <textarea
           onChange={this.bodyChangeHandler}
           className="NewPost__input NewPost__input--body"

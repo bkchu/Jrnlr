@@ -29,7 +29,7 @@ class Posts extends Component {
   }
 
   render() {
-    let { posts, error, loading } = this.props;
+    let { posts, error, loading, user } = this.props;
 
     let displayPosts = <div className="Posts" />;
     let profileName = <p className="Posts__profile-name">Loading...</p>;
@@ -60,15 +60,23 @@ class Posts extends Component {
         );
       } else if (posts.length === 0) {
         profileName = null;
-        displayPosts = (
-          <div className="Posts__no-posts">
-            Click the button in the bottom-right section of your screen to
-            create a new post!
-            <br />
-            <br /> Alternatively, click the magnifying glass and look for people
-            to follow.
-          </div>
-        );
+        if (this.props.match && this.props.match.path === "/users/:userid") {
+          displayPosts = (
+            <div className="Posts__no-posts">
+              This user hasn't posted anything yet!
+            </div>
+          );
+        } else {
+          displayPosts = (
+            <div className="Posts__no-posts">
+              Click the button in the bottom-right section of your screen to
+              create a new post!
+              <br />
+              <br /> Alternatively, click the magnifying glass and look for
+              people to follow.
+            </div>
+          );
+        }
       }
     } else if (error && error.status === 401) {
       displayPosts = <Error error={error} />;
@@ -89,7 +97,8 @@ const mapStateToProps = state => {
   return {
     posts: state.postReducer.posts,
     error: state.postReducer.error,
-    loading: state.postReducer.loading
+    loading: state.postReducer.loading,
+    user: state.userReducer.user
   };
 };
 
