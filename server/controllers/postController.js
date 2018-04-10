@@ -11,12 +11,26 @@ module.exports = {
   },
   getPostsByUserId: (req, res, next) => {
     const db = req.app.get("db");
-    db
-      .getPostsByUserId([req.params.userid])
-      .then(response => {
-        res.status(200).json(response);
-      })
-      .catch(err => console.log(err));
+    console.log("req.session.passport.user.id: ", req.session.passport.user.id);
+    console.log("req.params.userid: ", req.params.userid);
+    if (+req.params.userid === +req.session.passport.user.id) {
+      db
+        .getPostsByUserId([req.params.userid])
+        .then(response => {
+          res.status(200).json(response);
+        })
+        .catch(err => console.log(err));
+    } else {
+      db
+        .getPostsByUserId([req.params.userid])
+        .then(response => {
+          let allPublicPostsById = response.filter(
+            post => post.privacy === false
+          );
+          res.status(200).json(allPublicPostsById);
+        })
+        .catch(err => console.log(err));
+    }
   },
   getPost: (req, res, next) => {
     const db = req.app.get("db");
@@ -45,7 +59,8 @@ module.exports = {
         req.session.passport.user.id,
         req.body.title,
         req.body.contentState,
-        req.body.imgobj
+        req.body.imgobj,
+        req.body.privacy
       ])
       .then(response => {
         res.status(200).json(response);
@@ -70,7 +85,8 @@ module.exports = {
         req.params.id,
         req.body.title,
         req.body.contentState,
-        req.body.imgobj
+        req.body.imgobj,
+        req.body.privacy
       ])
       .then(response => {
         res.status(200).json(response);

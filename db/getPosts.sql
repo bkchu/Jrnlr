@@ -10,4 +10,5 @@ WHERE p.userid IN (
     WHERE u.id = $1
   )
 )
+AND p.privacy = false
 ORDER BY date DESC;

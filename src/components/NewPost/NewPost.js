@@ -14,17 +14,19 @@ class NewPost extends Component {
   state = {
     title: "",
     contentState: {},
-    imgobj: {}
+    imgobj: {},
+    privacy: false
   };
 
   onSubmitHandler = e => {
-    let { title, contentState, imgobj } = this.state;
+    let { title, contentState, imgobj, privacy } = this.state;
     let hasText = convertFromRaw(contentState).hasText();
     if (title !== "" && hasText && Object.keys(imgobj).length !== 0) {
       this.props.addPost({
         title,
         contentState,
-        imgobj
+        imgobj,
+        privacy
       });
       this.props.history.push("/");
     } else {
@@ -55,7 +57,7 @@ class NewPost extends Component {
     this.setState({ contentState });
   };
 
-  onSelectHandler = image => {
+  onImageSelectHandler = image => {
     let imgobj = {
       imageUrl: "",
       imageUser: "",
@@ -81,6 +83,14 @@ class NewPost extends Component {
     this.setState({ imgobj });
   };
 
+  togglePrivacyHandler = () => {
+    this.setState(prevState => {
+      return {
+        privacy: !prevState.privacy
+      };
+    });
+  };
+
   render() {
     let comp = (
       <div className="NewPost container">
@@ -100,10 +110,21 @@ class NewPost extends Component {
           value={this.state.body}
           placeholder="Your content here..."
         /> */}
-        <Gallery selected={this.onSelectHandler} />
-        <button className="NewPost__submit" onClick={this.onSubmitHandler}>
-          + Add Post
-        </button>
+        <Gallery selected={this.onImageSelectHandler} />
+        <div className="NewPost__buttons">
+          <button
+            className="NewPost__button NewPost__button--privacy"
+            onClick={this.togglePrivacyHandler}
+          >
+            {this.state.privacy ? "Private" : "Public"}
+          </button>
+          <button
+            className="NewPost__button NewPost__button--publish"
+            onClick={this.onSubmitHandler}
+          >
+            + Add Post
+          </button>
+        </div>
       </div>
     );
 

@@ -18,7 +18,10 @@ class EditPost extends Component {
       ? JSON.parse(this.props.selectedPost[0].body)
       : {},
     imgobj: this.props.selectedPost ? this.props.selectedPost[0].imageobj : {},
-    userid: this.props.selectedPost ? this.props.selectedPost[0].userid : null
+    userid: this.props.selectedPost ? this.props.selectedPost[0].userid : null,
+    privacy: this.props.selectedPost
+      ? this.props.selectedPost[0].privacy
+      : false
   };
 
   componentDidMount() {
@@ -26,13 +29,14 @@ class EditPost extends Component {
   }
 
   onSubmitHandler = e => {
-    let { title, contentState, imgobj } = this.state;
+    let { title, contentState, imgobj, privacy } = this.state;
     let hasText = convertFromRaw(contentState).hasText();
     if (title !== "" && hasText && Object.keys(imgobj).length !== 0) {
       this.props.updatePost(this.props.match.params.id, {
         title,
         contentState,
-        imgobj
+        imgobj,
+        privacy
       });
       this.props.history.push("/");
     } else {
@@ -88,6 +92,14 @@ class EditPost extends Component {
     this.setState({ imgobj });
   };
 
+  togglePrivacyHandler = () => {
+    this.setState(prevState => {
+      return {
+        privacy: !prevState.privacy
+      };
+    });
+  };
+
   render() {
     let { selectedPost, error, loading } = this.props;
 
@@ -129,9 +141,20 @@ class EditPost extends Component {
             contentStateChanged={this.contentStateChanged}
           />
           <Gallery editing={imageobj} selected={this.onSelectHandler} />
-          <button className="EditPost__submit" onClick={this.onSubmitHandler}>
-            Publish Updates
-          </button>
+          <div className="EditPost__buttons">
+            <button
+              className="EditPost__button EditPost__button--privacy"
+              onClick={this.togglePrivacyHandler}
+            >
+              {this.state.privacy ? "Private" : "Public"}
+            </button>
+            <button
+              className="EditPost__button EditPost__button--publish"
+              onClick={this.onSubmitHandler}
+            >
+              Publish Updates
+            </button>
+          </div>
         </div>
       );
     } else {
