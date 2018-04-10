@@ -4,12 +4,8 @@ import { Link } from "react-router-dom";
 
 import "./Post.css";
 
-const Post = ({ id, userid, username, title, date, body, image }) => {
+const Post = ({ id, userid, username, title, subtitle, date, body, image }) => {
   let imageObj = JSON.parse(image);
-  let bodyShort = body
-    .split("")
-    .slice(0, 150)
-    .join("");
   return (
     <div className="Post">
       <Link className="Link" to={`/users/${userid}/posts/${id}`}>
@@ -24,7 +20,7 @@ const Post = ({ id, userid, username, title, date, body, image }) => {
         </div>
         <Link className="Link" to={`/users/${userid}/posts/${id}`}>
           <h1 className="Post__title">{title}</h1>
-          {/* <p className="Post__body">{bodyShort + "..."}</p> */}
+          <p className="Post__subtitle">{subtitle}</p>
         </Link>
       </div>
     </div>

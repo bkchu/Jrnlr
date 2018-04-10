@@ -1,8 +1,9 @@
 UPDATE post 
 SET title = $3,
-    body = $4,
-    imageobj = $5,
-    privacy = $6
+    subtitle = $4,
+    body = $5,
+    imageobj = $6,
+    privacy = $7
 WHERE id = $2;
 SELECT * FROM post p
 WHERE p.userid = $1

@@ -236,7 +236,7 @@ legend {
   display: table; /* 1 */
   max-width: 100%; /* 1 */
   padding: 0; /* 3 */
-  var(--white)-space: normal; /* 1 */
+  white-space: normal; /* 1 */
 }
 
 /**

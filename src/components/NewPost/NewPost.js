@@ -13,17 +13,19 @@ import "./NewPost.css";
 class NewPost extends Component {
   state = {
     title: "",
+    subtitle: "",
     contentState: {},
     imgobj: {},
     privacy: false
   };
 
   onSubmitHandler = e => {
-    let { title, contentState, imgobj, privacy } = this.state;
+    let { title, subtitle, contentState, imgobj, privacy } = this.state;
     let hasText = convertFromRaw(contentState).hasText();
     if (title !== "" && hasText && Object.keys(imgobj).length !== 0) {
       this.props.addPost({
         title,
+        subtitle,
         contentState,
         imgobj,
         privacy
@@ -33,6 +35,11 @@ class NewPost extends Component {
       if (title === "") {
         if (!toast.isActive(this.titleToast)) {
           this.titleToast = toast.error("Cannot leave title empty.");
+        }
+      }
+      if (subtitle === "") {
+        if (!toast.isActive(this.subtitleToast)) {
+          this.subtitleToast = toast.error("Cannot leave subtitle empty.");
         }
       }
       if (!hasText) {
@@ -52,8 +59,11 @@ class NewPost extends Component {
     this.setState({ title: e.target.value });
   };
 
+  subtitleChangeHandler = e => {
+    this.setState({ subtitle: e.target.value });
+  };
+
   contentStateChanged = contentState => {
-    console.log("contentState: ", contentState);
     this.setState({ contentState });
   };
 
@@ -102,6 +112,14 @@ class NewPost extends Component {
           value={this.state.title}
           placeholder="Your title here..."
           maxLength="75"
+        />
+        <input
+          onChange={this.subtitleChangeHandler}
+          className="NewPost__input NewPost__input--subtitle"
+          type="text"
+          value={this.state.subtitle}
+          placeholder="Your subtitle here..."
+          maxLength="150"
         />
         <Editor contentStateChanged={this.contentStateChanged} />
         {/* <textarea

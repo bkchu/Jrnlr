@@ -50,6 +50,7 @@ class Posts extends Component {
                   username={post.name}
                   userid={post.userid}
                   title={post.title}
+                  subtitle={post.subtitle}
                   date={post.date}
                   body={post.body}
                   image={post.imageobj}

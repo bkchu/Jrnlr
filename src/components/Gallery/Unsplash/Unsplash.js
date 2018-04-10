@@ -101,7 +101,7 @@ class Unsplash extends Component {
             className="Unsplash__button Unsplash__button--back"
             onClick={this.onPreviousHandler}
           >
-            <i class="fas fa-angle-left" />
+            <i className="fas fa-angle-left" />
           </button>
           {this.state.images.map((image, index) => {
             return (
@@ -118,7 +118,7 @@ class Unsplash extends Component {
             className="Unsplash__button Unsplash__button--next"
             onClick={this.onNextHandler}
           >
-            <i class="fas fa-angle-right" />
+            <i className="fas fa-angle-right" />
           </button>
         </div>
       );

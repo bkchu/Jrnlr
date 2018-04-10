@@ -23,6 +23,8 @@
   outline: none;
   margin-bottom: 10px;
   padding: 20px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
 }
 
 .EditPost__input:focus {
@@ -31,11 +33,12 @@
 }
 
 .EditPost__input.EditPost__input--title {
-  font-size: 2rem;
+  font-size: 1.5rem;
+  font-weight: bolder;
+  line-height: 1.5rem;
 }
-.EditPost__input.EditPost__input--body {
-  resize: none;
-  min-height: 15rem;
+.EditPost__input.EditPost__input--subtitle {
+  font-size: 1rem;
 }
 
 .EditPost__buttons {

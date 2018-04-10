@@ -14,6 +14,9 @@ import "./EditPost.css";
 class EditPost extends Component {
   state = {
     title: this.props.selectedPost ? this.props.selectedPost[0].title : "",
+    subtitle: this.props.selectedPost
+      ? this.props.selectedPost[0].subtitle
+      : "",
     contentState: this.props.selectedPost
       ? JSON.parse(this.props.selectedPost[0].body)
       : {},
@@ -29,11 +32,12 @@ class EditPost extends Component {
   }
 
   onSubmitHandler = e => {
-    let { title, contentState, imgobj, privacy } = this.state;
+    let { title, subtitle, contentState, imgobj, privacy } = this.state;
     let hasText = convertFromRaw(contentState).hasText();
     if (title !== "" && hasText && Object.keys(imgobj).length !== 0) {
       this.props.updatePost(this.props.match.params.id, {
         title,
+        subtitle,
         contentState,
         imgobj,
         privacy
@@ -43,6 +47,11 @@ class EditPost extends Component {
       if (title === "") {
         if (!toast.isActive(this.titleToast)) {
           this.titleToast = toast.error("Cannot leave title empty.");
+        }
+      }
+      if (subtitle === "") {
+        if (!toast.isActive(this.subtitleToast)) {
+          this.subtitleToast = toast.error("Cannot leave subtitle empty.");
         }
       }
       if (!hasText) {
@@ -60,6 +69,9 @@ class EditPost extends Component {
 
   titleChangeHandler = e => {
     this.setState({ title: e.target.value });
+  };
+  subtitleChangeHandler = e => {
+    this.setState({ subtitle: e.target.value });
   };
 
   contentStateChanged = contentState => {
@@ -130,6 +142,13 @@ class EditPost extends Component {
             type="text"
             value={this.state.title}
             maxLength="75"
+          />
+          <input
+            onChange={this.subtitleChangeHandler}
+            className="EditPost__input EditPost__input--subtitle"
+            type="text"
+            value={this.state.subtitle}
+            maxLength="150"
           />
           {/* <textarea
             onChange={this.bodyChangeHandler}

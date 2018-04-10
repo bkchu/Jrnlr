@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Link, withRouter } from "react-router-dom";
-import FontAwesome from "react-fontawesome";
 
 import { getUser, displayedGreeting } from "../../redux/ducks/userReducer";
 import Logo from "../../assets/Journalr.svg";
@@ -42,7 +41,7 @@ class Header extends Component {
               <img className="Header__logo" src={Logo} alt="Journalr Logo" />
             </Link>
             <Link className="Header__search" to="/users">
-              <i class="fas fa-users" />
+              <i className="fas fa-users" />
             </Link>
           </div>
           <div className="Header__right">

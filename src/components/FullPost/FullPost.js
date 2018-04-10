@@ -70,7 +70,15 @@ class FullPost extends Component {
     let displayPost = <div className="FullPost" />;
 
     if (selectedPost && !error && !loading) {
-      let { title, date, name, body, imageobj, userid } = selectedPost[0];
+      let {
+        title,
+        subtitle,
+        date,
+        name,
+        body,
+        imageobj,
+        userid
+      } = selectedPost[0];
       let { numLikes } = this.props;
       let image = JSON.parse(imageobj);
       let likeButton = <FontAwesome name="thumbs-up" />;
@@ -95,6 +103,7 @@ class FullPost extends Component {
         <div className="FullPost fade-in">
           <p className="FullPost__name">{name}</p>
           <h1 className="FullPost__title">{title}</h1>
+          <p className="FullPost__subtitle">{subtitle}</p>
           <p className="FullPost__date">
             {moment(date).format("MMM DD, YYYY")}
           </p>
