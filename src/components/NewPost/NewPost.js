@@ -101,6 +101,7 @@ class NewPost extends Component {
           type="text"
           value={this.state.title}
           placeholder="Your title here..."
+          maxLength="75"
         />
         <Editor contentStateChanged={this.contentStateChanged} />
         {/* <textarea

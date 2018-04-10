@@ -11,8 +11,6 @@ module.exports = {
   },
   getPostsByUserId: (req, res, next) => {
     const db = req.app.get("db");
-    console.log("req.session.passport.user.id: ", req.session.passport.user.id);
-    console.log("req.params.userid: ", req.params.userid);
     if (+req.params.userid === +req.session.passport.user.id) {
       db
         .getPostsByUserId([req.params.userid])

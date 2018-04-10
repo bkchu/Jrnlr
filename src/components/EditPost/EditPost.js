@@ -129,6 +129,7 @@ class EditPost extends Component {
             className="EditPost__input EditPost__input--title"
             type="text"
             value={this.state.title}
+            maxLength="75"
           />
           {/* <textarea
             onChange={this.bodyChangeHandler}
