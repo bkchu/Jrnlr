@@ -8,6 +8,7 @@ const content = {"entityMap":{},"blocks":[{"key":"637gr","text":"Replace this te
 
 class EditorConvertToJSON extends Component {
   onContentStateChange = contentState => {
+    console.log("contentState: ", contentState);
     this.props.contentStateChanged(contentState);
   };
 

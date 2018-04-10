@@ -24,7 +24,7 @@ const Post = ({ id, userid, username, title, date, body, image }) => {
         </div>
         <Link className="Link" to={`/users/${userid}/posts/${id}`}>
           <h1 className="Post__title">{title}</h1>
-          <p className="Post__body">{bodyShort + "..."}</p>
+          {/* <p className="Post__body">{bodyShort + "..."}</p> */}
         </Link>
       </div>
     </div>

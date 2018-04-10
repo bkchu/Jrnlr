@@ -5,7 +5,7 @@ import moment from "moment";
 import FontAwesome from "react-fontawesome";
 import { toast, ToastContainer } from "react-toastify";
 import draftToHtml from "draftjs-to-html";
-import ReactHtmlParser from "react-html-parser";
+import ReactHtmlParser, { convertNodeToElement } from "react-html-parser";
 
 import {
   getPost,
@@ -75,7 +75,22 @@ class FullPost extends Component {
       let image = JSON.parse(imageobj);
       let likeButton = <FontAwesome name="thumbs-up" />;
 
-      const html = draftToHtml(JSON.parse(body));
+      const htmlToParse = draftToHtml(JSON.parse(body));
+      console.log("htmlToParse: ", htmlToParse);
+      const html = ReactHtmlParser(htmlToParse, {
+        transform: (node, index) => {
+          // convert <ul> to <ol>
+          if (
+            node.type === "tag" &&
+            node.name === "p" &&
+            node.children.length === 0
+          ) {
+            node.name = "br";
+            return convertNodeToElement(node, index, this);
+          }
+        }
+      });
+      console.log("html: ", html);
 
       displayPost = (
         <div className="FullPost fade-in">
@@ -101,7 +116,7 @@ class FullPost extends Component {
             </div>
           )}
           <img className="FullPost__image" src={image.imageUrl} alt="" />
-          <div className="FullPost__body">{ReactHtmlParser(html)}</div>
+          <div className="FullPost__body">{html}</div>
           <div className="FullPost__footer">
             <div className="container">
               <div className="FullPost__likes">
