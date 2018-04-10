@@ -1,3 +1,9 @@
 .Editor {
   all: unset;
+  margin-bottom: 20px;
+}
+
+.demo-editor {
+  height: calc(100vh - 250px);
+  overflow-y: auto;
 }
