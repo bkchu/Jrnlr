@@ -26,7 +26,7 @@
 }
 
 .EditPost__input:focus {
-  border: 1px solid white;
+  border: 1px solid var(--white);
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1), 0 8px 5px rgba(0, 0, 0, 0.05);
 }
 
@@ -44,7 +44,7 @@
 
 .EditPost__button {
   flex: 1;
-  background: white;
+  background: var(--white);
   border: 1px solid var(--gray);
   border-radius: 4px;
   padding: 20px;

@@ -37,7 +37,8 @@
   bottom: 30px;
   width: 3rem;
   height: 3rem;
-  background: white;
+  background: var(--white);
+  color: var(--black);
   border: none;
   border-radius: 50%;
   /* box-shadow: var(--box-shadow); */

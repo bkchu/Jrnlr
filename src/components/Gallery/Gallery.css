@@ -13,7 +13,7 @@
 }
 
 .Gallery__button {
-  background: white;
+  background: var(--white);
   text-transform: uppercase;
   letter-spacing: 2px;
   border: 1px solid var(--light-gray);

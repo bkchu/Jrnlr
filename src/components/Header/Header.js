@@ -42,7 +42,7 @@ class Header extends Component {
               <img className="Header__logo" src={Logo} alt="Journalr Logo" />
             </Link>
             <Link className="Header__search" to="/users">
-              <FontAwesome name="search" />
+              <i class="fas fa-users" />
             </Link>
           </div>
           <div className="Header__right">

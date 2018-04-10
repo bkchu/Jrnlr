@@ -7,7 +7,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background: white;
+  background: var(--white);
 }
 
 .Login__body {
@@ -37,7 +37,7 @@
 }
 
 .Login__button:hover {
-  border: 1px solid white;
+  border: 1px solid var(--white);
   box-shadow: 0 19px 38px rgba(0, 0, 0, 0.1), 0 15px 12px rgba(0, 0, 0, 0.05);
 }
 

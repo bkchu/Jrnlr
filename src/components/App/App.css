@@ -43,5 +43,5 @@ h6 {
 
 .Link {
   text-decoration: none;
-  color: black;
+  color: var(--black);
 }

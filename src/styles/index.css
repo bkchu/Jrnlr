@@ -1,4 +1,10 @@
 :root {
+  /* --white: rgba(0, 0, 0, 0.8);
+  --black: rgba(255, 255, 255, 0.789);
+  --gray: rgba(228, 228, 228, 0.54);
+  --light-gray: rgba(148, 148, 148, 0.15);
+  --box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.16), 0 0 0 1px rgba(0, 0, 0, 0.08); */
+  --white: rgba(255, 255, 255, 1);
   --black: rgba(0, 0, 0, 0.84);
   --gray: rgba(0, 0, 0, 0.54);
   --light-gray: rgba(0, 0, 0, 0.15);
@@ -20,6 +26,10 @@ body {
   font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
 }
 
+body {
+  background-color: var(--white);
+}
+
 @media screen and (min-width: 320px) {
   html {
     font-size: calc(16px + 6 * ((100vw - 320px) / 680));
@@ -29,4 +39,9 @@ body {
   html {
     font-size: 22px;
   }
+}
+
+input {
+  background-color: var(--white);
+  color: var(--black);
 }

@@ -4,10 +4,13 @@
   padding: 20px;
   width: 100%;
   border: 1px solid var(--light-gray);
+  background-color: var(--white);
+  color: var(--black);
   margin-bottom: 10px;
 }
 
 .User__username {
+  color: var(--black);
   display: none;
 }
 @media (min-width: 576px) {
@@ -17,7 +20,7 @@
 }
 
 .User__follow-button {
-  background: white;
+  background: var(--white);
   border: none;
   outline: none;
   color: var(--gray);
