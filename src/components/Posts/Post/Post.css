@@ -60,7 +60,7 @@
   text-transform: lowercase;
   color: var(--gray);
   font-weight: normal;
-  letter-spacing: 2px;
+  letter-spacing: 1px;
 }
 
 .Post__title {

@@ -76,7 +76,7 @@ class FullPost extends Component {
       let likeButton = <FontAwesome name="thumbs-up" />;
 
       const htmlToParse = draftToHtml(JSON.parse(body));
-      console.log("htmlToParse: ", htmlToParse);
+
       const html = ReactHtmlParser(htmlToParse, {
         transform: (node, index) => {
           // convert <ul> to <ol>
@@ -90,7 +90,6 @@ class FullPost extends Component {
           }
         }
       });
-      console.log("html: ", html);
 
       displayPost = (
         <div className="FullPost fade-in">

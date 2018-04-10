@@ -29,7 +29,7 @@ class Posts extends Component {
   }
 
   render() {
-    let { posts, error, loading, user } = this.props;
+    let { posts, error, loading } = this.props;
 
     let displayPosts = <div className="Posts" />;
     let profileName = <p className="Posts__profile-name">Loading...</p>;
