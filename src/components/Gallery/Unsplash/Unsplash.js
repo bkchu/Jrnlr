@@ -6,7 +6,8 @@ import "./Unsplash.css";
 class Unsplash extends Component {
   state = {
     query: "",
-    images: []
+    images: [],
+    page: 1
   };
 
   onSubmitHandler = e => {
@@ -19,6 +20,49 @@ class Unsplash extends Component {
       )
       .then(res => {
         this.setState({ images: res.data.results });
+      })
+      .catch(err => {
+        console.log("Error happened during fetching!", err);
+      });
+  };
+
+  onNextHandler = () => {
+    axios
+      .get(
+        `https://api.unsplash.com/search/photos?query=${
+          this.state.query
+        }&page=${this.state.page + 1}&client_id=${
+          process.env.REACT_APP_CLIENT_ID
+        }`
+      )
+      .then(res => {
+        this.setState(prevState => {
+          return {
+            images: res.data.results,
+            page: prevState.page + 1
+          };
+        });
+      })
+      .catch(err => {
+        console.log("Error happened during fetching!", err);
+      });
+  };
+  onPreviousHandler = () => {
+    axios
+      .get(
+        `https://api.unsplash.com/search/photos?query=${
+          this.state.query
+        }&page=${this.state.page - 1}&client_id=${
+          process.env.REACT_APP_CLIENT_ID
+        }`
+      )
+      .then(res => {
+        this.setState(prevState => {
+          return {
+            images: res.data.results,
+            page: prevState.page - 1
+          };
+        });
       })
       .catch(err => {
         console.log("Error happened during fetching!", err);
@@ -50,9 +94,15 @@ class Unsplash extends Component {
 
   render() {
     let unsplashContainer = <div className="Unsplash__images">Loading...</div>;
-    if (this.state.images) {
+    if (this.state.images.length > 0) {
       unsplashContainer = (
         <div className="Unsplash__images fade-in">
+          <button
+            className="Unsplash__button Unsplash__button--back"
+            onClick={this.onPreviousHandler}
+          >
+            <i class="fas fa-angle-left" />
+          </button>
           {this.state.images.map((image, index) => {
             return (
               <img
@@ -64,6 +114,12 @@ class Unsplash extends Component {
               />
             );
           })}
+          <button
+            className="Unsplash__button Unsplash__button--next"
+            onClick={this.onNextHandler}
+          >
+            <i class="fas fa-angle-right" />
+          </button>
         </div>
       );
     }

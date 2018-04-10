@@ -56,9 +56,36 @@
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1), 0 8px 5px rgba(0, 0, 0, 0.05);
 }
 
+.Unsplash__images {
+  opacity: 0;
+  transition: all 200ms linear;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.Unsplash__images.fade-in {
+  opacity: 1;
+}
+
+.Unsplash__button {
+  height: 150px;
+  width: 50px;
+  background-color: white;
+  border: 1px solid var(--light-gray);
+  transition: all 100ms cubic-bezier(0.4, 0, 0.2, 1);
+  outline: none;
+  margin-bottom: 10px;
+}
+
+.Unsplash__button:active {
+  border: 1px solid var(--light-gray);
+  background-color: var(--light-gray);
+}
+
 .Unsplash__mini-image {
   background: black;
   width: 20%;
+  flex: 1;
   height: 150px;
   object-fit: cover;
   cursor: pointer;
