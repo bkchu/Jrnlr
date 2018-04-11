@@ -67,7 +67,7 @@ class NewPost extends Component {
     this.setState({ contentState });
   };
 
-  onImageSelectHandler = image => {
+  onImageSelectHandler = (image, mode) => {
     let imgobj = {
       imageUrl: "",
       imageUser: "",
@@ -75,11 +75,15 @@ class NewPost extends Component {
       imageDownloadUrl: ""
     };
 
-    switch (typeof image) {
-      case "string":
+    const UNSPLASH = 1;
+    const OWN = 2;
+    const GIPHY = 3;
+
+    switch (mode) {
+      case OWN:
         imgobj = { ...imgobj, imageUrl: image };
         break;
-      case "object":
+      case UNSPLASH:
         imgobj = {
           ...imgobj,
           imageUrl: image.urls.regular,
@@ -87,6 +91,9 @@ class NewPost extends Component {
           imageAuthorUsername: image.user.username,
           imageDownloadUrl: image.links.download_location
         };
+        break;
+      case GIPHY:
+        imgobj = { ...imgobj, imageUrl: image.images.original.url };
         break;
       default:
     }

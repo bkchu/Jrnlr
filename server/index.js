@@ -128,6 +128,9 @@ app.post("/api/posts/:id/comments", authenticated, commentCtrl.addComment);
 app.put("/api/comments/:id", authenticated, commentCtrl.updateComment);
 app.delete("/api/comments/:id", authenticated, commentCtrl.deleteComment);
 
+app.get("*", (req, res) => {
+  res.redirect("http://localhost:3000");
+});
 // app.get("*", (req, res) => {
 //   res.sendFile(path.join(__dirname, "../build/index.html"));
 // });

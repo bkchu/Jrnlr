@@ -78,7 +78,7 @@ class EditPost extends Component {
     this.setState({ contentState });
   };
 
-  onSelectHandler = image => {
+  onImageSelectHandler = (image, mode) => {
     let imgobj = {
       imageUrl: "",
       imageUser: "",
@@ -86,11 +86,15 @@ class EditPost extends Component {
       imageDownloadUrl: ""
     };
 
-    switch (typeof image) {
-      case "string":
+    const UNSPLASH = 1;
+    const OWN = 2;
+    const GIPHY = 3;
+
+    switch (mode) {
+      case OWN:
         imgobj = { ...imgobj, imageUrl: image };
         break;
-      case "object":
+      case UNSPLASH:
         imgobj = {
           ...imgobj,
           imageUrl: image.urls.regular,
@@ -98,6 +102,9 @@ class EditPost extends Component {
           imageAuthorUsername: image.user.username,
           imageDownloadUrl: image.links.download_location
         };
+        break;
+      case GIPHY:
+        imgobj = { ...imgobj, imageUrl: image.images.original.url };
         break;
       default:
     }
@@ -160,7 +167,7 @@ class EditPost extends Component {
             initialContentState={selectedPost[0].body}
             contentStateChanged={this.contentStateChanged}
           />
-          <Gallery editing={imageobj} selected={this.onSelectHandler} />
+          <Gallery editing={imageobj} selected={this.onImageSelectHandler} />
           <div className="EditPost__buttons">
             <button
               className="EditPost__button EditPost__button--privacy"

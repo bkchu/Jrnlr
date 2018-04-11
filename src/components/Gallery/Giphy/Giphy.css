@@ -1,4 +1,4 @@
-.Unsplash {
+.Giphy {
   grid-area: g;
   text-decoration: none;
   font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
@@ -6,17 +6,17 @@
   font-size: 0.8rem;
 }
 
-.Unsplash__search {
+.Giphy__search {
   display: flex;
   align-items: center;
 }
 
-.Unsplash__form {
+.Giphy__form {
   flex: 1;
   margin-right: 10px;
 }
 
-.Unsplash__random {
+.Giphy__random {
   margin-top: 10px;
   margin-left: 10px;
   background-color: var(--white);
@@ -29,17 +29,17 @@
   color: var(--gray);
 }
 
-.Unsplash__random:hover {
+.Giphy__random:hover {
   border: 1px solid var(--white);
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1), 0 8px 5px rgba(0, 0, 0, 0.05);
 }
-.Unsplash__random:active {
+.Giphy__random:active {
   border: 1px solid var(--light-gray);
   box-shadow: none;
   transform: scale(0.98);
 }
 
-.Unsplash__input {
+.Giphy__input {
   width: 100%;
   margin-top: 10px;
 
@@ -51,23 +51,23 @@
   padding: 20px;
 }
 
-.Unsplash__input:focus {
+.Giphy__input:focus {
   border: 1px solid var(--white);
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1), 0 8px 5px rgba(0, 0, 0, 0.05);
 }
 
-.Unsplash__images {
+.Giphy__images {
   opacity: 0;
   transition: all 200ms linear;
   display: flex;
   flex-wrap: wrap;
 }
 
-.Unsplash__images.fade-in {
+.Giphy__images.fade-in {
   opacity: 1;
 }
 
-.Unsplash__button {
+.Giphy__button {
   height: 150px;
   width: 50px;
   background-color: var(--white);
@@ -77,12 +77,12 @@
   margin-bottom: 10px;
 }
 
-.Unsplash__button:active {
+.Giphy__button:active {
   border: 1px solid var(--light-gray);
   background-color: var(--light-gray);
 }
 
-.Unsplash__mini-image {
+.Giphy__mini-image {
   background: var(--black);
   width: 15%;
   flex: 1;
@@ -92,10 +92,10 @@
   transition: all 100ms;
 }
 
-.Unsplash__mini-image:hover {
+.Giphy__mini-image:hover {
   transform: scale(1.02);
 }
 
-.Unsplash__mini-image:active {
+.Giphy__mini-image:active {
   transform: scale(0.98);
 }

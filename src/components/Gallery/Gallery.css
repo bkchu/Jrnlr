@@ -1,11 +1,11 @@
 .Gallery {
   display: grid;
-  grid-template-columns: 50% 50%;
+  grid-template-columns: 1fr 1fr 1fr;
   grid-template-rows: auto auto;
   grid-template-areas:
-    "o u"
-    "g g"
-    "i i";
+    "o u j"
+    "g g g"
+    "i i i";
   font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
     "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
   text-transform: uppercase;
@@ -41,6 +41,12 @@
 
 .Gallery__button--unsplash {
   grid-area: u;
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
+.Gallery__button--giphy {
+  grid-area: j;
   margin-left: 5px;
 }
 
