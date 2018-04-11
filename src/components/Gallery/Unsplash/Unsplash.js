@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
+import { toast, ToastContainer } from "react-toastify";
 
 import "./Unsplash.css";
 
@@ -10,7 +11,12 @@ class Unsplash extends Component {
     page: 1
   };
 
+  toastId = null;
+
   onSubmitHandler = e => {
+    if (!toast.isActive(this.toastId)) {
+      this.toastId = toast("Loading...");
+    }
     e.preventDefault();
     axios
       .get(
@@ -27,6 +33,9 @@ class Unsplash extends Component {
   };
 
   onNextHandler = () => {
+    if (!toast.isActive(this.toastId)) {
+      this.toastId = toast("Loading...");
+    }
     axios
       .get(
         `https://api.unsplash.com/search/photos?query=${
@@ -48,6 +57,9 @@ class Unsplash extends Component {
       });
   };
   onPreviousHandler = () => {
+    if (!toast.isActive(this.toastId)) {
+      this.toastId = toast("Loading...");
+    }
     axios
       .get(
         `https://api.unsplash.com/search/photos?query=${
@@ -78,6 +90,9 @@ class Unsplash extends Component {
   };
 
   onRandomImageHandler = () => {
+    if (!toast.isActive(this.toastId)) {
+      this.toastId = toast("Loading...");
+    }
     axios
       .get(
         `https://api.unsplash.com/photos/random?client_id=${
@@ -86,6 +101,12 @@ class Unsplash extends Component {
       )
       .then(res => {
         this.props.setImage(res.data);
+        toast.update(this.toastId, {
+          render: "Done.",
+          type: toast.TYPE.INFO,
+          autoClose: 500,
+          closeButton: null
+        });
       })
       .catch(err => {
         console.log("Error happened during fetching!", err);
@@ -95,6 +116,12 @@ class Unsplash extends Component {
   render() {
     let unsplashContainer = <div className="Unsplash__images">Loading...</div>;
     if (this.state.images.length > 0) {
+      toast.update(this.toastId, {
+        render: "Done.",
+        type: toast.TYPE.INFO,
+        autoClose: 500,
+        closeButton: null
+      });
       unsplashContainer = (
         <div className="Unsplash__images fade-in">
           <button
@@ -144,6 +171,7 @@ class Unsplash extends Component {
           </button>
         </div>
         {unsplashContainer}
+        <ToastContainer autoClose={false} />
       </div>
     );
   }

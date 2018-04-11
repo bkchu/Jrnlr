@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
+import { toast, ToastContainer } from "react-toastify";
 
 import "./Giphy.css";
 
@@ -10,7 +11,12 @@ class Giphy extends Component {
     page: 0
   };
 
+  toastId = null;
+
   onSubmitHandler = e => {
+    if (!toast.isActive(this.toastId)) {
+      this.toastId = toast("Loading...");
+    }
     e.preventDefault();
     axios
       .get(
@@ -27,6 +33,9 @@ class Giphy extends Component {
   };
 
   onNextHandler = () => {
+    if (!toast.isActive(this.toastId)) {
+      this.toastId = toast("Loading...");
+    }
     axios
       .get(
         `http://api.giphy.com/v1/gifs/search?q=${this.state.query}&api_key=${
@@ -47,6 +56,9 @@ class Giphy extends Component {
       });
   };
   onPreviousHandler = () => {
+    if (!toast.isActive(this.toastId)) {
+      this.toastId = toast("Loading...");
+    }
     axios
       .get(
         `http://api.giphy.com/v1/gifs/search?q=${this.state.query}&api_key=${
@@ -75,6 +87,9 @@ class Giphy extends Component {
   };
 
   onRandomImageHandler = () => {
+    if (!toast.isActive(this.toastId)) {
+      this.toastId = toast("Loading...");
+    }
     axios
       .get(
         `http://api.giphy.com/v1/gifs/random?api_key=${
@@ -83,6 +98,12 @@ class Giphy extends Component {
       )
       .then(res => {
         this.props.setImage(res.data.data);
+        toast.update(this.toastId, {
+          render: "Done.",
+          type: toast.TYPE.INFO,
+          autoClose: 500,
+          closeButton: null
+        });
       })
       .catch(err => {
         console.log("Error happened during fetching!", err);
@@ -92,6 +113,12 @@ class Giphy extends Component {
   render() {
     let giphyContainer = <div className="Giphy__images">Loading...</div>;
     if (this.state.images.length > 0) {
+      toast.update(this.toastId, {
+        render: "Done.",
+        type: toast.TYPE.INFO,
+        autoClose: 500,
+        closeButton: null
+      });
       giphyContainer = (
         <div className="Giphy__images fade-in">
           <button
@@ -138,6 +165,7 @@ class Giphy extends Component {
           </button>
         </div>
         {giphyContainer}
+        <ToastContainer autoClose={false} />
       </div>
     );
   }
