@@ -50,7 +50,18 @@
 
 .FullPost__image {
   width: 100%;
+  margin-bottom: 5px;
+}
+
+.FullPost__caption {
   margin-bottom: 20px;
+  text-align: right;
+  font-size: 0.75rem;
+}
+
+.FullPost__image-link {
+  color: var(--gray);
+  text-decoration: none;
 }
 
 .FullPost__buttons {

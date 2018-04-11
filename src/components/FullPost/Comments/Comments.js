@@ -32,30 +32,30 @@ class Comments extends Component {
 
   render() {
     let { comments, loading, error, userLoggedIn } = this.props;
-    let classes = ["Comments"];
     let placeholder = "Write a comment...";
-    let commentsDisplay = <div />;
-    if (comments && !loading && !error) {
-      classes.push("fade-in");
-    }
+    let commentsDisplay = <div className="Comments" />;
     if (comments && comments.length > 0 && !loading && !error) {
-      commentsDisplay = comments.map(comment => {
-        return (
-          <Comment
-            key={comment.id}
-            id={comment.id}
-            postid={this.props.postid}
-            comment={comment}
-            canDisplayCommentOptions={comment.userid === userLoggedIn.id}
-          />
-        );
-      });
+      commentsDisplay = (
+        <div className="Comments fade-in">
+          {comments.map(comment => {
+            return (
+              <Comment
+                key={comment.id}
+                id={comment.id}
+                postid={this.props.postid}
+                comment={comment}
+                canDisplayCommentOptions={comment.userid === userLoggedIn.id}
+              />
+            );
+          })}
+        </div>
+      );
     } else if (comments && comments.length === 0 && !loading && !error) {
       placeholder = "Be the first to leave a comment...";
     }
 
     return (
-      <div className={classes.join(" ")}>
+      <div>
         {commentsDisplay}
         <form onSubmit={this.onSubmitHandler}>
           <input
@@ -64,8 +64,8 @@ class Comments extends Component {
             placeholder={placeholder}
             type="text"
             className="Comments__input"
-            ref={inputInstance => {
-              this.inputInstance = inputInstance;
+            ref={input => {
+              this.inputInstance = input;
             }}
           />
         </form>

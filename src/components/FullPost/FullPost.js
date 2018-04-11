@@ -81,6 +81,7 @@ class FullPost extends Component {
       } = selectedPost[0];
       let { numLikes } = this.props;
       let image = JSON.parse(imageobj);
+      let isUnsplashPhoto = image.imageAuthorUsername !== "";
       let likeButton = <FontAwesome name="thumbs-up" />;
 
       const htmlToParse = draftToHtml(JSON.parse(body));
@@ -124,6 +125,32 @@ class FullPost extends Component {
             </div>
           )}
           <img className="FullPost__image" src={image.imageUrl} alt="" />
+          {isUnsplashPhoto ? (
+            <p className="FullPost__caption">
+              Photo by{" "}
+              <a
+                className="FullPost__image-link"
+                href={`https://unsplash.com/@${
+                  image.imageAuthorUsername
+                }?utm_source=react-journal&utm_medium=referral`}
+              >
+                {image.imageUser}
+              </a>{" "}
+              on{" "}
+              <a
+                className="FullPost__image-link"
+                href="https://unsplash.com/?utm_source=react-journal&utm_medium=referral"
+              >
+                Unsplash
+              </a>
+            </p>
+          ) : (
+            <p className="FullPost__caption">
+              <a className="FullPost__image-link" href={image.imageUrl}>
+                Download Photo
+              </a>
+            </p>
+          )}
           <div className="FullPost__body">{html}</div>
           <div className="FullPost__footer">
             <div className="container">
