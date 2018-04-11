@@ -1,8 +1,15 @@
 import React, { Component } from "react";
 import axios from "axios";
-import { toast, ToastContainer } from "react-toastify";
+import { toast, ToastContainer, style } from "react-toastify";
 
 import "./Giphy.css";
+
+style({
+  TOP_RIGHT: {
+    top: "calc(1em + 75px)",
+    right: "1em"
+  }
+});
 
 class Giphy extends Component {
   state = {
