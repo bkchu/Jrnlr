@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-import Routes from "../../../Routes";
+import Routes from "../../../routes";
 import Header from "../../Header/Header";
 
 import "./Homepage.css";
