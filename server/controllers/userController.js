@@ -24,6 +24,15 @@ module.exports = {
       })
       .catch(err => console.log(err));
   },
+  getUserProfile: (req, res, next) => {
+    const db = req.app.get("db");
+    db
+      .getUserProfile([req.params.userid])
+      .then(response => {
+        res.status(200).json(response);
+      })
+      .catch(err => console.log(err));
+  },
   logoutUser: (req, res, next) => {
     req.logout();
     req.session.destroy(() => {

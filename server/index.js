@@ -104,6 +104,7 @@ app.get("/api/logout", userCtrl.logoutUser);
 app.get("/api/user", userCtrl.getUser);
 app.get("/api/users", authenticated, userCtrl.getUsers);
 app.get("/api/users/follows", authenticated, userCtrl.getUsersFollows);
+app.get("/api/users/:userid/profile", authenticated, userCtrl.getUserProfile);
 
 //posts endpoints TODO: add authenticated as middleware
 app.get("/api/posts", authenticated, postCtrl.getPosts);

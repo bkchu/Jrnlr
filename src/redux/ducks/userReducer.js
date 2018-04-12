@@ -5,6 +5,7 @@ const GET_USER = "GET_USER";
 const GREETING_SHOWN = "GREETING_SHOWN";
 const GET_USERS = "GET_USERS";
 const GET_USERS_FOLLOWS = "GET_USERS_FOLLOWS";
+const GET_USER_PROFILE = "GET_USER_PROFILE";
 
 //INITIAL STATE
 const initialState = {
@@ -12,7 +13,8 @@ const initialState = {
   loading: false,
   hasDisplayedGreeting: false,
   users: [],
-  error: null
+  error: null,
+  userProfile: null
 };
 
 //ACTION CREATOR
@@ -61,6 +63,20 @@ export const getAllUsersFollows = () => {
   };
 };
 
+export const getUserProfile = userid => {
+  return {
+    type: GET_USER_PROFILE,
+    payload: axios
+      .get(`/api/users/${userid}/profile`)
+      .then(response => response.data)
+      .catch(err => {
+        if (err.response) {
+          return err.response;
+        }
+      })
+  };
+};
+
 export default function userReducer(state = initialState, action) {
   switch (action.type) {
     case `${GET_USER}_PENDING`:
@@ -83,6 +99,20 @@ export default function userReducer(state = initialState, action) {
     case `${GET_USERS_FOLLOWS}_FULFILLED`:
       if (Array.isArray(action.payload)) {
         return { ...state, error: null, users: action.payload, loading: false };
+      } else {
+        return { ...state, error: action.payload, loading: false };
+      }
+
+    case `${GET_USER_PROFILE}_PENDING`:
+      return { ...state, loading: true };
+    case `${GET_USER_PROFILE}_FULFILLED`:
+      if (Array.isArray(action.payload)) {
+        return {
+          ...state,
+          error: null,
+          userProfile: action.payload,
+          loading: false
+        };
       } else {
         return { ...state, error: action.payload, loading: false };
       }

@@ -128,15 +128,8 @@ class NewPost extends Component {
           placeholder="Your subtitle here..."
           maxLength="150"
         />
-        <Editor contentStateChanged={this.contentStateChanged} />
-        {/* <textarea
-          onChange={this.bodyChangeHandler}
-          className="NewPost__input NewPost__input--body"
-          type="text"
-          value={this.state.body}
-          placeholder="Your content here..."
-        /> */}
         <Gallery selected={this.onImageSelectHandler} />
+        <Editor contentStateChanged={this.contentStateChanged} />
         <div className="NewPost__buttons">
           <button
             className="NewPost__button NewPost__button--privacy"

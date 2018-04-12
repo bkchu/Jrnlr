@@ -5,6 +5,8 @@ import { Link } from "react-router-dom";
 import { getPosts, getPostsByUserId } from "../../redux/ducks/postReducer";
 import Post from "./Post/Post";
 import Error from "../Error/Error";
+import UserProfile from "../Views/UserProfile/UserProfile";
+// import FabButton from "../FabButton/FabButton";
 import "./Posts.css";
 
 class Posts extends Component {
@@ -35,11 +37,10 @@ class Posts extends Component {
     let profileName = <p className="Posts__profile-name">Loading...</p>;
     if (posts && !error && !loading) {
       if (posts.length > 0) {
-        profileName = (
-          <p className="Posts__profile-name">
-            {this.props.match ? posts[0].name : null}
-          </p>
+        profileName = this.props.match && (
+          <UserProfile userid={this.props.match.params.userid} />
         );
+
         displayPosts = (
           <div className="Posts fade-in">
             {posts.map(post => {
@@ -89,6 +90,7 @@ class Posts extends Component {
         <Link to="/posts/new">
           <button className="Posts__button">+</button>
         </Link>
+        {/* <FabButton /> */}
       </div>
     );
   }

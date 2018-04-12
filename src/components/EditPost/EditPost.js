@@ -157,17 +157,11 @@ class EditPost extends Component {
             value={this.state.subtitle}
             maxLength="150"
           />
-          {/* <textarea
-            onChange={this.bodyChangeHandler}
-            className="EditPost__input EditPost__input--body"
-            type="text"
-            value={this.state.body}
-          /> */}
+          <Gallery editing={imageobj} selected={this.onImageSelectHandler} />
           <Editor
             initialContentState={selectedPost[0].body}
             contentStateChanged={this.contentStateChanged}
           />
-          <Gallery editing={imageobj} selected={this.onImageSelectHandler} />
           <div className="EditPost__buttons">
             <button
               className="EditPost__button EditPost__button--privacy"
