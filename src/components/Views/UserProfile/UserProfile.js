@@ -11,26 +11,41 @@ class UserProfile extends Component {
   }
 
   render() {
-    let { loading, error, userProfile } = this.props;
+    let { loading, error, userProfile, userLoggedIn } = this.props;
     console.log("userProfile: ", userProfile);
     console.log("error: ", error);
     console.log("loading: ", loading);
 
     let profileDisplay = <div className="UserProfile" />;
-
+    let button =
+      +userLoggedIn.id === +this.props.userid ? (
+        <button
+          onClick={this.onEditProfileButton}
+          className="UserProfile__button"
+        >
+          Edit
+        </button>
+      ) : (
+        <button onClick={this.followUserButton} className="UserProfile__button">
+          Follow
+        </button>
+      );
     if (userProfile && !loading && !error) {
       let profile = userProfile[0];
       profileDisplay = (
         <div className="UserProfile fade-in">
-          <img
-            className="UserProfile__profile-photo"
-            src={profile.profile_photo}
-            alt="user profile"
-          />
-          <div>
-            <h1 className="UserProfile__name">{profile.name}</h1>
-            <p className="UserProfile__about">{profile.about}</p>
+          <div className="UserProfile__main">
+            <img
+              className="UserProfile__profile-photo"
+              src={profile.profile_photo}
+              alt="user profile"
+            />
+            <div>
+              <h1 className="UserProfile__name">{profile.name}</h1>
+              <p className="UserProfile__about">{profile.about}</p>
+            </div>
           </div>
+          {button}
         </div>
       );
     }
@@ -43,7 +58,8 @@ const mapStateToProps = state => {
   return {
     loading: state.userReducer.loading,
     error: state.userReducer.error,
-    userProfile: state.userReducer.userProfile
+    userProfile: state.userReducer.userProfile,
+    userLoggedIn: state.userReducer.user
   };
 };
 

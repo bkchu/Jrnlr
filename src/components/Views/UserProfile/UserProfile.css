@@ -1,4 +1,5 @@
 .UserProfile {
+  height: 120px;
   opacity: 0;
   transition: all 200ms linear;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
@@ -11,7 +12,14 @@
   border-bottom: 1px solid var(--light-gray);
 }
 
+.UserProfile__main {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
 .UserProfile.fade-in {
+  background: none;
   opacity: 1;
 }
 

@@ -13,6 +13,7 @@
   color: var(--black);
   display: none;
 }
+
 @media (min-width: 576px) {
   .User__username {
     display: block;
