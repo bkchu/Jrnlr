@@ -17,7 +17,7 @@ const commentCtrl = require("./controllers/commentController");
 
 const app = express();
 
-// app.use(express.static(path.join(__dirname, '../build')));
+app.use(express.static(path.join(__dirname, "../build")));
 
 app.use(json());
 app.use(cors());
@@ -104,7 +104,11 @@ app.get("/api/logout", userCtrl.logoutUser);
 app.get("/api/user", userCtrl.getUser);
 app.get("/api/users", authenticated, userCtrl.getUsers);
 app.get("/api/users/follows", authenticated, userCtrl.getUsersFollows);
+<<<<<<< HEAD
 app.get("/api/users/:userid/profile", authenticated, userCtrl.getUserProfile);
+=======
+// app.get("/api/users/:userid/profile", authenticated, userCtrl.getUserProfile);
+>>>>>>> master
 
 //posts endpoints TODO: add authenticated as middleware
 app.get("/api/posts", authenticated, postCtrl.getPosts);
@@ -130,11 +134,8 @@ app.put("/api/comments/:id", authenticated, commentCtrl.updateComment);
 app.delete("/api/comments/:id", authenticated, commentCtrl.deleteComment);
 
 app.get("*", (req, res) => {
-  res.redirect("http://localhost:3000");
+  res.sendFile(path.join(__dirname, "../build/index.html"));
 });
-// app.get("*", (req, res) => {
-//   res.sendFile(path.join(__dirname, "../build/index.html"));
-// });
 
 // check if authenticated - request-level middleware
 function authenticated(req, res, next) {
