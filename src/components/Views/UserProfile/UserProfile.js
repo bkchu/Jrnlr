@@ -1,7 +1,12 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { getUserProfile } from "../../../redux/ducks/userReducer";
 import ReactS3Uploader from "react-s3-uploader";
+
+import {
+  getUserProfile,
+  updateProfile
+} from "../../../redux/ducks/userReducer";
+import FollowButton from "./FollowButton/FollowButton";
 
 import "./UserProfile.css";
 
@@ -20,9 +25,9 @@ class UserProfile extends Component {
     let { edit, photo, about } = this.state;
 
     if (edit) {
-      this.props.submitProfile({
+      this.props.updateProfile({
         about,
-        photo
+        photo: photo ? photo : this.props.userProfile[0].profile_photo
       });
     }
 
@@ -34,10 +39,14 @@ class UserProfile extends Component {
     });
   };
 
+  onFollowUserButton = () => {
+    //this.props.userid
+  };
+
   onPictureUpload = s3 => {
     //check if photo state is empty, conditionally update profile: if photo state empty, then don't update photo.
     this.setState({
-      photoUrl: `http://s3.us-east-2.amazonaws.com/react-journal-user-profile/${
+      photo: `http://s3.us-east-2.amazonaws.com/react-journal-user-profile/${
         s3.filename
       }`
     });
@@ -52,83 +61,97 @@ class UserProfile extends Component {
     let { edit, photo, about } = this.state;
 
     let profileDisplay = <div className="UserProfile" />;
-    let button =
-      +userLoggedIn.id === +this.props.userid ? (
-        <button
-          onClick={this.onEditProfileButton}
-          className="UserProfile__button"
-        >
-          {edit ? "Save" : "Edit"}
-        </button>
-      ) : (
-        <button onClick={this.followUserButton} className="UserProfile__button">
-          Follow
-        </button>
-      );
 
     if (userProfile && !loading && !error) {
       let profile = userProfile[0];
-      profileDisplay = (
-        <div className="UserProfile fade-in">
-          <div className="UserProfile__main">
-            {edit ? (
-              <ReactS3Uploader
-                signingUrl="/s3/sign"
-                signingUrlMethod="GET"
-                accept="image/*"
-                s3path=""
-                onProgress={this.progress}
-                onFinish={this.onPictureUpload}
-                contentDisposition="auto"
-                scrubFilename={filename =>
-                  filename.replace(/[^\w\d_\-.]+/gi, "")
-                }
-                inputRef={cmp => (this.uploadInput = cmp)}
-                server={process.env.REACT_APP_CLIENT_HOST}
-                autoUpload
-              />
-            ) : (
-              <img
-                className="UserProfile__profile-photo"
-                src={profile.profile_photo}
-                alt="user profile"
-              />
-            )}
-            <div
-              className={
-                edit
-                  ? `UserProfile__text UserProfile__text--editing`
-                  : "UserProfile__text"
-              }
-            >
-              <h1
-                className={
-                  edit
-                    ? `UserProfile__name UserProfile__name--editing`
-                    : "UserProfile__name"
-                }
-              >
-                {profile.name}
-              </h1>
-              {edit ? (
+      let button =
+        +userLoggedIn.id === +this.props.userid ? (
+          <button
+            onClick={this.onEditProfileButton}
+            className="UserProfile__button"
+          >
+            {edit ? "Save" : "Edit"}
+          </button>
+        ) : (
+          // <button onClick={this.onFollowUserButton} className="UserProfile__button">
+          //   Follow
+          // </button>
+          <FollowButton userProfile={profile} />
+        );
+
+      if (edit) {
+        profileDisplay = (
+          <div className="UserProfile UserProfile--editing fade-in">
+            <div className="UserProfile__main UserProfile__main--editing">
+              <div className="UserProfile__image-block">
+                <img
+                  className="UserProfile__profile-photo UserProfile__profile-photo--editing"
+                  src={
+                    photo
+                      ? photo
+                      : "https://www.bspmediagroup.com/event/img/logos/user_placeholder.png"
+                  }
+                  alt="user profile"
+                />
+                <label className="UserProfile__uploader">
+                  UPLOAD
+                  <ReactS3Uploader
+                    signingUrl="/s3/sign"
+                    signingUrlMethod="GET"
+                    accept="image/*"
+                    s3path=""
+                    onProgress={this.progress}
+                    onFinish={this.onPictureUpload}
+                    contentDisposition="auto"
+                    scrubFilename={filename =>
+                      filename.replace(/[^\w\d_\-.]+/gi, "")
+                    }
+                    inputRef={cmp => (this.uploadInput = cmp)}
+                    server={process.env.REACT_APP_CLIENT_HOST}
+                    autoUpload
+                  />
+                </label>
+              </div>
+              <div className="UserProfile__text UserProfile__text--editing">
+                <h1 className="UserProfile__name UserProfile__name--editing">
+                  {profile.name}
+                </h1>
                 <textarea
                   className="UserProfile__input"
                   onChange={this.onChangeHandler}
                   value={about}
                   type="text"
+                  maxLength="160"
                 />
-              ) : (
+              </div>
+            </div>
+            {button}
+          </div>
+        );
+      } else {
+        profileDisplay = (
+          <div className="UserProfile fade-in">
+            <div className="UserProfile__main">
+              <img
+                className="UserProfile__profile-photo"
+                src={profile.profile_photo}
+                alt="user profile"
+              />
+
+              <div className="UserProfile__text">
+                <h1 className={"UserProfile__name"}>{profile.name}</h1>
+
                 <p className="UserProfile__about">
                   {profile.about === null
                     ? "Click the edit button to get started!"
                     : profile.about}
                 </p>
-              )}
+              </div>
             </div>
+            {button}
           </div>
-          {button}
-        </div>
-      );
+        );
+      }
     }
 
     return <div>{profileDisplay}</div>;
@@ -144,4 +167,6 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps, { getUserProfile })(UserProfile);
+export default connect(mapStateToProps, { getUserProfile, updateProfile })(
+  UserProfile
+);

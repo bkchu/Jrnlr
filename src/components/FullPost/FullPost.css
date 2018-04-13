@@ -2,19 +2,45 @@
   opacity: 0;
   margin-top: 15px;
   transition: all 200ms linear;
+  display: flex;
+  flex-direction: column;
 }
 
 .FullPost.fade-in {
   opacity: 1;
 }
 
+.FullPost__header {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.FullPost__profile {
+  display: flex;
+  align-items: center;
+  margin-bottom: 5px;
+}
+
+.FullPost__profile-photo {
+  width: 75px;
+  height: 75px;
+  border-radius: 50%;
+}
+
+.FullPost__name-date {
+  margin-left: 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
 .FullPost__name {
   font-size: 0.75rem;
   font-weight: normal;
   color: var(--gray);
-  margin-bottom: 10px;
-  border-left: 2px solid var(--light-gray);
-  padding-left: 20px;
+  margin-bottom: 5px;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
     Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
   letter-spacing: 1px;

@@ -25,6 +25,7 @@
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
+  width: 100%;
 }
 
 @media (min-width: 992px) {
@@ -33,10 +34,9 @@
     justify-content: flex-start;
     align-items: center;
   }
-}
-
-.UserProfile__main > input {
-  margin: 0 auto;
+  .UserProfile__main--editing {
+    align-items: start;
+  }
 }
 
 .UserProfile.fade-in {
@@ -44,9 +44,57 @@
   opacity: 1;
 }
 
+.UserProfile__image-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+@media (min-width: 992px) {
+  .UserProfile__image-block {
+    margin-right: 25px;
+  }
+}
+.UserProfile__uploader {
+  overflow: hidden;
+  position: relative;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  text-transform: uppercase;
+  font-size: 0.7rem;
+  letter-spacing: 2px;
+  text-decoration: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  border: 1px solid var(--gray);
+  color: var(--gray);
+  transition: all 0.2s ease-in;
+  background-color: white;
+  outline: none;
+}
+
+.UserProfile__uploader:hover {
+  border: 1px solid var(--black);
+  color: var(--black);
+}
+
+.UserProfile__uploader [type="file"] {
+  cursor: pointer;
+  display: block;
+  filter: alpha(opacity=0);
+  min-height: 100%;
+  min-width: 100%;
+  opacity: 0;
+  position: absolute;
+  right: 0;
+  text-align: right;
+  top: 0;
+}
+
 .UserProfile__profile-photo {
   border-radius: 50%;
   width: 100px;
+  height: 100px;
+  object-fit: cover;
 }
 
 @media (min-width: 992px) {
@@ -56,11 +104,17 @@
   }
 }
 
+.UserProfile__profile-photo--editing {
+  margin: 0;
+  margin-bottom: 20px;
+}
+
 .UserProfile__text {
   margin: 10px 0;
   display: flex;
   flex-direction: column;
   align-items: center;
+  width: 100%;
 }
 
 @media (min-width: 992px) {
@@ -78,7 +132,7 @@
 
 @media (min-width: 992px) {
   .UserProfile__name {
-    margin-bottom: 5px;
+    margin-bottom: 0;
   }
 }
 
@@ -93,7 +147,7 @@
   text-align: center;
   color: var(--gray);
   width: 100%;
-  line-height: 1.15rem;
+  line-height: 0.8rem;
 }
 
 @media (min-width: 992px) {
@@ -107,15 +161,23 @@
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
     Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
   font-size: 0.7rem;
-  width: 500px;
-  height: 200px;
+  width: 100%;
+  height: 5.75rem;
+  margin: 5px 0;
   border: 1px solid var(--light-gray);
   border-radius: 3px;
   transition: box-shadow 200ms cubic-bezier(0.4, 0, 0.2, 1);
   outline: none;
-  padding: 20px;
+  padding: 10px;
   line-height: 1.15rem;
   resize: none;
+}
+
+@media (min-width: 992px) {
+  .UserProfile__input {
+    margin: 0;
+    width: 50%;
+  }
 }
 
 .UserProfile__input:focus {

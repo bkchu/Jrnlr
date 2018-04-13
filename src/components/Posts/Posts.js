@@ -22,12 +22,12 @@ class Posts extends Component {
   }
 
   componentDidMount() {
-    window.scrollTo(0, 0);
     if (this.props.match && this.props.match.path === "/users/:userid") {
       this.props.getPostsByUserId(this.props.match.params.userid);
     } else {
       this.props.getPosts();
     }
+    window.scrollTo(0, 0);
   }
 
   render() {

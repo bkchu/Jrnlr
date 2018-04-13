@@ -57,7 +57,6 @@ export default function reducer(state = initialState, action) {
   switch (action.type) {
     case `${ADD_FOLLOW}_PENDING`:
       return { ...state, loading: true };
-
     case `${ADD_FOLLOW}_FULFILLED`:
       if (Array.isArray(action.payload)) {
         return {

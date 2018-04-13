@@ -1,0 +1,20 @@
+.FollowButton {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  text-transform: uppercase;
+  font-size: 0.7rem;
+  letter-spacing: 2px;
+  text-decoration: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  border: 1px solid var(--gray);
+  color: var(--gray);
+  transition: all 0.2s ease-in;
+  background-color: white;
+  outline: none;
+}
+
+.FollowButton:hover {
+  border: 1px solid var(--black);
+  color: var(--black);
+}

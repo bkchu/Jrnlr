@@ -39,6 +39,7 @@
 }
 .EditPost__input.EditPost__input--subtitle {
   font-size: 1rem;
+  line-height: 1rem;
 }
 
 .EditPost__buttons {

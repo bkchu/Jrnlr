@@ -10,7 +10,6 @@ import EditPost from "./components/EditPost/EditPost";
 import NotFound from "./components/Views/NotFound/NotFound";
 import Users from "./components/Views/Users/Users";
 import Login from "./components/Views/Login/Login";
-import UserProfile from "./components/Views/UserProfile/UserProfile";
 import ProfileCreate from "./components/Views/ProfileCreate/ProfileCreate";
 
 import "./styles/cssTransition.css";
@@ -42,7 +41,10 @@ const Routes = props => {
                 );
               }}
             />
-            <Route path="/profile/new" component={props.user ? ProfileCreate : Login} />
+            <Route
+              path="/profile/new"
+              component={props.user ? ProfileCreate : Login}
+            />
             <Route path="/users" exact component={props.user ? Users : Login} />
             <Route
               path="/users/:userid"

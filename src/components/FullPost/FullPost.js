@@ -77,7 +77,8 @@ class FullPost extends Component {
         name,
         body,
         imageobj,
-        userid
+        userid,
+        profile_photo
       } = selectedPost[0];
       let { numLikes } = this.props;
       let image = JSON.parse(imageobj);
@@ -102,12 +103,29 @@ class FullPost extends Component {
 
       displayPost = (
         <div className="FullPost fade-in">
-          <p className="FullPost__name">{name}</p>
-          <h1 className="FullPost__title">{title}</h1>
-          <p className="FullPost__subtitle">{subtitle}</p>
-          <p className="FullPost__date">
-            {moment(date).format("MMM DD, YYYY")}
-          </p>
+          <div className="FullPost__header">
+            <div className="FullPost__profile">
+              <Link className="Link" to={`/users/${userid}`}>
+                <img
+                  className="FullPost__profile-photo"
+                  src={profile_photo}
+                  alt=""
+                />
+              </Link>
+              <div className="FullPost__name-date">
+                <Link className="Link" to={`/users/${userid}`}>
+                  <p className="FullPost__name">{name}</p>
+                </Link>
+                <p className="FullPost__date">
+                  {moment(date).format("MMM DD, YYYY")}
+                </p>
+              </div>
+            </div>
+            <div className="FullPost__details">
+              <h1 className="FullPost__title">{title}</h1>
+              <p className="FullPost__subtitle">{subtitle}</p>
+            </div>
+          </div>
           {userLoggedIn.id === userid && (
             <div className="FullPost__buttons">
               <Link

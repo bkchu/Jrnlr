@@ -8,6 +8,7 @@ const GET_USERS_FOLLOWS = "GET_USERS_FOLLOWS";
 const GET_USER_PROFILE = "GET_USER_PROFILE";
 const SET_USER_IS_NEW_TO_FALSE = "SET_USER_IS_NEW_TO_FALSE";
 const ADD_PROFILE = "ADD_PROFILE";
+const UPDATE_PROFILE = "UPDATE_PROFILE";
 
 //INITIAL STATE
 const initialState = {
@@ -107,6 +108,20 @@ export const addProfile = obj => {
   };
 };
 
+export const updateProfile = obj => {
+  return {
+    type: UPDATE_PROFILE,
+    payload: axios
+      .put(`/api/users/profile/edit`, obj)
+      .then(response => response.data)
+      .catch(err => {
+        if (err.response) {
+          return err.response;
+        }
+      })
+  };
+};
+
 export default function userReducer(state = initialState, action) {
   switch (action.type) {
     case `${GET_USER}_PENDING`:
@@ -124,6 +139,7 @@ export default function userReducer(state = initialState, action) {
       } else {
         return { ...state, error: action.payload, loading: false };
       }
+
     case `${GET_USERS_FOLLOWS}_PENDING`:
       return { ...state, loading: true };
     case `${GET_USERS_FOLLOWS}_FULFILLED`:
@@ -136,6 +152,20 @@ export default function userReducer(state = initialState, action) {
     case `${GET_USER_PROFILE}_PENDING`:
       return { ...state, loading: true };
     case `${GET_USER_PROFILE}_FULFILLED`:
+      if (Array.isArray(action.payload)) {
+        return {
+          ...state,
+          error: null,
+          userProfile: action.payload,
+          loading: false
+        };
+      } else {
+        return { ...state, error: action.payload, loading: false };
+      }
+
+    case `${UPDATE_PROFILE}_PENDING`:
+      return { ...state, loading: true };
+    case `${UPDATE_PROFILE}_FULFILLED`:
       if (Array.isArray(action.payload)) {
         return {
           ...state,

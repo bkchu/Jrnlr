@@ -119,6 +119,7 @@ app.get("/api/users/follows", authenticated, userCtrl.getUsersFollows);
 app.get("/api/users/:userid/profile", authenticated, userCtrl.getUserProfile);
 app.get("/api/users/isnew", authenticated, userCtrl.setUserIsNewToFalse);
 app.post("/api/users/profile/new", authenticated, userCtrl.addProfile);
+app.put("/api/users/profile/edit", authenticated, userCtrl.updateProfile);
 
 //posts endpoints TODO: add authenticated as middleware
 app.get("/api/posts", authenticated, postCtrl.getPosts);
