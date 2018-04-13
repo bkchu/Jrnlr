@@ -23,6 +23,7 @@
     "react-html-parser": "^2.0.2",
     "react-redux": "^5.0.7",
     "react-router-dom": "^4.2.2",
+    "react-s3-uploader": "^4.8.0",
     "react-scripts": "1.1.1",
     "react-toastify": "^3.4.3",
     "react-transition-group": "^2.2.1",

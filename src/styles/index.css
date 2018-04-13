@@ -13,7 +13,7 @@
 }
 
 ::selection {
-  background: rgb(205, 255, 192);
+  background: var(--highlight);
 }
 
 *,

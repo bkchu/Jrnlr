@@ -6,6 +6,8 @@ const GREETING_SHOWN = "GREETING_SHOWN";
 const GET_USERS = "GET_USERS";
 const GET_USERS_FOLLOWS = "GET_USERS_FOLLOWS";
 const GET_USER_PROFILE = "GET_USER_PROFILE";
+const SET_USER_IS_NEW_TO_FALSE = "SET_USER_IS_NEW_TO_FALSE";
+const ADD_PROFILE = "ADD_PROFILE";
 
 //INITIAL STATE
 const initialState = {
@@ -68,6 +70,34 @@ export const getUserProfile = userid => {
     type: GET_USER_PROFILE,
     payload: axios
       .get(`/api/users/${userid}/profile`)
+      .then(response => response.data)
+      .catch(err => {
+        if (err.response) {
+          return err.response;
+        }
+      })
+  };
+};
+
+export const setUserIsNewToFalse = () => {
+  return {
+    type: SET_USER_IS_NEW_TO_FALSE,
+    payload: axios
+      .get(`/api/users/isnew`)
+      .then(response => response.data)
+      .catch(err => {
+        if (err.response) {
+          return err.response;
+        }
+      })
+  };
+};
+
+export const addProfile = obj => {
+  return {
+    type: ADD_PROFILE,
+    payload: axios
+      .post(`/api/users/profile/new`, obj)
       .then(response => response.data)
       .catch(err => {
         if (err.response) {

@@ -40,6 +40,18 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
+app.use(
+  "/s3",
+  require("react-s3-uploader/s3router")({
+    bucket: "react-journal-user-profile",
+    region: "us-east-2", //optional
+    signatureVersion: "v4", //optional (use for some amazon regions: frankfurt and others)
+    headers: { "Access-Control-Allow-Origin": "*" }, // optional
+    ACL: "private", // this is default
+    uniquePrefix: true // (4.0.2 and above) default is true, setting the attribute to false preserves the original filename in S3
+  })
+);
+
 passport.use(
   new Auth0Strategy(
     {
@@ -93,7 +105,7 @@ passport.deserializeUser((user, done) => {
 app.get(
   "/auth",
   passport.authenticate("auth0", {
-    successRedirect: process.env.CLIENT_HOST,
+    successRedirect: process.env.CLIENT_HOST + "profile/new",
     failureRedirect: "/auth",
     failureFlash: true
   })
@@ -105,6 +117,8 @@ app.get("/api/user", userCtrl.getUser);
 app.get("/api/users", authenticated, userCtrl.getUsers);
 app.get("/api/users/follows", authenticated, userCtrl.getUsersFollows);
 app.get("/api/users/:userid/profile", authenticated, userCtrl.getUserProfile);
+app.get("/api/users/isnew", authenticated, userCtrl.setUserIsNewToFalse);
+app.post("/api/users/profile/new", authenticated, userCtrl.addProfile);
 
 //posts endpoints TODO: add authenticated as middleware
 app.get("/api/posts", authenticated, postCtrl.getPosts);

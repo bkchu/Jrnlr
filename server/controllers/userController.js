@@ -33,6 +33,31 @@ module.exports = {
       })
       .catch(err => console.log(err));
   },
+  addProfile: (req, res, next) => {
+    console.log("hit");
+    const db = req.app.get("db");
+    let { photo, fullName, about } = req.body;
+    console.log("fullName: ", fullName);
+    console.log("photo: ", photo);
+    console.log("about: ", about);
+    db
+      .addProfile([req.session.passport.user.id, fullName, photo, about])
+      .then(response => {
+        console.log("response: ", response);
+
+        res.status(200).json(response);
+      })
+      .catch(err => console.log(err));
+  },
+  setUserIsNewToFalse: (req, res, next) => {
+    const db = req.app.get("db");
+    db
+      .setUserIsNewToFalse([req.session.passport.user.id])
+      .then(response => {
+        res.status(200).json(response);
+      })
+      .catch(err => console.log(err));
+  },
   logoutUser: (req, res, next) => {
     req.logout();
     req.session.destroy(() => {
