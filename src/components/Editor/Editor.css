@@ -4,6 +4,21 @@
 }
 
 .demo-editor {
-  height: calc(100vh - 250px);
+  height: 500px;
   overflow-y: auto;
+}
+
+@media (min-width: 992px) {
+  .demo-editor {
+    height: calc(100vh - 250px);
+  }
+}
+
+.hiw-login-container {
+  width: 100vw;
+  height: 100vh;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

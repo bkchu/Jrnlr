@@ -13,18 +13,19 @@
 }
 
 .Error__code {
-  font-size: 3rem;
+  text-align: center;
+  font-size: 2rem;
   font-weight: bolder;
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  margin-bottom: 15px;
 }
 
 .Error__message {
-  margin-bottom: 30px;
+  margin-bottom: 20px;
 }
 
 .Error__button {
   color: var(--gray);
-  margin-top: 20px;
   text-decoration: none;
   text-transform: uppercase;
   font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",

@@ -69,8 +69,8 @@ class ProfileCreate extends Component {
       return (
         <Error
           error={{
-            status: "Please verify your email.",
-            data: { error: "" }
+            status: "A verification email has been sent to your email.",
+            data: { error: "Please log in again." }
           }}
         />
       );

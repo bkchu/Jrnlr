@@ -8,7 +8,10 @@ const Error = ({ error, location }) => {
       Logout
     </a>
   );
-  if (error.status === 403) {
+  if (
+    error.status === 403 ||
+    error.status === "A verification email has been sent to your email."
+  ) {
     displayButton = (
       <a className="Error__button" href={process.env.REACT_APP_LOGIN}>
         Login
