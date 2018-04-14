@@ -21,22 +21,23 @@ class Giphy extends Component {
   toastId = null;
 
   onSubmitHandler = e => {
-    if (!toast.isActive(this.toastId)) {
-      this.toastId = toast("Loading...");
-    }
     e.preventDefault();
-    axios
-      .get(
-        `http://api.giphy.com/v1/gifs/search?q=${this.state.query}&api_key=${
-          process.env.REACT_APP_GIPHY_KEY
-        }&limit=10`
-      )
-      .then(res => {
-        this.setState({ images: res.data.data });
-      })
-      .catch(err => {
-        console.log("Error happened during fetching!", err);
-      });
+    let { query } = this.state;
+    if (query !== "" && !toast.isActive(this.toastId)) {
+      this.toastId = toast("Loading...");
+      axios
+        .get(
+          `http://api.giphy.com/v1/gifs/search?q=${query}&api_key=${
+            process.env.REACT_APP_GIPHY_KEY
+          }&limit=10`
+        )
+        .then(res => {
+          this.setState({ images: res.data.data });
+        })
+        .catch(err => {
+          console.log("Error happened during fetching!", err);
+        });
+    }
   };
 
   onNextHandler = () => {

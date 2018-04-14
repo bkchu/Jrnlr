@@ -14,22 +14,23 @@ class Unsplash extends Component {
   toastId = null;
 
   onSubmitHandler = e => {
-    if (!toast.isActive(this.toastId)) {
-      this.toastId = toast("Loading...");
-    }
     e.preventDefault();
-    axios
-      .get(
-        `https://api.unsplash.com/search/photos?query=${
-          this.state.query
-        }&client_id=${process.env.REACT_APP_CLIENT_ID}`
-      )
-      .then(res => {
-        this.setState({ images: res.data.results });
-      })
-      .catch(err => {
-        console.log("Error happened during fetching!", err);
-      });
+    let { query } = this.state;
+    if (query !== "" && !toast.isActive(this.toastId)) {
+      this.toastId = toast("Loading...");
+      axios
+        .get(
+          `https://api.unsplash.com/search/photos?query=${
+            this.state.query
+          }&client_id=${process.env.REACT_APP_CLIENT_ID}`
+        )
+        .then(res => {
+          this.setState({ images: res.data.results });
+        })
+        .catch(err => {
+          console.log("Error happened during fetching!", err);
+        });
+    }
   };
 
   onNextHandler = () => {

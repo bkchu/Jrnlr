@@ -4,9 +4,6 @@ import { Editor } from "react-draft-wysiwyg";
 import "../../../node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import "./Editor.css";
 
-// prettier-ignore
-const content = {"entityMap":{},"blocks":[{"key":"637gr","text":"Replace this text with your own content.","type":"unstyled","depth":0,"inlineStyleRanges":[],"entityRanges":[],"data":{}}]};
-
 class EditorConvertToJSON extends Component {
   onContentStateChange = contentState => {
     this.props.contentStateChanged(contentState);
@@ -17,10 +14,10 @@ class EditorConvertToJSON extends Component {
       <div className="Editor">
         <Editor
           initialContentState={
-            this.props.initialContentState
-              ? JSON.parse(this.props.initialContentState)
-              : content
+            this.props.initialContentState &&
+            JSON.parse(this.props.initialContentState)
           }
+          placeholder="What's on your mind?"
           wrapperClassName="demo-wrapper"
           editorClassName="demo-editor"
           onContentStateChange={this.onContentStateChange}
