@@ -3,6 +3,7 @@ import ReactS3Uploader from "react-s3-uploader";
 import { toast, ToastContainer } from "react-toastify";
 import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
+import Error from "../../Error/Error";
 
 import {
   setUserIsNewToFalse,
@@ -59,14 +60,26 @@ class ProfileCreate extends Component {
 
   render() {
     let { user } = this.props;
+    let { photo, fullName, about } = this.state;
+
+    let profileCreateDisplay = <div className="ProfileCreate container" />;
     if (!user.is_new) {
       return <Redirect to="/" />;
-    }
-
-    let { photo, fullName, about } = this.state;
-    return (
-      <div className="ProfileCreate container">
-        <form className="ProfileCreate__form" onSubmit={this.onSubmitHandler}>
+    } else if (!user.email_verified) {
+      return (
+        <Error
+          error={{
+            status: "Please verify your email.",
+            data: { error: "" }
+          }}
+        />
+      );
+    } else {
+      profileCreateDisplay = (
+        <form
+          className="ProfileCreate container"
+          onSubmit={this.onSubmitHandler}
+        >
           <img
             className="ProfileCreate__photo"
             src={
@@ -76,25 +89,28 @@ class ProfileCreate extends Component {
             }
             alt="user profile"
           />
-          <ReactS3Uploader
-            signingUrl="/s3/sign"
-            signingUrlMethod="GET"
-            accept="image/*"
-            s3path=""
-            onProgress={this.progress}
-            onFinish={this.onPictureUpload}
-            contentDisposition="auto"
-            scrubFilename={filename => filename.replace(/[^\w\d_\-.]+/gi, "")}
-            inputRef={cmp => (this.uploadInput = cmp)}
-            server={process.env.REACT_APP_CLIENT_HOST}
-            autoUpload
-          />
+          <label className="ProfileCreate__uploader">
+            UPLOAD
+            <ReactS3Uploader
+              signingUrl="/s3/sign"
+              signingUrlMethod="GET"
+              accept="image/*"
+              s3path=""
+              onProgress={this.progress}
+              onFinish={this.onPictureUpload}
+              contentDisposition="auto"
+              scrubFilename={filename => filename.replace(/[^\w\d_\-.]+/gi, "")}
+              inputRef={cmp => (this.uploadInput = cmp)}
+              server={process.env.REACT_APP_CLIENT_HOST}
+              autoUpload
+            />
+          </label>
           <input
             className="ProfileCreate__input"
             value={fullName}
             onChange={this.onChangeHandler}
             name="fullName"
-            placeholder="Full Name"
+            placeholder="Full Name - you only get one chance!"
             type="text"
           />
           <textarea
@@ -107,6 +123,12 @@ class ProfileCreate extends Component {
           />
           <button className="ProfileCreate__submit">I'm Ready!</button>
         </form>
+      );
+    }
+
+    return (
+      <div className="ProfileCreate__outer">
+        {profileCreateDisplay}
         <ToastContainer />
       </div>
     );

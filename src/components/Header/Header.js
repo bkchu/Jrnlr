@@ -50,7 +50,7 @@ class Header extends Component {
                 "Guest"
               ) : (
                 <Link className="Link" to={`/users/${user.id}`}>
-                  {user.name}
+                  My Posts
                 </Link>
               )}
             </p>

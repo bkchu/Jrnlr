@@ -64,8 +64,13 @@ class Posts extends Component {
         profileName = null;
         if (this.props.match && this.props.match.path === "/users/:userid") {
           displayPosts = (
-            <div className="Posts__no-posts">
-              This user hasn't posted anything yet!
+            <div>
+              <UserProfile userid={this.props.match.params.userid} />
+              <div className="Posts__no-posts">
+                {+this.props.match.params.userid === +this.props.user.id
+                  ? "You haven't posted anything! Click the button on the bottom right to create a new post."
+                  : "This user hasn't posted anything yet!"}
+              </div>
             </div>
           );
         } else {
