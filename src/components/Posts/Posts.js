@@ -79,8 +79,8 @@ class Posts extends Component {
               Click the button in the bottom-right section of your screen to
               create a new post!
               <br />
-              <br /> Alternatively, click the magnifying glass and look for
-              people to follow.
+              <br /> Alternatively, click the users icon at the top of the
+              screen to look for people to follow.
             </div>
           );
         }

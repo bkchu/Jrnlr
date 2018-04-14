@@ -70,7 +70,10 @@ class ProfileCreate extends Component {
         <Error
           error={{
             status: "A verification email has been sent to your email.",
-            data: { error: "Please log in again." }
+            data: {
+              error:
+                "Please log in again.\nPlease note: The verification process can take up to two minutes."
+            }
           }}
         />
       );
