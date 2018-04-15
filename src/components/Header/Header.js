@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { Link, withRouter } from "react-router-dom";
 
 import { getUser, displayedGreeting } from "../../redux/ducks/userReducer";
-import Logo from "../../assets/Journalr.svg";
+import Logo from "../../assets/jrnlr_new.svg";
 
 import "./Header.css";
 
