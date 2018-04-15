@@ -1,10 +1,24 @@
 .Posts {
   opacity: 0;
   margin-top: 20px;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: flex-start;
+  display: grid;
+  grid-gap: 0.7rem;
+  grid: auto-flow 26rem / 1fr;
+  /* flex-wrap: wrap; */
+  /* justify-content: space-between; */
   transition: all 200ms linear;
+}
+
+@media (min-width: 768px) {
+  .Posts {
+    grid: auto-flow 22rem / 1fr 1fr;
+  }
+}
+
+@media (min-width: 1200px) {
+  .Posts {
+    grid: auto-flow 21rem / 1fr 1fr 1fr;
+  }
 }
 
 .Posts.fade-in {
