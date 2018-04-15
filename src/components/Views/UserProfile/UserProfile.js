@@ -129,12 +129,15 @@ class UserProfile extends Component {
           </div>
         );
       } else {
-        profileDisplay = (
+        profileDisplay = profile && (
           <div className="UserProfile fade-in">
             <div className="UserProfile__main">
               <img
                 className="UserProfile__profile-photo"
-                src={profile.profile_photo}
+                src={
+                  profile.profile_photo ||
+                  "https://www.bspmediagroup.com/event/img/logos/user_placeholder.png"
+                }
                 alt="user profile"
               />
 

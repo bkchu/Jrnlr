@@ -27,8 +27,8 @@ const Error = ({ error, location }) => {
   }
   return (
     <div className="Error">
-      <p className="Error__code">{error.status}</p>
-      <p className="Error__message">{error.data.error}</p>
+      <p className="Error__code container">{error.status}</p>
+      <p className="Error__message container">{error.data.error}</p>
       {displayButton}
     </div>
   );
