@@ -62,7 +62,6 @@ class EditPost extends Component {
         imgobj,
         privacy
       });
-      while (this.props.loading);
       this.props.history.push("/");
     } else {
       if (title === "") {
