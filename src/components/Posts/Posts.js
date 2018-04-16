@@ -30,11 +30,11 @@ class Posts extends Component {
   }
 
   render() {
-    let { posts, error, loading } = this.props;
+    let { posts, error, loading, loadingPosts } = this.props;
 
     let displayPosts = <div className="Posts" />;
     let profileName = <p className="Posts__profile-name">Loading...</p>;
-    if (posts && !error && !loading) {
+    if (posts && !error && !loading && !loadingPosts) {
       if (posts.length > 0) {
         profileName = this.props.match && (
           <UserProfile userid={this.props.match.params.userid} />
@@ -104,6 +104,7 @@ const mapStateToProps = state => {
     posts: state.postReducer.posts,
     error: state.postReducer.error,
     loading: state.postReducer.loading,
+    loadingPosts: state.postReducer.loadingPosts,
     user: state.userReducer.user
   };
 };

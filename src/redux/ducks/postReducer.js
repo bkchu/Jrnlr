@@ -13,6 +13,7 @@ const LIKE_BUTTON_PRESSED = "LIKE_BUTTON_PRESSED";
 const initialState = {
   posts: [],
   loading: false,
+  loadingPosts: false,
   error: null,
   selectedPost: null,
   numLikes: 0,
@@ -123,12 +124,17 @@ export default function postReducer(state = initialState, action) {
       }
 
     case `${GET_POSTS_BY_USER_ID}_PENDING`:
-      return { ...state, loading: true };
+      return { ...state, loadingPosts: true };
     case `${GET_POSTS_BY_USER_ID}_FULFILLED`:
       if (Array.isArray(action.payload)) {
-        return { ...state, error: null, posts: action.payload, loading: false };
+        return {
+          ...state,
+          error: null,
+          posts: action.payload,
+          loadingPosts: false
+        };
       } else {
-        return { ...state, error: action.payload, loading: false };
+        return { ...state, error: action.payload, loadingPosts: false };
       }
 
     case `${GET_POST}_PENDING`:
