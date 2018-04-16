@@ -16,8 +16,9 @@
   margin-top: 20px;
   text-decoration: none;
   text-transform: uppercase;
-  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
-    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+  font-family: Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue",
+    sans-serif;
+
   letter-spacing: 2px;
   font-size: 0.6rem;
   padding: 0.5rem 1rem;

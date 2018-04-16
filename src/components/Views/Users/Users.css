@@ -1,8 +1,8 @@
 .Users__input {
   width: 100%;
   margin-top: 10px;
-  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
-    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+  font-family: Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue",
+    sans-serif;
   border: 1px solid var(--light-gray);
   border-radius: 3px;
   transition: box-shadow 200ms cubic-bezier(0.4, 0, 0.2, 1);

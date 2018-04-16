@@ -6,7 +6,6 @@ import { getPosts, getPostsByUserId } from "../../redux/ducks/postReducer";
 import Post from "./Post/Post";
 import Error from "../Error/Error";
 import UserProfile from "../Views/UserProfile/UserProfile";
-// import FabButton from "../FabButton/FabButton";
 import "./Posts.css";
 
 class Posts extends Component {
@@ -95,7 +94,6 @@ class Posts extends Component {
         <Link to="/posts/new">
           <button className="Posts__button">+</button>
         </Link>
-        {/* <FabButton /> */}
       </div>
     );
   }

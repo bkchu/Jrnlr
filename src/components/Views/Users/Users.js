@@ -78,7 +78,7 @@ class Users extends Component {
           <input
             className="Users__input"
             onChange={this.onChangeHandler}
-            placeholder="Search"
+            placeholder="Search for users by email."
             value={this.state.query}
             type="text"
             ref={instance => {
