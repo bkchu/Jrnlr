@@ -78,7 +78,8 @@ class FullPost extends Component {
         body,
         imageobj,
         userid,
-        profile_photo
+        profile_photo,
+        numComments
       } = selectedPost[0];
       let { numLikes } = this.props;
       let image = JSON.parse(imageobj);
@@ -186,6 +187,7 @@ class FullPost extends Component {
                 onClick={this.onCommentToggleHandler}
               >
                 <i className="fas fa-comments" />
+                {" " + numComments}
               </div>
             </div>
             {this.state.showComments && (

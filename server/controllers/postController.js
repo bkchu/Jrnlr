@@ -44,7 +44,11 @@ module.exports = {
             post[0]["numLikes"] = likes.length;
             post[0]["likes"] = likes;
             post[0]["userLiked"] = index !== -1;
-            res.status(200).json(post);
+
+            db.getCommentCount([req.params.id]).then(commentCount => {
+              post[0]["numComments"] = commentCount[0].count;
+              res.status(200).json(post);
+            });
           })
           .catch(err => console.log(err));
       })

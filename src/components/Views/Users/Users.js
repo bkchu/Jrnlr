@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { ToastContainer, toast } from "react-toastify";
 
 import User from "./User/User";
 import { getUsers, getAllUsersFollows } from "../../../redux/ducks/userReducer";
@@ -62,7 +61,6 @@ class Users extends Component {
           />
         </form>
         {displayUsers}
-        <ToastContainer />
       </div>
     );
   }
