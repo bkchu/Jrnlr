@@ -101,7 +101,7 @@ class Gallery extends Component {
           className={classesOwnPhoto.join(" ")}
           onClick={this.ownPressedHandler}
         >
-          Upload
+          Url
         </button>
         <button
           className={classesUnsplash.join(" ")}

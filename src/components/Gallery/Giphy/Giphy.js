@@ -166,10 +166,9 @@ class Giphy extends Component {
               onChange={this.onChangeHandler}
               type="text"
             />
-          </form>{" "}
-          - or -{" "}
+          </form>
           <button className="Giphy__random" onClick={this.onRandomImageHandler}>
-            Random
+            Random Giphy
           </button>
         </div>
         {giphyContainer}

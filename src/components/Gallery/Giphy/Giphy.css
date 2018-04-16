@@ -8,23 +8,20 @@
 
 .Giphy__search {
   display: flex;
-  align-items: center;
+  flex-direction: column;
 }
 
 .Giphy__form {
   flex: 1;
-  margin-right: 10px;
 }
 
 .Giphy__random {
-  margin-top: 10px;
-  margin-left: 10px;
+  flex: 1;
   background-color: var(--white);
   border: 1px solid var(--light-gray);
   border-radius: 3px;
   transition: all 100ms cubic-bezier(0.4, 0, 0.2, 1);
   outline: none;
-  margin-bottom: 10px;
   padding: 20px;
   color: var(--gray);
 }
@@ -57,6 +54,7 @@
 }
 
 .Giphy__images {
+  margin-top: 10px;
   opacity: 0;
   transition: all 200ms linear;
   display: flex;
@@ -98,4 +96,18 @@
 
 .Giphy__mini-image:active {
   transform: scale(0.98);
+}
+
+@media (min-width: 576px) {
+  .Giphy__search {
+    flex-direction: row;
+  }
+
+  .Giphy__form {
+    flex: 3;
+  }
+
+  .Giphy__random {
+    margin: 10px 0 10px 10px;
+  }
 }

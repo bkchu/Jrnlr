@@ -110,7 +110,7 @@
 }
 
 .Header__animated-greeting--show {
-  animation: 1.5s slideOut cubic-bezier(0.075, 0.82, 0.165, 1);
+  animation: 2s slideOut cubic-bezier(0.075, 0.82, 0.165, 1);
   animation-delay: 1s;
 }
 

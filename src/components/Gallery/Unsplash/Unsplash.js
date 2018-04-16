@@ -162,13 +162,12 @@ class Unsplash extends Component {
               onChange={this.onChangeHandler}
               type="text"
             />
-          </form>{" "}
-          - or -{" "}
+          </form>
           <button
             className="Unsplash__random"
             onClick={this.onRandomImageHandler}
           >
-            Random
+            Random Photo
           </button>
         </div>
         {unsplashContainer}
