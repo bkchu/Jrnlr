@@ -34,6 +34,7 @@ class FullPost extends Component {
       this.setState({ deleteConfirmation: 1 });
     } else {
       this.props.deletePost(this.props.match.params.postid);
+      while (this.props.loading);
       this.props.history.push("/");
       this.setState({ deleteConfirmation: 0 });
     }
