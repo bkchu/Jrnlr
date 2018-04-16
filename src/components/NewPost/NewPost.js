@@ -75,22 +75,22 @@ class NewPost extends Component {
   };
 
   titleChangeHandler = e => {
-    toast.dismiss(this.titleToast);
+    if (this.titleToast) toast.dismiss(this.titleToast);
     this.setState({ title: e.target.value });
   };
 
   subtitleChangeHandler = e => {
-    toast.dismiss(this.subtitleToast);
+    if (this.subtitleToast) toast.dismiss(this.subtitleToast);
     this.setState({ subtitle: e.target.value });
   };
 
   contentStateChanged = contentState => {
-    toast.dismiss(this.bodyToast);
+    if (this.bodyToast) toast.dismiss(this.bodyToast);
     this.setState({ contentState });
   };
 
   onImageSelectHandler = (image, mode) => {
-    toast.dismiss(this.imageToast);
+    if (this.imageToast) toast.dismiss(this.imageToast);
     let imgobj = {
       imageUrl: "",
       imageUser: "",
