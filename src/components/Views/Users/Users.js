@@ -9,41 +9,17 @@ import { getFollows } from "../../../redux/ducks/followReducer";
 import "./Users.css";
 
 class Users extends Component {
-  state = {
-    query: ""
-  };
-
-  // shouldComponentUpdate(nextProps, nextState) {
-  //   if (this.props.users !== nextProps.users) {
-  //     return true;
-  //   }
-  //   if (this.props.following !== nextProps.following) {
-  //     return true;
-  //   }
-  //   if (this.state.query !== nextState.query) {
-  //     return true;
-  //   }
-  //   return false;
-  // }
-
   componentDidMount() {
     this.searchbar.focus();
     this.props.getAllUsersFollows();
     this.props.getFollows();
   }
 
-  onSubmitHandler = e => {
-    e.preventDefault();
-    if (this.state.query.length > 0) {
-      this.props.getUsers(this.state.query);
-      this.props.getFollows();
-    } else {
-      toast.warn("Search field cannot be empty.");
-    }
-  };
-
   onChangeHandler = e => {
-    this.setState({ query: e.target.value });
+    if (e.target.value.length > 0) {
+      this.props.getUsers(e.target.value);
+      this.props.getFollows();
+    }
   };
 
   render() {
@@ -79,7 +55,6 @@ class Users extends Component {
             className="Users__input"
             onChange={this.onChangeHandler}
             placeholder="Search for users by email."
-            value={this.state.query}
             type="text"
             ref={instance => {
               this.searchbar = instance;
