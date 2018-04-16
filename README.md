@@ -10,25 +10,25 @@
 
 ## Tech Stack
 ##### Front End
-* ReactJS
-* Redux
+* [ReactJS](https://reactjs.org/)
+* [Redux](https://redux.js.org/)
 
 ##### Back End
-* NodeJS
-* ExpressJS
-* MassiveJS
-* PostgreSQL
+* [NodeJS](https://nodejs.org/)
+* [ExpressJS](https://expressjs.com/)
+* [MassiveJS](https://github.com/dmfay/massive-js)
+* [PostgreSQL](https://www.postgresql.org/)
 
 ##### Hosting
-* DigitalOcean
+* [DigitalOcean](https://www.digitalocean.com/)
 
 ##### Other 
-* Javascript ES6
-* BEM CSS
-* Unsplash API
-* Giphy API
-* PassportJS
+* [ECMAScript6 (ES6)](es6-features.org/)
+* [BEM CSS](http://getbem.com/)
+* [Unsplash API](https://unsplash.com/developers)
+* [Giphy API](https://developers.giphy.com/)
+* [PassportJS](http://www.passportjs.org/)
 * ###### npm modules
-  * react-transition-group
-  * react-html-parser
-  * react-draft-wysiwyg editor
+  * [react-transition-group](https://github.com/reactjs/react-transition-group)
+  * [react-html-parser](https://www.npmjs.com/package/react-html-parser)
+  * [react-draft-wysiwyg editor](https://jpuri.github.io/react-draft-wysiwyg/#/author)
