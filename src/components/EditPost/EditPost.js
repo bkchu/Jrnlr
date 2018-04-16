@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import axios from "axios";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -43,6 +44,16 @@ class EditPost extends Component {
       hasText &&
       Object.keys(imgobj).length !== 0
     ) {
+      if (
+        imgobj.imageDownloadUrl !== "" &&
+        imgobj.imageDownloadUrl.split(".")[1] === "unsplash"
+      ) {
+        axios.get(
+          imgobj.imageDownloadUrl +
+            "?client_id=" +
+            process.env.REACT_APP_CLIENT_ID
+        );
+      }
       this.props.updatePost(this.props.match.params.id, {
         title,
         subtitle,

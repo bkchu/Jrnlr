@@ -25,7 +25,6 @@ class ProfileCreate extends Component {
     let aboutFilled = about !== "";
     e.preventDefault();
     if (fullNameFilled && aboutFilled) {
-      console.log(fullName, about);
       // this.props.setUserIsNewToFalse();
       this.props.addProfile({
         photo: photo
