@@ -4,7 +4,6 @@ module.exports = {
     db
       .getComments([req.params.id])
       .then(response => {
-        console.log(response);
         res.status(200).json(response);
       })
       .catch(err => console.log(err));

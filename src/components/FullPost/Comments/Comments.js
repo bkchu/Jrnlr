@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Comment from "./Comment/Comment";
 import { connect } from "react-redux";
+import { toast } from "react-toastify";
 import { getComments, addComment } from "../../../redux/ducks/commentReducer";
 
 import "./Comments.css";
@@ -26,8 +27,12 @@ class Comments extends Component {
 
   onSubmitHandler = e => {
     e.preventDefault();
-    this.props.addComment(this.props.postid, this.state.text);
-    this.setState({ text: "" });
+    if (this.state.text !== "") {
+      this.props.addComment(this.props.postid, this.state.text);
+      this.setState({ text: "" });
+    } else {
+      toast("Comment can't be empty.");
+    }
   };
 
   render() {

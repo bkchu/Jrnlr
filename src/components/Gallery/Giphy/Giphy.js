@@ -51,7 +51,6 @@ class Giphy extends Component {
         }&limit=10&offset=${this.state.page + 10}`
       )
       .then(res => {
-        console.log(res);
         this.setState(prevState => {
           return {
             images: res.data.data,
