@@ -1,20 +1,20 @@
-import React, { Component } from "react";
-import axios from "axios";
-import { connect } from "react-redux";
-import { withRouter } from "react-router-dom";
-import { toast } from "react-toastify";
-import { convertFromRaw } from "draft-js";
+import React, { Component } from 'react';
+import axios from 'axios';
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import { convertFromRaw } from 'draft-js';
 
-import { addPost } from "../../redux/ducks/postReducer";
-import Gallery from "../Gallery/Gallery";
-import Editor from "../Editor/Editor";
+import { addPost } from '../../redux/ducks/postReducer';
+import Gallery from '../Gallery/Gallery';
+import Editor from '../Editor/Editor';
 
-import "./NewPost.css";
+import './NewPost.css';
 
 class NewPost extends Component {
   state = {
-    title: "",
-    subtitle: "",
+    title: '',
+    subtitle: '',
     contentState: {},
     imgobj: {},
     privacy: false
@@ -27,48 +27,49 @@ class NewPost extends Component {
       hasText = convertFromRaw(contentState).hasText();
     }
     if (
-      title !== "" &&
-      subtitle !== "" &&
+      title !== '' &&
+      subtitle !== '' &&
       hasText &&
       Object.keys(imgobj).length !== 0
     ) {
       if (
-        imgobj.imageDownloadUrl !== "" &&
-        imgobj.imageDownloadUrl.split(".")[1] === "unsplash"
+        imgobj.imageDownloadUrl !== '' &&
+        imgobj.imageDownloadUrl.split('.')[1] === 'unsplash'
       ) {
         axios.get(
           imgobj.imageDownloadUrl +
-            "?client_id=" +
+            '?client_id=' +
             process.env.REACT_APP_CLIENT_ID
         );
       }
-      this.props.addPost({
-        title,
-        subtitle,
-        contentState,
-        imgobj,
-        privacy
-      });
-      this.props.history.push("/");
+      this.props
+        .addPost({
+          title,
+          subtitle,
+          contentState,
+          imgobj,
+          privacy
+        })
+        .then(() => this.props.history.push('/'));
     } else {
-      if (title === "") {
+      if (title === '') {
         if (!toast.isActive(this.titleToast)) {
-          this.titleToast = toast.error("Cannot leave title empty.");
+          this.titleToast = toast.error('Cannot leave title empty.');
         }
       }
-      if (subtitle === "") {
+      if (subtitle === '') {
         if (!toast.isActive(this.subtitleToast)) {
-          this.subtitleToast = toast.error("Cannot leave subtitle empty.");
+          this.subtitleToast = toast.error('Cannot leave subtitle empty.');
         }
       }
       if (!hasText) {
         if (!toast.isActive(this.bodyToast)) {
-          this.bodyToast = toast.error("Cannot leave body empty.");
+          this.bodyToast = toast.error('Cannot leave body empty.');
         }
       }
       if (Object.keys(imgobj).length === 0) {
         if (!toast.isActive(this.imageToast)) {
-          this.imageToast = toast.warn("Please choose an image.");
+          this.imageToast = toast.warn('Please choose an image.');
         }
       }
     }
@@ -92,10 +93,10 @@ class NewPost extends Component {
   onImageSelectHandler = (image, mode) => {
     if (this.imageToast) toast.dismiss(this.imageToast);
     let imgobj = {
-      imageUrl: "",
-      imageUser: "",
-      imageAuthorUsername: "",
-      imageDownloadUrl: ""
+      imageUrl: '',
+      imageUser: '',
+      imageAuthorUsername: '',
+      imageDownloadUrl: ''
     };
 
     const UNSPLASH = 1;
@@ -158,7 +159,7 @@ class NewPost extends Component {
             className="NewPost__button NewPost__button--privacy"
             onClick={this.togglePrivacyHandler}
           >
-            {this.state.privacy ? "Private" : "Public"}
+            {this.state.privacy ? 'Private' : 'Public'}
           </button>
           <button
             className="NewPost__button NewPost__button--publish"
@@ -175,5 +176,8 @@ class NewPost extends Component {
 }
 
 export default withRouter(
-  connect(state => state.postReducer, { addPost })(NewPost)
+  connect(
+    state => state.postReducer,
+    { addPost }
+  )(NewPost)
 );

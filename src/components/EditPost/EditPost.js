@@ -1,23 +1,23 @@
-import React, { Component } from "react";
-import axios from "axios";
-import { connect } from "react-redux";
-import { withRouter } from "react-router-dom";
-import { toast } from "react-toastify";
-import { convertFromRaw } from "draft-js";
+import React, { Component } from 'react';
+import axios from 'axios';
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import { convertFromRaw } from 'draft-js';
 
-import { getPost, updatePost } from "../../redux/ducks/postReducer";
-import Gallery from "../Gallery/Gallery";
-import Error from "../Error/Error";
-import Editor from "../Editor/Editor";
+import { getPost, updatePost } from '../../redux/ducks/postReducer';
+import Gallery from '../Gallery/Gallery';
+import Error from '../Error/Error';
+import Editor from '../Editor/Editor';
 
-import "./EditPost.css";
+import './EditPost.css';
 
 class EditPost extends Component {
   state = {
-    title: this.props.selectedPost ? this.props.selectedPost[0].title : "",
+    title: this.props.selectedPost ? this.props.selectedPost[0].title : '',
     subtitle: this.props.selectedPost
       ? this.props.selectedPost[0].subtitle
-      : "",
+      : '',
     contentState: this.props.selectedPost
       ? JSON.parse(this.props.selectedPost[0].body)
       : {},
@@ -39,49 +39,50 @@ class EditPost extends Component {
       hasText = convertFromRaw(contentState).hasText();
     }
     if (
-      title !== "" &&
-      subtitle !== "" &&
+      title !== '' &&
+      subtitle !== '' &&
       hasText &&
       Object.keys(imgobj).length !== 0
     ) {
       if (
         imgobj.imageDownloadUrl &&
-        imgobj.imageDownloadUrl !== "" &&
-        imgobj.imageDownloadUrl.split(".")[1] === "unsplash"
+        imgobj.imageDownloadUrl !== '' &&
+        imgobj.imageDownloadUrl.split('.')[1] === 'unsplash'
       ) {
         axios.get(
           imgobj.imageDownloadUrl +
-            "?client_id=" +
+            '?client_id=' +
             process.env.REACT_APP_CLIENT_ID
         );
       }
-      this.props.updatePost(this.props.match.params.id, {
-        title,
-        subtitle,
-        contentState,
-        imgobj,
-        privacy
-      });
-      this.props.history.push("/");
+      this.props
+        .updatePost(this.props.match.params.id, {
+          title,
+          subtitle,
+          contentState,
+          imgobj,
+          privacy
+        })
+        .then(() => this.props.history.push('/'));
     } else {
-      if (title === "") {
+      if (title === '') {
         if (!toast.isActive(this.titleToast)) {
-          this.titleToast = toast.error("Cannot leave title empty.");
+          this.titleToast = toast.error('Cannot leave title empty.');
         }
       }
-      if (subtitle === "") {
+      if (subtitle === '') {
         if (!toast.isActive(this.subtitleToast)) {
-          this.subtitleToast = toast.error("Cannot leave subtitle empty.");
+          this.subtitleToast = toast.error('Cannot leave subtitle empty.');
         }
       }
       if (!hasText) {
         if (!toast.isActive(this.bodyToast)) {
-          this.bodyToast = toast.error("Cannot leave body empty.");
+          this.bodyToast = toast.error('Cannot leave body empty.');
         }
       }
       if (Object.keys(imgobj).length === 0) {
         if (!toast.isActive(this.imageToast)) {
-          this.imageToast = toast.warn("Please choose an image.");
+          this.imageToast = toast.warn('Please choose an image.');
         }
       }
     }
@@ -105,10 +106,10 @@ class EditPost extends Component {
   onImageSelectHandler = (image, mode) => {
     if (this.imageToast) toast.dismiss(this.imageToast);
     let imgobj = {
-      imageUrl: "",
-      imageUser: "",
-      imageAuthorUsername: "",
-      imageDownloadUrl: ""
+      imageUrl: '',
+      imageUser: '',
+      imageAuthorUsername: '',
+      imageDownloadUrl: ''
     };
 
     const UNSPLASH = 1;
@@ -157,8 +158,8 @@ class EditPost extends Component {
           <div>
             <Error
               error={{
-                status: "Wrong User",
-                data: { error: "You are not who you say you are." }
+                status: 'Wrong User',
+                data: { error: 'You are not who you say you are.' }
               }}
             />
           </div>
@@ -192,7 +193,7 @@ class EditPost extends Component {
               className="EditPost__button EditPost__button--privacy"
               onClick={this.togglePrivacyHandler}
             >
-              {this.state.privacy ? "Private" : "Public"}
+              {this.state.privacy ? 'Private' : 'Public'}
             </button>
             <button
               className="EditPost__button EditPost__button--publish"
@@ -221,5 +222,8 @@ const mapStateToProps = state => {
 };
 
 export default withRouter(
-  connect(mapStateToProps, { getPost, updatePost })(EditPost)
+  connect(
+    mapStateToProps,
+    { getPost, updatePost }
+  )(EditPost)
 );

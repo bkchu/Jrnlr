@@ -1,22 +1,22 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
-import { Link } from "react-router-dom";
-import moment from "moment";
-import FontAwesome from "react-fontawesome";
-import { toast, ToastContainer } from "react-toastify";
-import draftToHtml from "draftjs-to-html";
-import ReactHtmlParser, { convertNodeToElement } from "react-html-parser";
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
+import moment from 'moment';
+import FontAwesome from 'react-fontawesome';
+import { toast, ToastContainer } from 'react-toastify';
+import draftToHtml from 'draftjs-to-html';
+import ReactHtmlParser, { convertNodeToElement } from 'react-html-parser';
 
 import {
   getPost,
   deletePost,
   likeButtonPressed
-} from "../../redux/ducks/postReducer";
-import { toggleLike } from "../../redux/ducks/likeReducer";
-import Error from "../Error/Error";
-import Comments from "./Comments/Comments";
+} from '../../redux/ducks/postReducer';
+import { toggleLike } from '../../redux/ducks/likeReducer';
+import Error from '../Error/Error';
+import Comments from './Comments/Comments';
 
-import "./FullPost.css";
+import './FullPost.css';
 
 class FullPost extends Component {
   state = {
@@ -30,21 +30,22 @@ class FullPost extends Component {
 
   onDeleteHandler = () => {
     if (this.state.deleteConfirmation !== 1) {
-      toast.warn("Press again to delete.");
+      toast.warn('Press again to delete.');
       this.setState({ deleteConfirmation: 1 });
     } else {
-      this.props.deletePost(this.props.match.params.postid);
-      this.props.history.push("/");
-      this.setState({ deleteConfirmation: 0 });
+      this.props.deletePost(this.props.match.params.postid).then(() => {
+        this.props.history.push('/');
+        this.setState({ deleteConfirmation: 0 });
+      });
     }
   };
 
   onLikeHandler = () => {
     this.props.likeButtonPressed();
     let thumbsUp = document.querySelector(
-      ".svg-inline--fa.fa-thumbs-up.fa-w-16"
+      '.svg-inline--fa.fa-thumbs-up.fa-w-16'
     );
-    thumbsUp.setAttribute("data-prefix", !this.props.userLiked ? "fas" : "far");
+    thumbsUp.setAttribute('data-prefix', !this.props.userLiked ? 'fas' : 'far');
   };
 
   onCommentToggleHandler = () => {
@@ -83,7 +84,7 @@ class FullPost extends Component {
       } = selectedPost[0];
       let { numLikes } = this.props;
       let image = JSON.parse(imageobj);
-      let isUnsplashPhoto = image.imageAuthorUsername !== "";
+      let isUnsplashPhoto = image.imageAuthorUsername !== '';
       let likeButton = <FontAwesome name="thumbs-up" />;
 
       const htmlToParse = draftToHtml(JSON.parse(body));
@@ -92,11 +93,11 @@ class FullPost extends Component {
         transform: (node, index) => {
           // convert <ul> to <ol>
           if (
-            node.type === "tag" &&
-            node.name === "p" &&
+            node.type === 'tag' &&
+            node.name === 'p' &&
             node.children.length === 0
           ) {
-            node.name = "br";
+            node.name = 'br';
             return convertNodeToElement(node, index, this);
           }
         }
@@ -118,7 +119,7 @@ class FullPost extends Component {
                   <p className="FullPost__name">{name}</p>
                 </Link>
                 <p className="FullPost__date">
-                  {moment(date).format("MMM DD, YYYY")}
+                  {moment(date).format('MMM DD, YYYY')}
                 </p>
               </div>
             </div>
@@ -146,7 +147,7 @@ class FullPost extends Component {
           <img className="FullPost__image" src={image.imageUrl} alt="" />
           {isUnsplashPhoto ? (
             <p className="FullPost__caption">
-              Photo by{" "}
+              Photo by{' '}
               <a
                 className="FullPost__image-link"
                 href={`https://unsplash.com/@${
@@ -154,8 +155,8 @@ class FullPost extends Component {
                 }?utm_source=react-journal&utm_medium=referral`}
               >
                 {image.imageUser}
-              </a>{" "}
-              on{" "}
+              </a>{' '}
+              on{' '}
               <a
                 className="FullPost__image-link"
                 href="https://unsplash.com/?utm_source=react-journal&utm_medium=referral"
@@ -187,7 +188,7 @@ class FullPost extends Component {
                 onClick={this.onCommentToggleHandler}
               >
                 <i className="fas fa-comments" />
-                {" " + numComments}
+                {' ' + numComments}
               </div>
             </div>
             {this.state.showComments && (
@@ -223,9 +224,12 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps, {
-  getPost,
-  deletePost,
-  likeButtonPressed,
-  toggleLike
-})(FullPost);
+export default connect(
+  mapStateToProps,
+  {
+    getPost,
+    deletePost,
+    likeButtonPressed,
+    toggleLike
+  }
+)(FullPost);
