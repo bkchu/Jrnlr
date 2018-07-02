@@ -27,7 +27,7 @@ class Giphy extends Component {
       this.toastId = toast("Loading...");
       axios
         .get(
-          `http://api.giphy.com/v1/gifs/search?q=${query}&api_key=${
+          `https://api.giphy.com/v1/gifs/search?q=${query}&api_key=${
             process.env.REACT_APP_GIPHY_KEY
           }&limit=10`
         )
@@ -46,7 +46,7 @@ class Giphy extends Component {
     }
     axios
       .get(
-        `http://api.giphy.com/v1/gifs/search?q=${this.state.query}&api_key=${
+        `https://api.giphy.com/v1/gifs/search?q=${this.state.query}&api_key=${
           process.env.REACT_APP_GIPHY_KEY
         }&limit=10&offset=${this.state.page + 10}`
       )
@@ -68,7 +68,7 @@ class Giphy extends Component {
     }
     axios
       .get(
-        `http://api.giphy.com/v1/gifs/search?q=${this.state.query}&api_key=${
+        `https://api.giphy.com/v1/gifs/search?q=${this.state.query}&api_key=${
           process.env.REACT_APP_GIPHY_KEY
         }&limit=10&offset=${this.state.page - 10}`
       )
@@ -99,7 +99,7 @@ class Giphy extends Component {
     }
     axios
       .get(
-        `http://api.giphy.com/v1/gifs/random?api_key=${
+        `https://api.giphy.com/v1/gifs/random?api_key=${
           process.env.REACT_APP_GIPHY_KEY
         }`
       )
