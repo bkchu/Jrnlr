@@ -1,13 +1,19 @@
-import React, { Component } from "react";
-import "./UrlPhoto.css";
+import React, { Component } from 'react';
+import './UrlPhoto.css';
 
 class UrlPhoto extends Component {
   state = {
-    url: ""
+    url: ''
   };
   onChangeHandler = e => {
-    this.setState({ url: e.target.value });
-    this.props.setImage(e.target.value);
+    let url = e.target.value;
+    if (/^http:/.test(e.target.value)) {
+      let urlArr = url.split('');
+      urlArr.splice(0, 4, 'https');
+      url = urlArr.join('');
+    }
+    this.setState({ url });
+    this.props.setImage(url);
   };
 
   render() {
