@@ -1,4 +1,4 @@
-SELECT u.name, p.* FROM post p
+SELECT COUNT(*) FROM post p
 JOIN users u on p.userid = u.id
 WHERE p.userid IN (
   -- list of userid's that correspond to the list of follows
@@ -10,6 +10,4 @@ WHERE p.userid IN (
     WHERE u.id = $1
   )
 )
-AND p.privacy = false
-ORDER BY date DESC
-LIMIT 12 OFFSET $2;
+AND p.privacy = false;

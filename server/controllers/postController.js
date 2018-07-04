@@ -1,26 +1,24 @@
 module.exports = {
   getPosts: (req, res, next) => {
-    const db = req.app.get("db");
+    const db = req.app.get('db');
     db
       //TODO
-      .getPosts([req.session.passport.user.id])
+      .getPosts([req.session.passport.user.id, req.query.page * 12])
       .then(response => {
         res.status(200).json(response);
       })
       .catch(err => console.log(err));
   },
   getPostsByUserId: (req, res, next) => {
-    const db = req.app.get("db");
+    const db = req.app.get('db');
     if (+req.params.userid === +req.session.passport.user.id) {
-      db
-        .getPostsByUserId([req.params.userid])
+      db.getPostsByUserId([req.params.userid, req.query.page * 12])
         .then(response => {
           res.status(200).json(response);
         })
         .catch(err => console.log(err));
     } else {
-      db
-        .getPostsByUserId([req.params.userid])
+      db.getPostsByUserId([req.params.userid, req.query.page * 12])
         .then(response => {
           let allPublicPostsById = response.filter(
             post => post.privacy === false
@@ -30,23 +28,46 @@ module.exports = {
         .catch(err => console.log(err));
     }
   },
+  getPostsCount: (req, res, next) => {
+    const db = req.app.get('db');
+    db.getPostsCount([req.session.passport.user.id])
+      .then(response => {
+        res.status(200).json(response);
+      })
+      .catch(err => console.log(err));
+  },
+  getPostsByUserIdCount: (req, res, next) => {
+    const db = req.app.get('db');
+    if (+req.params.userid === +req.session.passport.user.id) {
+      db.getPostsByUserIdCount([req.params.userid])
+        .then(response => {
+          res.status(200).json(response);
+        })
+        .catch(err => console.log(err));
+    } else {
+      db.getPostsByUserIdCountPublic([req.params.userid])
+        .then(response => {
+          res.status(200).json(response);
+        })
+        .catch(err => console.log(err));
+    }
+  },
+
   getPost: (req, res, next) => {
-    const db = req.app.get("db");
-    db
-      .getPost([req.params.id])
+    const db = req.app.get('db');
+    db.getPost([req.params.id])
       .then(post => {
-        db
-          .getLikes([req.params.id])
+        db.getLikes([req.params.id])
           .then(likes => {
             let index = likes.findIndex(
               like => +like.userid === req.session.passport.user.id
             );
-            post[0]["numLikes"] = likes.length;
-            post[0]["likes"] = likes;
-            post[0]["userLiked"] = index !== -1;
+            post[0]['numLikes'] = likes.length;
+            post[0]['likes'] = likes;
+            post[0]['userLiked'] = index !== -1;
 
             db.getCommentCount([req.params.id]).then(commentCount => {
-              post[0]["numComments"] = commentCount[0].count;
+              post[0]['numComments'] = commentCount[0].count;
               res.status(200).json(post);
             });
           })
@@ -55,43 +76,40 @@ module.exports = {
       .catch(err => console.log(err));
   },
   addPost: (req, res, next) => {
-    const db = req.app.get("db");
-    db
-      .addPost([
-        req.session.passport.user.id,
-        req.body.title,
-        req.body.subtitle,
-        req.body.contentState,
-        req.body.imgobj,
-        req.body.privacy
-      ])
+    const db = req.app.get('db');
+    db.addPost([
+      req.session.passport.user.id,
+      req.body.title,
+      req.body.subtitle,
+      req.body.contentState,
+      req.body.imgobj,
+      req.body.privacy
+    ])
       .then(response => {
         res.status(200).json(response);
       })
       .catch(err => console.log(err));
   },
   deletePost: (req, res, next) => {
-    const db = req.app.get("db");
+    const db = req.app.get('db');
 
-    db
-      .deletePost([req.params.id])
+    db.deletePost([req.params.id])
       .then(response => {
         res.status(200).json(response);
       })
       .catch(err => console.log(err));
   },
   updatePost: (req, res, next) => {
-    const db = req.app.get("db");
-    db
-      .updatePost([
-        req.session.passport.user.id,
-        req.params.id,
-        req.body.title,
-        req.body.subtitle,
-        req.body.contentState,
-        req.body.imgobj,
-        req.body.privacy
-      ])
+    const db = req.app.get('db');
+    db.updatePost([
+      req.session.passport.user.id,
+      req.params.id,
+      req.body.title,
+      req.body.subtitle,
+      req.body.contentState,
+      req.body.imgobj,
+      req.body.privacy
+    ])
       .then(response => {
         res.status(200).json(response);
       })

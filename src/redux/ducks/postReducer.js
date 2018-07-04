@@ -3,6 +3,10 @@ import axios from 'axios';
 //ACTION TYPE
 const GET_POSTS = 'GET_POSTS';
 const GET_POSTS_BY_USER_ID = 'GET_POSTS_BY_USER_ID';
+const GET_POSTS_COUNT = 'GET_POSTS_COUNT';
+const GET_POSTS_BY_USER_ID_COUNT = 'GET_POSTS_BY_USER_ID_COUNT';
+const GET_INITIAL_POSTS = 'GET_INITIAL_POSTS';
+const GET_INITIAL_POSTS_BY_USER_ID = 'GET_INITIAL_POSTS_BY_USER_ID';
 const GET_POST = 'GET_POST';
 const ADD_POST = 'ADD_POST';
 const DELETE_POST = 'DELETE_POST';
@@ -12,6 +16,7 @@ const LIKE_BUTTON_PRESSED = 'LIKE_BUTTON_PRESSED';
 //INITIAL STATE
 const initialState = {
   posts: [],
+  count: 0,
   loading: false,
   loadingPosts: false,
   error: null,
@@ -22,17 +27,45 @@ const initialState = {
 };
 
 //ACTION CREATOR
-export const getPosts = () => {
+export const getInitialPosts = (page = 0) => {
   return {
-    type: GET_POSTS,
-    payload: axios.get('/api/posts')
+    type: GET_INITIAL_POSTS,
+    payload: axios.get(`/api/posts?page=${page}`)
   };
 };
 
-export const getPostsByUserId = userid => {
+export const getInitialPostsByUserId = (userid, page = 0) => {
+  return {
+    type: GET_INITIAL_POSTS_BY_USER_ID,
+    payload: axios.get(`/api/users/${userid}/posts?page=${page}`)
+  };
+};
+
+export const getPosts = (page = 0) => {
+  return {
+    type: GET_POSTS,
+    payload: axios.get(`/api/posts?page=${page}`)
+  };
+};
+
+export const getPostsByUserId = (userid, page = 0) => {
   return {
     type: GET_POSTS_BY_USER_ID,
-    payload: axios.get(`/api/users/${userid}/posts`)
+    payload: axios.get(`/api/users/${userid}/posts?page=${page}`)
+  };
+};
+
+export const getPostsCount = () => {
+  return {
+    type: GET_POSTS_COUNT,
+    payload: axios.get(`/api/posts/count`)
+  };
+};
+
+export const getPostsByUserIdCount = userid => {
+  return {
+    type: GET_POSTS_BY_USER_ID_COUNT,
+    payload: axios.get(`/api/users/${userid}/posts/count`)
   };
 };
 
@@ -71,14 +104,64 @@ export const likeButtonPressed = () => {
 };
 
 export default function postReducer(state = initialState, action) {
+  const { type, payload } = action;
+  console.log({ type, payload });
   switch (action.type) {
+    case `${GET_POSTS_COUNT}_PENDING`:
+      return { ...state, loading: true };
+    case `${GET_POSTS_COUNT}_FULFILLED`:
+      return {
+        ...state,
+        error: null,
+        count: action.payload.data[0].count,
+        loading: false
+      };
+    case `${GET_POSTS_COUNT}_REJECTED`:
+      return { ...state, error: action.payload, loading: false };
+
+    case `${GET_POSTS_BY_USER_ID_COUNT}_PENDING`:
+      return { ...state, loading: true };
+    case `${GET_POSTS_BY_USER_ID_COUNT}_FULFILLED`:
+      return {
+        ...state,
+        error: null,
+        count: action.payload.data[0].count,
+        loading: false
+      };
+    case `${GET_POSTS_BY_USER_ID_COUNT}_REJECTED`:
+      return { ...state, error: action.payload, loading: false };
+
+    case `${GET_INITIAL_POSTS}_PENDING`:
+      return { ...state, loading: true };
+    case `${GET_INITIAL_POSTS}_FULFILLED`:
+      return {
+        ...state,
+        error: null,
+        posts: action.payload.data,
+        loading: false
+      };
+    case `${GET_INITIAL_POSTS}_REJECTED`:
+      return { ...state, error: action.payload, loading: false };
+
+    case `${GET_INITIAL_POSTS_BY_USER_ID}_PENDING`:
+      return { ...state, loadingPosts: true };
+    case `${GET_INITIAL_POSTS_BY_USER_ID}_FULFILLED`:
+      return {
+        ...state,
+        error: null,
+        posts: action.payload.data,
+        loadingPosts: false
+      };
+    case `${GET_INITIAL_POSTS_BY_USER_ID}_REJECTED`:
+      return { ...state, error: action.payload, loadingPosts: false };
+
     case `${GET_POSTS}_PENDING`:
       return { ...state, loading: true };
     case `${GET_POSTS}_FULFILLED`:
       return {
         ...state,
         error: null,
-        posts: action.payload.data,
+        posts: [...state.posts, ...action.payload.data],
         loading: false
       };
     case `${GET_POSTS}_REJECTED`:
@@ -90,7 +173,7 @@ export default function postReducer(state = initialState, action) {
       return {
         ...state,
         error: null,
-        posts: action.payload.data,
+        posts: [...state.posts, ...action.payload.data],
         loadingPosts: false
       };
     case `${GET_POSTS_BY_USER_ID}_REJECTED`:

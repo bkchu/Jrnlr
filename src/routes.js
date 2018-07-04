@@ -1,22 +1,22 @@
-import React from "react";
-import { withRouter, Switch, Route } from "react-router-dom";
-import { TransitionGroup, CSSTransition } from "react-transition-group";
-import { connect } from "react-redux";
+import React from 'react';
+import { withRouter, Switch, Route } from 'react-router-dom';
+import { TransitionGroup, CSSTransition } from 'react-transition-group';
+import { connect } from 'react-redux';
 
-import Posts from "./components/Posts/Posts";
-import FullPost from "./components/FullPost/FullPost";
-import NewPost from "./components/NewPost/NewPost";
-import EditPost from "./components/EditPost/EditPost";
-import NotFound from "./components/Views/NotFound/NotFound";
-import Users from "./components/Views/Users/Users";
-import Login from "./components/Views/Login/Login";
-import ProfileCreate from "./components/Views/ProfileCreate/ProfileCreate";
+import Posts from './components/Posts/Posts';
+import FullPost from './components/FullPost/FullPost';
+import NewPost from './components/NewPost/NewPost';
+import EditPost from './components/EditPost/EditPost';
+import NotFound from './components/Views/NotFound/NotFound';
+import Users from './components/Views/Users/Users';
+import Login from './components/Views/Login/Login';
+import ProfileCreate from './components/Views/ProfileCreate/ProfileCreate';
 
-import "./styles/cssTransition.css";
+import './styles/cssTransition.css';
 
 const Routes = props => {
   let { location } = props;
-  const currentKey = location.pathname.split("/")[1] || "/";
+  const currentKey = location.pathname.split('/')[1] || '/';
   const timeout = { enter: 300, exit: 200 };
   return (
     <TransitionGroup component="main">
@@ -32,13 +32,7 @@ const Routes = props => {
               path="/"
               exact
               render={() => {
-                return props.user ? (
-                  <div>
-                    <Posts />
-                  </div>
-                ) : (
-                  <Login />
-                );
+                return props.user ? <Posts /> : <Login />;
               }}
             />
             <Route

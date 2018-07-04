@@ -78,7 +78,6 @@ export const updateProfile = obj => {
 };
 
 export default function userReducer(state = initialState, action) {
-  const { type, payload } = action;
   switch (action.type) {
     case `${GET_USER}_PENDING`:
       return { ...state, loading: true };

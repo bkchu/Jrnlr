@@ -1,32 +1,98 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
-import { Link } from "react-router-dom";
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 
-import { getPosts, getPostsByUserId } from "../../redux/ducks/postReducer";
-import Post from "./Post/Post";
-import Error from "../Error/Error";
-import UserProfile from "../Views/UserProfile/UserProfile";
-import "./Posts.css";
+import {
+  getPosts,
+  getPostsByUserId,
+  getInitialPosts,
+  getInitialPostsByUserId,
+  getPostsCount,
+  getPostsByUserIdCount
+} from '../../redux/ducks/postReducer';
+import Post from './Post/Post';
+import Error from '../Error/Error';
+import UserProfile from '../Views/UserProfile/UserProfile';
+import './Posts.css';
 
 class Posts extends Component {
+  state = {
+    page: 1
+  };
+
+  // componentWillReceiveProps(nextProps) {
+  //   if(nextProps.location !== this.props.location) {
+
+  //   }
+  // }
+
   componentDidUpdate(prevProps) {
+    document.addEventListener('scroll', this.trackScrolling);
     if (
       prevProps.match &&
       this.props.match &&
       prevProps.match.url !== this.props.match.url &&
-      this.props.match.path === "/users/:userid"
+      this.props.match.path === '/users/:userid'
     ) {
-      this.props.getPostsByUserId(this.props.match.params.userid);
+      this.props.getInitialPostsByUserId(this.props.match.params.userid);
     }
   }
 
   componentDidMount() {
-    if (this.props.match && this.props.match.path === "/users/:userid") {
-      this.props.getPostsByUserId(this.props.match.params.userid);
+    document.addEventListener('scroll', this.trackScrolling);
+    if (this.props.match && this.props.match.path === '/users/:userid') {
+      this.props
+        .getInitialPostsByUserId(this.props.match.params.userid)
+        .then(() =>
+          this.props.getPostsByUserIdCount(this.props.match.params.userid)
+        );
     } else {
-      this.props.getPosts();
+      this.props.getInitialPosts().then(this.props.getPostsCount);
     }
-    window.scrollTo(0, 0);
+  }
+
+  isBottom(el) {
+    return el.getBoundingClientRect().bottom <= window.innerHeight;
+  }
+
+  scrollToBottom = () => {
+    this.dummydiv.scrollIntoView({ behavior: 'smooth' });
+  };
+
+  trackScrolling = () => {
+    const wrappedElement = this.postsContainer;
+    const originalHeight =
+      this.postsContainer && this.postsContainer.clientHeight;
+    if (wrappedElement && this.isBottom(wrappedElement)) {
+      if (
+        this.props.match &&
+        this.props.match.path === '/users/:userid' &&
+        this.props.posts.length < this.props.count
+      ) {
+        this.props
+          .getPostsByUserId(this.props.match.params.userid, this.state.page)
+          .then(() => {
+            this.setState(
+              ({ page }) => ({ page: page + 1 }),
+              window.scrollTo(0, originalHeight)
+            );
+          });
+      } else {
+        if (this.props.posts.length < this.props.count) {
+          this.props.getPosts(this.state.page).then(() => {
+            this.setState(
+              ({ page }) => ({ page: page + 1 }),
+              window.scrollTo(0, originalHeight)
+            );
+          });
+        }
+      }
+      document.removeEventListener('scroll', this.trackScrolling);
+    }
+  };
+
+  componentWillUnmount() {
+    document.removeEventListener('scroll', this.trackScrolling);
   }
 
   render() {
@@ -41,7 +107,10 @@ class Posts extends Component {
         );
 
         displayPosts = (
-          <div className="Posts fade-in">
+          <div
+            ref={postsContainer => (this.postsContainer = postsContainer)}
+            className="Posts fade-in"
+          >
             {posts.map(post => {
               return (
                 <Post
@@ -61,7 +130,7 @@ class Posts extends Component {
         );
       } else if (posts.length === 0) {
         profileName = null;
-        if (this.props.match && this.props.match.path === "/users/:userid") {
+        if (this.props.match && this.props.match.path === '/users/:userid') {
           displayPosts = (
             <div>
               <UserProfile userid={this.props.match.params.userid} />
@@ -94,6 +163,11 @@ class Posts extends Component {
         <Link to="/posts/new">
           <button className="Posts__button">+</button>
         </Link>
+        <div
+          ref={dummydiv => {
+            this.dummydiv = dummydiv;
+          }}
+        />
       </div>
     );
   }
@@ -102,6 +176,7 @@ class Posts extends Component {
 const mapStateToProps = state => {
   return {
     posts: state.postReducer.posts,
+    count: state.postReducer.count,
     error: state.postReducer.error,
     loading: state.postReducer.loading,
     loadingPosts: state.postReducer.loadingPosts,
@@ -109,4 +184,14 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps, { getPosts, getPostsByUserId })(Posts);
+export default connect(
+  mapStateToProps,
+  {
+    getPosts,
+    getPostsByUserId,
+    getInitialPosts,
+    getInitialPostsByUserId,
+    getPostsCount,
+    getPostsByUserIdCount
+  }
+)(Posts);
