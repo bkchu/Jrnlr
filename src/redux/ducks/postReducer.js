@@ -104,7 +104,6 @@ export const likeButtonPressed = () => {
 };
 
 export default function postReducer(state = initialState, action) {
-  const { type, payload } = action;
   switch (action.type) {
     case `${GET_POSTS_COUNT}_PENDING`:
       return { ...state, loading: true };
