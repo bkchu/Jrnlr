@@ -20,12 +20,6 @@ class Posts extends Component {
     page: 1
   };
 
-  // componentWillReceiveProps(nextProps) {
-  //   if(nextProps.location !== this.props.location) {
-
-  //   }
-  // }
-
   componentDidUpdate(prevProps) {
     document.addEventListener('scroll', this.trackScrolling);
     if (
@@ -60,9 +54,9 @@ class Posts extends Component {
   };
 
   trackScrolling = () => {
-    const wrappedElement = this.postsContainer;
+    const wrappedElement = this.dummydiv;
     const originalHeight =
-      this.postsContainer && this.postsContainer.clientHeight;
+      this.postsContainer && this.postsContainer.clientHeight - 350;
     if (wrappedElement && this.isBottom(wrappedElement)) {
       if (
         this.props.match &&
@@ -160,14 +154,15 @@ class Posts extends Component {
       <div className="container">
         {profileName}
         {displayPosts}
-        <Link to="/posts/new">
-          <button className="Posts__button">+</button>
-        </Link>
         <div
+          style={{ display: 'block', height: '100px', width: '100%' }}
           ref={dummydiv => {
             this.dummydiv = dummydiv;
           }}
         />
+        <Link to="/posts/new">
+          <button className="Posts__button">+</button>
+        </Link>
       </div>
     );
   }
