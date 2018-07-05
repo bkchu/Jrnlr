@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import ReactS3Uploader from 'react-s3-uploader';
 import { toast, ToastContainer } from 'react-toastify';
 import { connect } from 'react-redux';
-import { Redirect } from 'react-router-dom';
 import Error from '../../Error/Error';
 
 import {
@@ -19,6 +18,12 @@ class ProfileCreate extends Component {
     about: ''
   };
 
+  componentDidMount() {
+    if (!this.props.user.is_new) {
+      return this.props.history.replace('/');
+    }
+  }
+
   onSubmitHandler = e => {
     let { fullName, about, photo } = this.state;
     let fullNameFilled = fullName !== '';
@@ -26,14 +31,15 @@ class ProfileCreate extends Component {
     e.preventDefault();
     if (fullNameFilled && aboutFilled) {
       // this.props.setUserIsNewToFalse();
-      this.props.addProfile({
-        photo: photo
-          ? photo
-          : 'https://www.bspmediagroup.com/event/img/logos/user_placeholder.png',
-        fullName,
-        about
-      });
-      this.props.history.push('/');
+      this.props
+        .addProfile({
+          photo: photo
+            ? photo
+            : 'https://www.bspmediagroup.com/event/img/logos/user_placeholder.png',
+          fullName,
+          about
+        })
+        .then(() => this.props.history.push('/'));
     } else {
       if (!fullNameFilled) {
         toast.warn('Please fill in the Full Name field.');
@@ -62,9 +68,7 @@ class ProfileCreate extends Component {
     let { photo, fullName, about } = this.state;
 
     let profileCreateDisplay = <div className="ProfileCreate container" />;
-    if (!user.is_new) {
-      return <Redirect to="/" />;
-    } else if (!user.email_verified) {
+    if (!user.email_verified) {
       return (
         <Error
           error={{
