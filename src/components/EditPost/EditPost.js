@@ -3,7 +3,7 @@ import axios from 'axios';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import { convertFromRaw } from 'draft-js';
+// import { convertFromRaw } from 'draft-js';
 
 import { getPost, updatePost } from '../../redux/ducks/postReducer';
 import Gallery from '../Gallery/Gallery';
@@ -19,8 +19,8 @@ class EditPost extends Component {
       ? this.props.selectedPost[0].subtitle
       : '',
     contentState: this.props.selectedPost
-      ? JSON.parse(this.props.selectedPost[0].body)
-      : {},
+      ? this.props.selectedPost[0].body
+      : '',
     imgobj: this.props.selectedPost ? this.props.selectedPost[0].imageobj : {},
     userid: this.props.selectedPost ? this.props.selectedPost[0].userid : null,
     privacy: this.props.selectedPost
@@ -34,16 +34,7 @@ class EditPost extends Component {
 
   onSubmitHandler = e => {
     let { title, subtitle, contentState, imgobj, privacy } = this.state;
-    let hasText = false;
-    if (Object.keys(contentState).length > 0) {
-      hasText = convertFromRaw(contentState).hasText();
-    }
-    if (
-      title !== '' &&
-      subtitle !== '' &&
-      hasText &&
-      Object.keys(imgobj).length !== 0
-    ) {
+    if (title && subtitle && contentState && Object.keys(imgobj).length !== 0) {
       if (
         imgobj.imageDownloadUrl &&
         imgobj.imageDownloadUrl !== '' &&
@@ -65,17 +56,17 @@ class EditPost extends Component {
         })
         .then(() => this.props.history.push('/'));
     } else {
-      if (title === '') {
+      if (!title) {
         if (!toast.isActive(this.titleToast)) {
           this.titleToast = toast.error('Cannot leave title empty.');
         }
       }
-      if (subtitle === '') {
+      if (!subtitle) {
         if (!toast.isActive(this.subtitleToast)) {
           this.subtitleToast = toast.error('Cannot leave subtitle empty.');
         }
       }
-      if (!hasText) {
+      if (!contentState) {
         if (!toast.isActive(this.bodyToast)) {
           this.bodyToast = toast.error('Cannot leave body empty.');
         }
@@ -149,7 +140,7 @@ class EditPost extends Component {
     let { selectedPost, error, loading } = this.props;
 
     let comp = null;
-    // EDITING POST
+
     if (loading) {
       comp = <div className="EditPost" />;
     } else if (selectedPost && selectedPost.length > 0 && !error && !loading) {

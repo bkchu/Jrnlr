@@ -3,7 +3,6 @@ import axios from 'axios';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import { convertFromRaw } from 'draft-js';
 
 import { addPost } from '../../redux/ducks/postReducer';
 import Gallery from '../Gallery/Gallery';
@@ -15,23 +14,14 @@ class NewPost extends Component {
   state = {
     title: '',
     subtitle: '',
-    contentState: {},
+    contentState: '',
     imgobj: {},
     privacy: false
   };
 
   onSubmitHandler = e => {
     let { title, subtitle, contentState, imgobj, privacy } = this.state;
-    let hasText = false;
-    if (Object.keys(contentState).length > 0) {
-      hasText = convertFromRaw(contentState).hasText();
-    }
-    if (
-      title !== '' &&
-      subtitle !== '' &&
-      hasText &&
-      Object.keys(imgobj).length !== 0
-    ) {
+    if (title && subtitle && contentState && Object.keys(imgobj).length !== 0) {
       if (
         imgobj.imageDownloadUrl !== '' &&
         imgobj.imageDownloadUrl.split('.')[1] === 'unsplash'
@@ -52,17 +42,17 @@ class NewPost extends Component {
         })
         .then(() => this.props.history.push('/'));
     } else {
-      if (title === '') {
+      if (!title) {
         if (!toast.isActive(this.titleToast)) {
           this.titleToast = toast.error('Cannot leave title empty.');
         }
       }
-      if (subtitle === '') {
+      if (!subtitle) {
         if (!toast.isActive(this.subtitleToast)) {
           this.subtitleToast = toast.error('Cannot leave subtitle empty.');
         }
       }
-      if (!hasText) {
+      if (!contentState) {
         if (!toast.isActive(this.bodyToast)) {
           this.bodyToast = toast.error('Cannot leave body empty.');
         }

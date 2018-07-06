@@ -4,8 +4,7 @@ import { Link } from 'react-router-dom';
 import moment from 'moment';
 import FontAwesome from 'react-fontawesome';
 import { toast, ToastContainer } from 'react-toastify';
-import draftToHtml from 'draftjs-to-html';
-import ReactHtmlParser, { convertNodeToElement } from 'react-html-parser';
+import FroalaEditorView from 'react-froala-wysiwyg/FroalaEditorView';
 
 import {
   getPost,
@@ -87,22 +86,6 @@ class FullPost extends Component {
       let isUnsplashPhoto = image.imageAuthorUsername !== '';
       let likeButton = <FontAwesome name="thumbs-up" />;
 
-      const htmlToParse = draftToHtml(JSON.parse(body));
-
-      const html = ReactHtmlParser(htmlToParse, {
-        transform: (node, index) => {
-          // convert <ul> to <ol>
-          if (
-            node.type === 'tag' &&
-            node.name === 'p' &&
-            node.children.length === 0
-          ) {
-            node.name = 'br';
-            return convertNodeToElement(node, index, this);
-          }
-        }
-      });
-
       displayPost = (
         <div className="FullPost fade-in">
           <div className="FullPost__header">
@@ -171,7 +154,9 @@ class FullPost extends Component {
               </a>
             </p>
           )}
-          <div className="FullPost__body">{html}</div>
+          <div className="FullPost__body">
+            <FroalaEditorView model={body} />
+          </div>
           <div className="FullPost__footer">
             <div className="container">
               <div className="FullPost__likes">
