@@ -146,20 +146,18 @@ class FullPost extends Component {
                 className={`FullPost__buttons ${this.state.options &&
                   'FullPost__buttons--show'}`}
               >
-                <div className="FullPost__button FullPost__button--edit">
-                  <Link
-                    to={`/posts/${this.props.match.params.postid}/edit`}
-                    className="Link "
-                  >
-                    Edit
-                  </Link>
-                </div>
-                <div
+                <Link
+                  to={`/posts/${this.props.match.params.postid}/edit`}
+                  className="Link FullPost__button FullPost__button--edit"
+                >
+                  Edit
+                </Link>
+                <button
                   onClick={this.onDeleteHandler}
                   className="FullPost__button FullPost__button--delete"
                 >
                   Delete
-                </div>
+                </button>
               </div>
             </Fragment>
           )}

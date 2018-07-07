@@ -140,6 +140,7 @@
   margin: 5px;
   padding: 10px;
   border: 2px solid var(--light-gray);
+  background: white;
   color: var(--gray);
   border-radius: 9999px;
   font-size: 0.75em;
@@ -161,13 +162,13 @@
   color: var(--black);
 }
 
-.FullPost__button a {
-  color: var(--gray);
+.FullPost__button {
+  color: var(--gray) !important;
   transition: all 200ms ease;
 }
 
-.FullPost__button:hover a {
-  color: var(--black);
+.FullPost__button:hover {
+  color: var(--black) !important;
 }
 
 .FullPost__button--edit:hover {
