@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import moment from 'moment';
@@ -15,12 +15,14 @@ import { toggleLike } from '../../redux/ducks/likeReducer';
 import Error from '../Error/Error';
 import Comments from './Comments/Comments';
 
+import JrnlrMenu from '../../assets/Jrnlr-menu.svg';
 import './FullPost.css';
 
 class FullPost extends Component {
   state = {
     showComments: false,
-    deleteConfirmation: 0
+    deleteConfirmation: 0,
+    options: false
   };
 
   componentDidMount() {
@@ -110,22 +112,37 @@ class FullPost extends Component {
               <h1 className="FullPost__title">{title}</h1>
               <p className="FullPost__subtitle">{subtitle}</p>
             </div>
+            {userLoggedIn.id === userid && (
+              <img
+                src={JrnlrMenu}
+                onClick={() =>
+                  this.setState(({ options }) => ({ options: !options }))
+                }
+                className="FullPost__options"
+                alt="options"
+              />
+            )}
           </div>
           {userLoggedIn.id === userid && (
-            <div className="FullPost__buttons">
-              <Link
-                to={`/posts/${this.props.match.params.postid}/edit`}
-                className="Link FullPost__button FullPost__button--edit"
-              >
-                Edit
-              </Link>
+            <Fragment>
               <div
-                onClick={this.onDeleteHandler}
-                className="FullPost__button FullPost__button--delete"
+                className={`FullPost__buttons ${this.state.options &&
+                  'FullPost__buttons--show'}`}
               >
-                Delete
+                <Link
+                  to={`/posts/${this.props.match.params.postid}/edit`}
+                  className="Link FullPost__button FullPost__button--edit"
+                >
+                  Edit
+                </Link>
+                <button
+                  onClick={this.onDeleteHandler}
+                  className="FullPost__button FullPost__button--delete"
+                >
+                  Delete
+                </button>
               </div>
-            </div>
+            </Fragment>
           )}
           <img className="FullPost__image" src={image.imageUrl} alt="" />
           {isUnsplashPhoto ? (
