@@ -39,14 +39,10 @@ class UserProfile extends Component {
     });
   };
 
-  onFollowUserButton = () => {
-    //this.props.userid
-  };
-
   onPictureUpload = s3 => {
     //check if photo state is empty, conditionally update profile: if photo state empty, then don't update photo.
     this.setState({
-      photo: `http://s3.us-east-2.amazonaws.com/react-journal-user-profile/${
+      photo: `https://s3.us-east-2.amazonaws.com/react-journal-user-profile/${
         s3.filename
       }`
     });
