@@ -22,7 +22,7 @@
     "react-fontawesome": "^1.6.1",
     "react-html-parser": "^2.0.2",
     "react-redux": "^5.0.7",
-    "react-router-dom": "^4.2.2",
+    "react-router-dom": "^5.0.1",
     "react-s3-uploader": "^4.8.0",
     "react-scripts": "3.0.1",
     "react-toastify": "^3.4.3",
