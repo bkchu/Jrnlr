@@ -28,7 +28,7 @@
     "react-toastify": "^5.3.2",
     "react-transition-group": "^2.2.1",
     "redux": "^3.7.2",
-    "redux-promise-middleware": "^5.0.0"
+    "redux-promise-middleware": "^6.1.1"
   },
   "scripts": {
     "start": "react-scripts start",
