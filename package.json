@@ -9,7 +9,7 @@
     "dotenv": "^5.0.1",
     "draft-js": "^0.10.5",
     "draftjs-to-html": "^0.8.3",
-    "express": "^4.16.3",
+    "express": "^4.17.1",
     "express-session": "^1.16.2",
     "immutable": "^3.8.2",
     "massive": "^4.7.1",
