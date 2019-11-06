@@ -8090,9 +8090,9 @@ recursive-readdir@2.2.2:
   dependencies:
     minimatch "3.0.4"
 
-redux-promise-middleware@^5.0.0:
-  version "5.0.0"
-  resolved "https://registry.yarnpkg.com/redux-promise-middleware/-/redux-promise-middleware-5.0.0.tgz#1656b24f9ac962bf11fbe55ea8360810e18d47a7"
+redux-promise-middleware@^6.1.2:
+  version "6.1.2"
+  resolved "https://registry.yarnpkg.com/redux-promise-middleware/-/redux-promise-middleware-6.1.2.tgz#1c14222686934be243cbb292e348ef7d5b20d6d2"
 
 redux@^3.7.2:
   version "3.7.2"
