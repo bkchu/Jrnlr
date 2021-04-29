@@ -1,0 +1,23 @@
+version: 2
+updates:
+- package-ecosystem: npm
+  directory: "/"
+  schedule:
+    interval: daily
+    time: "11:00"
+  open-pull-requests-limit: 10
+  ignore:
+  - dependency-name: massive
+    versions:
+    - 6.6.5
+    - 6.7.0
+    - 6.7.1
+  - dependency-name: elliptic
+    versions:
+    - 6.5.3
+  - dependency-name: react-draft-wysiwyg
+    versions:
+    - 1.14.5
+  - dependency-name: handlebars
+    versions:
+    - 4.7.6
